@@ -1,0 +1,15 @@
+
+.ext-gecko .x-grid3-cell-inner{-moz-binding:url('ellipsis-xbl.xml#ellipsis');}
+x-btn-icon {
+	background-position: 0pt 0px;
+	background-repeat: no-repeat;
+	padding: 3px 0pt 3px 0px;
+}
+
+ .f {position:absolute;top:20px;right:500px;+top:0;+right:73px;width:0px;height:25px;
+        filter:alpha(opacity=0);-moz-opacity:0;opacity:0;}
+    #txt {height:20px;margin:1px}
+    #ii {width:75px;height:25px;margin-top:2px;}
+
+
+ 

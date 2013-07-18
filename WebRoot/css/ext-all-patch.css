@@ -1,0 +1,85 @@
+img,body,html{border:0;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体"}
+
+.ext-el-mask-msg div{padding:5px 10px 5px 10px;background:#eee;border:1px solid #a3bad9;color:#222;font:normal 11px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";cursor:wait;}
+
+.x-tab-strip span.x-tab-strip-text{font:normal 11px tahoma,arial,helvetica;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";font-size:11px;color:#416aa3;white-space:nowrap;cursor:pointer;padding:4px 0;}
+
+.x-form-field{margin:0;font:normal 11px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+
+.x-form-grow-sizer{font:normal 11px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";left:-10000px;padding:8px 3px;position:absolute;visibility:hidden;top:-10000px;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;zoom:1;}
+
+
+.x-form-invalid-msg{color:#e00;padding:2px;padding-left:18px;font:normal 10px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";background:transparent url(../images/default/shared/warning.gif) no-repeat 0 2px;line-height:16px;width:200px;}
+
+.x-small-editor .x-form-field{font:normal 11px arial,tahoma,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+.ext-safari .x-small-editor .x-form-field{font:normal 11px arial,tahoma,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+.x-fieldset legend{font:bold 11px tahoma,arial,helvetica,sans-serif;color:#15428b;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+.x-btn{font:normal 11px tahoma,verdana,helvetica;FONT-FAMILY: "Microsoft Yahei","宋体";cursor:pointer;white-space:nowrap;}
+
+.x-btn button{border:0 none;background:transparent;font:normal 11px tahoma,verdana,helvetica;FONT-FAMILY: "Microsoft Yahei","宋体";padding-left:3px;padding-right:3px;cursor:pointer;margin:0;overflow:visible;width:auto;-moz-outline:0 none;outline:0 none;}
+
+.x-toolbar td,.x-toolbar span,.x-toolbar input,.x-toolbar div,.x-toolbar select,.x-toolbar label{white-space:nowrap;font:normal 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+.x-grid3-hd-row td,.x-grid3-row td,.x-grid3-summary-row td{font:normal 12px arial,tahoma,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";-moz-outline:none;-moz-user-focus:normal;}
+
+.x-grid3-topbar,.x-grid3-bottombar{font:normal 12px arial,tahoma,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";overflow:hidden;display:none;zoom:1;position:relative;}
+
+.x-grid-group-hd div{background:transparent url(../extjs/resources/images/default/grid/group-expand-sprite.gif) no-repeat 3px -47px;padding:4px 4px 4px 17px;color:#3764a0;font:bold 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+.x-grid-empty{padding:10px;color:gray;font:normal 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+.x-dd-drag-ghost{color:black;font:normal 12px arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";-moz-opacity:0.85;opacity:.85;filter:alpha(opacity=85);border-top:1px solid #ddd;border-left:1px solid #ddd;border-right:1px solid #bbb;border-bottom:1px solid #bbb;padding:3px;padding-left:20px;background-color:white;white-space:nowrap;}
+
+.x-tree-node{color:black;font:normal 12px arial,tahoma,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";white-space:nowrap;}
+
+
+
+.x-menu-list-item{font:normal 12px tahoma,arial,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";white-space:nowrap;-moz-user-select:none;-khtml-user-select:none;display:block;padding:1px;}
+
+.x-combo-list-hd{font:bold 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";color:#15428b;background-image:url(../images/default/layout/panel-title-light-bg.gif);border-bottom:1px solid #98c0f4;padding:3px;}
+
+.x-combo-list-item{font:normal 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";padding:2px;border:1px solid #fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.x-combo-list-small .x-combo-list-item{font:normal 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+
+.x-panel-header{overflow:hidden;zoom:1;color:#15428b;font:bold 12px tahoma,arial,verdana,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";padding:5px 3px 4px 5px;border:1px solid #99bbe8;line-height:15px;background:transparent url(../extjs/resources/images/default/panel/white-top-bottom.gif) repeat-x 0 -1px;}
+
+.x-panel-tl .x-panel-header{color:#15428b;font:bold 12px tahoma,arial,verdana,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";padding:5px 0 4px 0;border:0 none;background:transparent;}
+
+
+
+
+.x-panel-mc{border:0 none;padding:0;margin:0;font:normal 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";padding-top:6px;background:#dfe8f6;}
+
+.x-window-tl .x-window-header{color:#15428b;font:bold 12px tahoma,arial,verdana,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";padding:5px 0 4px 0;}
+
+.x-window-mc{border:1px solid #99bbe8;padding:0;margin:0;font:normal 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";background:#dfe8f6;}
+
+.x-window-dlg .ext-mb-textarea{margin-top:4px;font:normal 12px tahoma,arial,helvetica,sans-serif;FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";}
+
+
+
+.ext-ie .x-btn button{padding-top:0px;height:19px;}
+
+.x-window-bc .x-window-footer{padding-bottom:10px;zoom:1;font-size:0;line-height:0;}
+
+.x-form-item label{FONT-FAMILY: "Microsoft Yahei",Arial,Helvetica,sans-serif,"宋体";display:block;float:left;width:100px;padding:3px;padding-left:0;clear:left;z-index:2;position:relative;}
+
+.ext-gecko .x-grid3-cell-inner{
+white-space: pre-wrap;
+white-space: -moz-pre-wrap; 
+-moz-binding:url('wrap.xml#wordwrap');    
+}
+
+html .x-grid3-cell-inner {
+white-space:normal;
+word-wrap: break-word; 
+}
+
+
+

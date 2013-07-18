@@ -1,0 +1,105 @@
+/*
+ * Ext JS Library 2.0.2
+ * Copyright(c) 2006-2008, Ext JS, LLC.
+ * licensing@extjs.com
+ *
+ * http://extjs.com/license
+ */
+
+/*
+	xthemePanel
+*/
+#xthemePanel .x-panel-body {
+	background: white;
+	font: 11px Arial, Helvetica, sans-serif;
+}
+#xthemePanel .thumb {
+	background: #dddddd;
+	padding: 3px;
+}
+#xthemePanel .thumb img {
+	height: 60px;
+	width: 80px;
+}
+#xthemePanel .thumb-wrap {
+	float: left;
+	margin: 5px;
+	margin-right: 0;
+	border:1px solid #fff;
+}
+#xthemePanel .thumb-wrap span {
+	display: block;
+	overflow: hidden;
+	text-align: center;
+}
+
+#xthemePanel .x-view-over {
+	border:1px solid #dddddd;
+	background: #efefef url(../extjs/resources/images/default/grid/row-over.gif) repeat-x left top;
+}
+
+#xthemePanel .x-view-selected {
+	background: #eff5fb url(../images/selected.gif) no-repeat right bottom;
+	border:1px solid #99bbe8;
+}
+#xthemePanel .x-view-selected .thumb {
+	background:transparent;
+}
+
+#xthemePanel .loading-indicator {
+	font-size:11px;
+	background-image:url('../extjs/resources/images/default/grid/loading.gif');
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left:20px;
+	margin:10px;
+}
+
+/*
+	backgroundPanel
+*/
+#backgroundPanel .x-panel-body {
+	background: white;
+	font: 11px Arial, Helvetica, sans-serif;
+}
+#backgroundPanel .thumb {
+	background: #dddddd;
+	padding: 3px;
+}
+#backgroundPanel .thumb img {
+	height: 60px;
+	width: 80px;
+}
+#backgroundPanel .thumb-wrap {
+	float: left;
+	margin: 5px;
+	margin-right: 0;
+	border:1px solid #fff;
+}
+#backgroundPanel .thumb-wrap span {
+	display: block;
+	overflow: hidden;
+	text-align: center;
+}
+
+#backgroundPanel .x-view-over {
+	border:1px solid #dddddd;
+	background: #efefef url(../extjs/resources/images/default/grid/row-over.gif) repeat-x left top;
+}
+
+#backgroundPanel .x-view-selected {
+	background: #eff5fb url(../images/selected.gif) no-repeat right bottom;
+	border:1px solid #99bbe8;
+}
+#backgroundPanel .x-view-selected .thumb {
+	background:transparent;
+}
+
+#backgroundPanel .loading-indicator {
+	font-size:11px;
+	background-image:url('../extjs/resources/images/default/grid/loading.gif');
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left:20px;
+	margin:10px;
+}

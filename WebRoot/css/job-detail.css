@@ -1,0 +1,45 @@
+/*
+Job detail style, used by jobDetail.js.
+Created by QiaoMingkui
+*/
+.job-detail-basic-accordian {
+	height: 110px;
+	font-family: Arial;
+}
+.job-detail-basic-accordian div {
+	float:left;
+}
+.accordion_headings {
+	width:75px;
+	height:110px;
+	cursor:pointer;
+	background:#EEE;
+
+	border:1px solid #CCC;
+	-moz-box-shadow:3px 3px 4px #CCC;
+	-webkit-box-shadow:3px 3px 4px #CCC;
+	box-shadow:3px 3px 4px #CCC;
+	/*filter:progid:DXImageTransform.Microsoft.Shadow(Strength=4,Direction=135,Color='#CCC');*/
+}
+.accordion_headings_child {
+	width:100%;
+	height:80px;
+	/*padding-left:3px;*/
+	padding-top:20px;
+	font-weight:bold;
+	text-align:center;
+}
+.accordion_headings:hover {
+	/*background:#00CCFF;*/
+}
+.header_highlight {
+	/*background:#00CCFF;*/
+}
+.accordion_contents {
+	height:110px;
+	overflow:hidden;
+	/*background:#EEE;*/
+}
+.accordion_child {
+	padding:10px;
+}
