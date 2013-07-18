@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<!-- 	
+		This is an example snippet for adding the filters in 
+		this distribution to your server.
+		
+		It should be placed after any context-params, but before
+		any listener or servlet definitions.
+		
+	-->
+
+	<!-- ClusterCheck Definition-->
+	<filter>
+		<filter-name>ClusterCheck</filter-name>
+		<filter-class>
+			com.tacitknowledge.filters.clustercheck.ClusterCheckFilter
+		</filter-class>
+	</filter>
+
+	<!-- GZIPFilter Definition -->
+	<filter>
+		<filter-name>GZIPFilter</filter-name>
+		<filter-class>
+			com.tacitknowledge.filters.gzipfilter.GZIPFilter
+		</filter-class>
+	</filter>
+
+	<!-- CacheFilter Definition -->
+	<filter>
+		<filter-name>CacheFilter</filter-name>
+		<filter-class>
+			com.tacitknowledge.filters.cache.CacheHeaderFilter
+		</filter-class>
+	</filter>
+
+
+	<!-- ClusterCheck Mappings - Alter to fit your circumstances -->
+	<filter-mapping>
+		<filter-name>ClusterCheck</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>ClusterCheck</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- GZIPFilter Mappings  - Alter to fit your circumstances -->
+	<filter-mapping>
+		<filter-name>GZIPFilter</filter-name>
+		<url-pattern>*.swf</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>GZIPFilter</filter-name>
+		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>GZIPFilter</filter-name>
+		<url-pattern>*.jar</url-pattern>
+	</filter-mapping>
+
+	<!-- CacheFilter Mappings  - Alter to fit your circumstances -->
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.gif</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.jpg</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.png</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CacheFilter</filter-name>
+		<url-pattern>*.css</url-pattern>
+	</filter-mapping>
+	
+<!-- struts2 -->
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.FilterDispatcher
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
