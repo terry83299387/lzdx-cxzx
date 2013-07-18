@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<script src="tinymce/tinymce.dev.js"></script>
+
+	
+	 		 
+	 		 <script type="text/javascript"> tinymce.init({     
+	 		 	selector: '.tinyclass',
+	 		 	     theme: "modern",  
+	 		 	         plugins: [
+                "advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+                "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+                "table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
+        ],
+		image_advtab: true,
+        toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
+        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
+        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
+ 		toolbar4: "mybutton",
+ 		
+ 		setup: function(editor) {
+        editor.addButton('mybutton', {
+            text: 'My button',
+            icon: 'image',
+            onclick: function() {
+           		 var win, data, dom = editor.dom, imgElm = editor.selection.getNode();
+                editor.insertContent("<img src='123.jpg' />");
+            }
+        });
+    	},
+
+        menubar: false,
+        toolbar_items_size: 'small',
+
+        style_formats: [
+                {title: 'Bold text', inline: 'b'},
+                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
+                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},
+                {title: 'Example 1', inline: 'span', classes: 'example1'},
+                {title: 'Example 2', inline: 'span', classes: 'example2'},
+                {title: 'Table styles'},
+                {title: 'Table row 1', selector: 'tr', classes: 'tablerow1'}
+        ],
+
+        templates: [
+                {title: 'Test template 1', content: 'Test 1'},
+                {title: 'Test template 2', content: 'Test 2'}
+        ]
+
+		/*
+		, 
+	 		 	                  file_browser_callback: function(field_name, url, type, win) {         
+	 		 	                                     //  win.document.getElementById(field_name).value = 'my browser value';
+	 		 	                                    FileSeletor(win,field_name,win.document.getElementById(field_name).value);
+	 		 	                                } */
+	 		 	                       }); 
+	</script> 
+	</head>
+	<body>
+		<textarea class="tinyclass"></textarea>
+	</body>
+	</html>

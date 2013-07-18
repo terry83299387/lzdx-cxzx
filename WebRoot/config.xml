@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="gb2312"?>
+<config id="subject_root">
+
+	<subject id="shouye" cn_name="首页" en_name="Home" link="">
+		
+	
+	
+	</subject>
+	<subject id="zhongxingaikuang" cn_name="中心概况" en_name="Home" link="">
+		<subject id="zhongxinjieshao" cn_name="中心介绍" en_name="Institution Introduction" display="page"/>
+		<subject id="gedanweijieshao" cn_name="各单位介绍" en_name="others" display="list"/>
+	
+	</subject>
+	<subject id="xinwendongtai" cn_name="新闻动态" en_name="News" link="">
+		<subject id="tupianxinwen" cn_name="图片新闻" en_name="Picture" />
+		<subject id="guojiyanjiudongtai" cn_name="国际研究动态" en_name="International" />
+  	</subject>
+  	
+  	
+  	<subject id="notice_main" cn_name="通知" en_name="Notice" link="">
+		<subject id="tongzhixinwen" cn_name="通知新闻" en_name="Picture" >
+			<subject id="tupianxinwen" cn_name="图片新闻" en_name="Picture" />
+		</subject>
+		<subject id="guojiyanjiudongtai" cn_name="国际研究动态" en_name="International" />
+  	</subject>
+  	
+</config>
