@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+	package="cn.edu.lzu.db.beans">
+	<class name="News" table="news">
+		
+		<id name="newsCode"  column="news_code" >
+			<generator class="uuid.hex"></generator>
+		</id>
+		
+		<property name="newsTitle" column="news_title" />
+		<property name="newsSource" column="news_source" />
+		<property name="newsTag" column="news_tag" />
+		<property name="newsContent" column="news_content" />
+		<property name="newsLink" column="news_link" />
+		<property name="newsPicture" column="news_picture" />
+		<property name="author" column="author" />
+		<property name="type" column="news_type" />
+		<property name="newsPriority" column="news_priority" type="int"/>
+		<property name="createDate" column="create_date" type="date"/>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="index" extends="struts-default">
+		<action name="index">
+			<result>index.jsp</result>
+		</action>
+	</package>
+
+	<package name="common" extends="json-default">
+	
+		<action name="login"
+			class="cn.edu.lzu.common.action.UserAction"
+			method="login">
+			<result name="success">desktop.jsp</result>
+			<result name="error">index.jsp</result>
+			<result name="input">index.jsp</result>
+		</action>
+
+		<action name="toHomePage"
+			class="cn.edu.lzu.common.action.UserAction"
+			method="toHomePage">
+			<result name="success">index.jsp</result>
+		</action>
+
+		<action name="logout"
+			class="cn.edu.lzu.common.action.UserAction"
+			method="logout">
+			<result name="success">index.jsp</result>
+			<result name="error">index.jsp</result>
+			<result name="input">index.jsp</result>
+		</action>
+
+		<action name="showTreeNode"
+			class="cn.edu.lzu.common.config.action.ConfigAction"
+			method="showConfigNodes">
+			<result name="success" >configTree.jsp</result>
+		</action>
+
+	</package>
+</struts>

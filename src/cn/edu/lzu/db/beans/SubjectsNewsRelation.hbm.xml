@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+	package="cn.edu.lzu.db.beans">
+	<class name="SubjectsNewsRelation" table="subjects_news_relation">
+		
+	<composite-id>
+		<key-property name="subjectCode" type="string" column="subject_code"/>
+		<key-property name="newsCode" type="string" column="news_code"/>
+	</composite-id>
+	
+
+	
+	</class>
+</hibernate-mapping>

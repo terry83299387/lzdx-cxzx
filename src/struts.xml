@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<include file="struts-common.xml" />
+    <include file="struts-file.xml" />
+    <include file="struts-news.xml" />
+    <constant name="struts.multipart.maxSize" value="10485760" />
+	<constant name="struts.devMode" value="true" />
+
+	<package name="login-authorize" abstract="true"
+		extends="struts-default">
+		
+		<global-results>
+			<result name="Exception">/error-page/Exception.jsp</result>
+			<result name="SessionTimeout">
+				/share/sessionIsNull.jsp
+			</result>
+			<result name="SessionCovered">
+				/share/sessionIsNull.jsp
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="Exception" />
+		</global-exception-mappings>
+	</package>
+
+</struts>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping
+	package="cn.edu.lzu.db.beans">
+	<class name="Subjects" table="subjects">
+		
+		<id name="subjectCode"  column="subject_code" >
+			<generator class="uuid.hex"></generator>
+		</id>
+		
+		<property name="cnName" column="cn_name" />
+		<property name="enName" column="en_name" />
+		<property name="defaultLink" column="default_link" />
+		<property name="type" column="type" />
+		<property name="parentSubjectCode" column="parent_subject_code" />
+
+
+	</class>
+</hibernate-mapping>
