@@ -26,7 +26,7 @@ Ext.extend(Ext.ux.TaskBar, Ext.util.Observable, {
 				}, this.app.startConfig));
 
 		this.startBtn = new Ext.Button({
-			text : "¿ªÊ¼",
+			text : i18n.window_start,
 			id : 'ux-startbutton',
 			iconCls : 'start',
 			menu : this.startMenu,

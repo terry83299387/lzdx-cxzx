@@ -1,6 +1,7 @@
 <%@ page language="java"
 	import="java.util.*,cn.edu.lzu.*"
-	pageEncoding="GBK"%>
+	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>	
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 	Object sessUser = request.getSession().getAttribute("appuser");
@@ -17,6 +18,7 @@
 			<title><s:property
 					value="%{getText('scc.page.title.sccportal.main')}" /></title>
 
+			<META http-equiv=Content-Type content="text/html; charset=UTF-8">
 			<meta http-equiv="pragma" content="no-cache">
 			<meta http-equiv="cache-control" content="no-cache">
 			<meta http-equiv="expires" content="0">
@@ -161,7 +163,7 @@
 
 			<script type="text/javascript">
 		     function _preventIEMouseOut(){	 
-               if(document.addEventListener){//Èç¹ûÊÇFirefox 
+               if(document.addEventListener){//å¦‚æžœæ˜¯Firefox 
                    //document.addEventListener("mousemove",fireFoxHandler, true); 
                 }else{ 
                 try

@@ -1,4 +1,5 @@
-var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
+var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,
+		callback) {
 	var desktop; // = this.app.getDesktop();
 	if (typeof app == 'undefined' || app == null) {
 		desktop = this.app.getDesktop();
@@ -10,17 +11,20 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 	var subjectText = subjectItem.text;
 	var subjectId = subjectItem.id;
 	var lan = languageComboBox.getValue() == "2" ? "2" : "1";
-	var newscode = null;
-	if (newsSelectionModel) {
-		newscode = newsSelectionModel.getSelections()[0].data.newsCode;
-	}
 
 	var windowwidth = Ext.lib.Dom.getViewWidth();
 
 	var windowheight = Ext.lib.Dom.getViewHeight();
 
-	var newsWinId = 'news-win'
+	var newsWinId = 'news-win-'
 			+ FileMngGlobal.getGlobalFileWindowAutoSequence();
+
+	var newscode = null;
+	if (newsSelectionModel) {
+		newscode = newsSelectionModel.getSelections()[0].data.newsCode;
+		newsWinId = 'news-win-' + newscode;
+	}
+
 	var newsTextareaId = newsWinId + "textarea";
 	var newsPanelid = newsWinId + 'news-panel';
 
@@ -47,58 +51,7 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 		nwsSourceId : newsSourceId
 	}
 
-	var tb3 = new Ext.Toolbar({
-				height : 30,
-				width : "100%",
-				region : 'center',
-				items : [{
-
-							id : this.fileWinId + 'tb_backward',
-							// text : i18n.tb_backward,
-							tooltip : i18n.tb_backward,
-							tooltipType : "title",
-							iconCls : "hd_006",
-							handler : function() {
-							},
-							disabled : true
-
-						}, {
-							id : this.fileWinId + 'tb_forward',
-							// text : i18n.tb_forward,
-							tooltip : i18n.tb_forward,
-							tooltipType : "title",
-							iconCls : "hd_007",
-							handler : function() {
-							},
-							disabled : true
-						}, {
-							id : this.fileWinId + 'tb_upward',
-							// text : i18n.btn_up,
-							tooltip : i18n.btn_up,
-							tooltipType : "title",
-							iconCls : "hd_008",
-							handler : function() {
-							}
-
-						}, {
-							id : this.fileWinId + 'tb_refresh',
-							// text : i18n.btn_refresh,
-							tooltip : i18n.btn_refresh,
-							tooltipType : "title",
-							iconCls : "hd_009",
-							handler : function() {
-							}
-						}, {
-							id : this.fileWinId + 'tb_defaultdir',
-							// text : i18n.btn_job_defaultdir,
-							tooltip : this.defaultdir,
-							tooltipType : "title",
-							iconCls : "hd-home",
-							handler : function() {
-							}
-						}]
-
-			});
+	
 
 	var newsTitlePanel = new Ext.Panel({
 		// layout : 'column',
@@ -110,7 +63,7 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 		width : '100%',
 		items : [// when use layout, items must be panel
 		new Ext.Panel({
-			title : '基本信息',
+			title : i18n.news_info,
 			width : '100%',
 			layout : 'column',
 			items : [
@@ -125,14 +78,14 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 									xtype : 'textfield',
 									id : newsTitleId,
 									width : '100%',
-									fieldLabel : '文章标题',
+									fieldLabel : i18n.news_title,
 									labelSeparator : ':'
 
 								}, {
 									xtype : 'textfield',
 									id : newsTagId,
 									width : '100%',
-									fieldLabel : '标签',
+									fieldLabel : i18n.news_tag,
 									labelSeparator : ':'
 
 								},
@@ -145,7 +98,7 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 
 									width : '100%',
 									tbar : [
-											'图片封面',
+											i18n.news_picture,
 											new Ext.form.TextField({
 
 														id : newsTitlePictureId,
@@ -177,7 +130,7 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 											"<img style='height:70;' id='"
 													+ newsTitlePictureId
 													+ "_img"
-													+ "' src='no' onerror='this.style.visibility=\"hidden\"' />"]
+													+ "' src='noimage' onerror='this.style.visibility=\"hidden\"' />"]
 
 								})]
 					}), new Ext.Panel({
@@ -190,14 +143,14 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 									xtype : 'textfield',
 									id : newsSourceId,
 									width : '100%',
-									fieldLabel : '来源',
+									fieldLabel : i18n.news_source,
 									labelSeparator : ':'
 
 								}, {
 									xtype : 'textfield',
 									id : newsAuthorId,
 									width : '100%',
-									fieldLabel : '作者',
+									fieldLabel : i18n.news_author,
 									labelSeparator : ':'
 
 								}, {
@@ -205,12 +158,12 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 									id : newsCreateDateId,
 									format : 'Y-m-d',
 									width : 200,
-									fieldLabel : '创建日期',
+									fieldLabel : i18n.news_date,
 									value : new Date(),
 									labelSeparator : ':'
 								}, new Ext.form.ComboBox({
 											id : newsLanguageId,
-											fieldLabel : '语言',
+											fieldLabel : i18n.language,
 											triggerAction : 'all',
 											mode : 'local',
 											width : 200,
@@ -219,8 +172,8 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 														fields : ['type',
 																'language'],
 														data : [
-																['1', '中文'],
-																['2', 'English']]
+																['1', i18n.chinese],
+																['2', i18n.english]]
 													}),
 											value : lan,
 											editable : 'false',
@@ -232,7 +185,7 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 									xtype : 'textfield',
 									id : newsPriorityId,
 									width : '100%',
-									fieldLabel : '优先级',
+									fieldLabel : i18n.news_priority,
 									labelSeparator : ':'
 
 								}]
@@ -261,17 +214,37 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 				],
 				// bbar : [tb3],
 				buttons : [new Ext.Button({
-							text : "提交后退出",
+							text : i18n.news_handler_submit_close,
 							handler : function() {
 								scope.submitData(subjectId, newscode,
 										function() {
 											Ext.getCmp(newsWinId).close();
+											callback();
 										});
 							}
 						}), new Ext.Button({
-							text : "提交后开始下一个"
+							text :i18n.news_handler_submit_new,
+							handler : function() {
+								scope.submitData(subjectId, newscode,
+										function() {
+											callback();
+											Ext.getCmp(newsWinId).close();
+											new newsWindows(subjectItem,
+													languageComboBox, null,
+													callback);
+
+										});
+
+							}
 						}), new Ext.Button({
-							text : "提交后停留在当前"
+							text : i18n.news_handler_submit_nothing,
+							handler : function() {
+								scope.submitData(subjectId, newscode,
+										function() {
+
+											callback();
+										});
+							}
 						})],
 				autoScroll : true,
 				collapsible : true
@@ -279,13 +252,12 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 			});
 
 	var fwnum = FileMngGlobal.getGlobalFileWindowNumbers();
-	
-	if(Ext.getCmp(newsWinId))
-	{
+
+	if (Ext.getCmp(newsWinId)) {
 		Ext.getCmp(newsWinId).show();
-		return ;
+		return;
 	}
-	
+
 	this.win = desktop.createWindow({
 				id : newsWinId,
 				title : subjectText,
@@ -309,6 +281,11 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel) {
 								newsTextareaId);
 						// tinyMCE.execCommand('mceAddControl', true,
 						// newsTextareaId);
+					},
+					'close':function()
+					{
+					tinyMCE.execCommand('mceRemoveEditor', true,
+								newsTextareaId);
 					}
 
 				}
@@ -329,8 +306,10 @@ newsWindows.prototype = {
 		document.getElementById(this.newsId.newsPriorityId).value = data.newsPriority;
 		document.getElementById(this.newsId.newsTagId).value = data.newsTag;
 		document.getElementById(this.newsId.nwsSourceId).value = data.newsSource;
-		if (data.newsPicture != null&&data.newsPicture !="") {
+		if (data.newsPicture != null && data.newsPicture != "") {
 			document.getElementById(this.newsId.newsTitlePictureId).value = data.newsPicture;
+			document.getElementById(this.newsId.newsTitlePictureId+"_img").src = data.newsPicture;
+			document.getElementById(this.newsId.newsTitlePictureId+"_img").style.visibility="visible";
 		}
 		Ext.getCmp(this.newsId.newsCreateDateId).setValue(data.createDate
 				.replace("T00:00:00", ""));

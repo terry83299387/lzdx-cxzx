@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.ServletActionContext;
 
 import cn.edu.lzu.common.file.bean.PageFileInfo;
+import cn.edu.lzu.common.file.util.Fileoperator;
 import cn.edu.lzu.config.BasicPropertiesWork;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -25,7 +26,8 @@ public class FileOperate extends ActionSupport {
 
 	private Log log = LogFactory.getLog(FileOperate.class);
 
-	private final String physicalBaseDir = BasicPropertiesWork.getWebappsSitePath();
+	private final String physicalBaseDir = BasicPropertiesWork
+			.getWebappsSitePath();
 
 	private final String home = BasicPropertiesWork.getFileHome();
 
@@ -70,7 +72,7 @@ public class FileOperate extends ActionSupport {
 		response = (HttpServletResponse) ActionContext.getContext().get(
 				ServletActionContext.HTTP_RESPONSE);
 
-		java.io.File file = new java.io.File(physicalBaseDir  + home);
+		java.io.File file = new java.io.File(physicalBaseDir + home);
 
 		boolean suc;
 		if (!file.exists()) {
@@ -79,6 +81,163 @@ public class FileOperate extends ActionSupport {
 
 		}
 
+	}
+	
+	
+	public String paste()
+	{
+		try {
+			init();
+			String srcFilePath = request.getParameter("srcfilepath");
+			String destFilePath = request.getParameter("destfilepath");
+			String flag = request.getParameter("pasteflag");
+			String[] fileNameArray=request.getParameter("filenamelist").split(",");
+			String[] destFileNameArray=request.getParameter("tonewfilenamelist").split(",");
+			
+			boolean suc=true;
+			
+			for(int i=0;i<fileNameArray.length;i++)
+			{
+				java.io.File srcFile=new java.io.File(physicalBaseDir+srcFilePath+"/"+fileNameArray[i]);
+				java.io.File destFile=new java.io.File(physicalBaseDir+destFilePath+"/"+destFileNameArray[i]);
+				
+				Fileoperator fo=new Fileoperator();
+				if(!fo.copyFiles(physicalBaseDir+srcFilePath, physicalBaseDir+destFilePath, srcFile, destFile))
+				{
+					suc=false;
+				}
+			}
+			
+			if(suc)
+			{
+				
+				return SUCCESS;
+			}
+			else
+			{
+				return ERROR;
+			}
+			
+		}catch (Exception e) {
+
+			fileInfo.setException(e.getMessage());
+			return ERROR;
+		}
+		
+		
+	}
+	
+	public String delFile() {
+		try {
+			init();
+			String error="";
+			String filePath = request.getParameter("filepath");
+			String[] fileNameArray=request.getParameter("filenamelist").split(",");
+			boolean suc=true;
+			Fileoperator fo=new Fileoperator();
+			for(String fileName:fileNameArray)
+			{
+				String path=physicalBaseDir+filePath+"/"+fileName;
+				java.io.File file=new java.io.File(path);
+				
+				if(!fo.delFiles(file))
+				{
+					error+=file.getName()+",";
+					suc=false;
+				}
+			}
+
+			if (suc) {
+				return SUCCESS;
+			} else {
+				fileInfo.setException("delete file error.");
+				return ERROR;
+			}
+
+		}
+
+		catch (Exception e) {
+
+			fileInfo.setException(e.getMessage());
+			return ERROR;
+		}
+	}
+
+	
+	public String renameFile() {
+		try {
+			init();
+			String filePath = request.getParameter("filepath");
+			String oldFileName = request.getParameter("oldfilename");
+			String newFileName = request.getParameter("newfilename");
+			String absoluteOldFilePath = physicalBaseDir + filePath + "/"
+					+ oldFileName;
+			String absoluteNewFilePath = physicalBaseDir + filePath + "/"
+					+ newFileName;
+
+			java.io.File oldFile = new java.io.File(absoluteOldFilePath);
+			java.io.File newFile = new java.io.File(absoluteNewFilePath);
+
+			if (oldFile.renameTo(newFile)) {
+				return SUCCESS;
+			} else {
+				fileInfo.setException("create file error.");
+				return ERROR;
+			}
+
+		}
+
+		catch (Exception e) {
+
+			fileInfo.setException(e.getMessage());
+			return ERROR;
+		}
+	}
+
+	public String newFolder() {
+		try {
+			init();
+			String fileName = request.getParameter("filemame");
+			String absoluteFilePath = physicalBaseDir + fileName;
+
+			java.io.File file = new java.io.File(absoluteFilePath);
+			if (file.mkdirs()) {
+				return SUCCESS;
+			} else {
+				fileInfo.setException("create file error.");
+				return ERROR;
+			}
+
+		}
+
+		catch (Exception e) {
+
+			fileInfo.setException(e.getMessage());
+			return ERROR;
+		}
+	}
+
+	public String newFile() {
+		try {
+			init();
+			String fileName = request.getParameter("filemame");
+			String absoluteFilePath = physicalBaseDir + fileName;
+
+			java.io.File file = new java.io.File(absoluteFilePath);
+			if (file.createNewFile()) {
+				return SUCCESS;
+			} else {
+				fileInfo.setException("create file error.");
+				return ERROR;
+			}
+
+		}
+
+		catch (Exception e) {
+
+			fileInfo.setException(e.getMessage());
+			return ERROR;
+		}
 	}
 
 	public String showFileList() {
@@ -113,7 +272,7 @@ public class FileOperate extends ActionSupport {
 
 			String filePath = request.getParameter("filepath");
 
-			if (filePath == null||filePath.equals("")) {
+			if (filePath == null || filePath.equals("")) {
 
 				filePath = home;
 
@@ -138,13 +297,15 @@ public class FileOperate extends ActionSupport {
 				pageFileInfo.setType(file.isDirectory() ? 1 : 0);
 				String parentPath = file.getParentFile().getParent();
 				if (!home.equals(filePath)) {
-					pageFileInfo.setParentPath(parentPath.replace("\\+", "/").replace("\\/+", "/")
-							.substring(physicalBaseDir.length()));
+					pageFileInfo.setParentPath(parentPath.replace("\\+", "/")
+							.replace("\\/+", "/").substring(
+									physicalBaseDir.length()));
 				} else {
 					pageFileInfo.setParentPath(filePath);
 				}
-				pageFileInfo.setCurrentPath(filePath+"/"+file.getName());
-				pageFileInfo.setPermission(file.isDirectory() ? "drwxrwxrwx" : "-rwxrwxrwx");
+				pageFileInfo.setCurrentPath(filePath + "/" + file.getName());
+				pageFileInfo.setPermission(file.isDirectory() ? "drwxrwxrwx"
+						: "-rwxrwxrwx");
 				fileItems.add(pageFileInfo);
 
 			}

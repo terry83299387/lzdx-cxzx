@@ -1,6 +1,7 @@
 package cn.edu.lzu.common.file.action;
 
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -76,6 +77,58 @@ public class ShowFileContent extends ActionSupport {
 
 	}
 
+	
+	
+	public java.io.InputStream inputStreamConvertor(java.io.InputStream in,String charactername,String toCharacterName) throws IOException
+	{
+		java.io.InputStream newInput=null;
+		
+		
+		java.io.InputStreamReader isr=new java.io.InputStreamReader (in,charactername);
+		
+		
+		java.io.BufferedReader br=new java.io.BufferedReader (isr);
+		
+		java.io.File tmpFile=java.io.File.createTempFile("convertor", "text");
+		
+		java.io.FileOutputStream out=new java.io.FileOutputStream(tmpFile);
+		
+//		java.io.FileWriter out=new java.io.FileWriter(tmpFile);
+		
+//		java.io.BufferedWriter bo=new java.io.BufferedWriter(out);
+		
+		try
+		{
+		
+		int readsNum;
+		char[] cbuf=new char[1024];
+		
+		while((readsNum=br.read(cbuf))>0)
+		{
+			
+//			String s=new String(str.getBytes("GBK"),"UTF-8");
+			
+			out.write(new String(cbuf,0,readsNum).getBytes(toCharacterName));
+//			out.write("\r\n".getBytes());
+			
+		}
+//		out.write(new String(cbuf,0,cbuf.length).getBytes(toCharacterName));
+		}
+		finally
+		{
+			
+			br.close();
+			out.flush();
+			out.close();
+		}
+		
+		newInput=new java.io.FileInputStream(tmpFile);
+		
+		return newInput;
+		
+		
+	}
+	
 	/**
 	 * show the content of file
 	 * 
@@ -107,7 +160,12 @@ public class ShowFileContent extends ActionSupport {
 			String remoteFilePath = physicalBaseDir+filePath + "/" + fileName;
 		
 
-			inputStream = new java.io.FileInputStream(remoteFilePath);
+			
+			
+//			inputStream = new java.io.FileInputStream(remoteFilePath);
+			
+			inputStream = inputStreamConvertor( new java.io.FileInputStream(remoteFilePath),"GBK","UTF-8");
+			
 			return SUCCESS;
 
 		} catch (Exception e) {
@@ -161,7 +219,7 @@ public class ShowFileContent extends ActionSupport {
 		
 			String fileName = request.getParameter("filename");
 			String filePath = request.getParameter("filepath");
-			String remoteFilePath = filePath + "/" + fileName;
+			String remoteFilePath = physicalBaseDir+filePath + "/" + fileName;
 			
 			
 			inputStream = new java.io.FileInputStream(remoteFilePath);

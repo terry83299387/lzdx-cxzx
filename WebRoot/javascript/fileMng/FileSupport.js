@@ -380,7 +380,7 @@ var fileSupport = {
 
 	openDefaultDir : function(params) {
 		var opendir = this.defaultdir;
-		if (params&&params.folder) {
+		if (params && params.folder) {
 			opendir = params.folder;
 
 		}
@@ -409,53 +409,54 @@ var fileSupport = {
 					});
 			return false;
 		}
-		
-		dialog = new Ext.ux.UploadDialog.Dialog({
-  								url: 'uploadServerFile.action',
-  								reset_on_hide: false,
- 								 allow_close_on_upload: true,
-  								upload_autostart: false,
-  								 base_params: { filepath : scope.currentdir }
-								});
-								dialog.on('uploadsuccess', function(dialog ,filename ,data ,record ){
-									var currentdir = scope.currentdir;
-									var clusterIp = scope.host;
-									var key = scope.packetKey(clusterIp, currentdir);
-									var currentCacheData = scope.getData(key);
-									var start = scope.getPagingToolBarCursor();
 
-			
-									var newvalue = new Object();
-									newvalue.name = data.fileFileName;
-									newvalue.permission = '-rwxrwxrwx';
-									newvalue.typeString = 'File';
-									newvalue.size = data.fileSize;
-									newvalue.type = 0;
-									newvalue.lastModified = Ext.ux.Util.formatTime(data.fileLastModified);
-									newvalue.currentPath=currentdir+"/"+filename;
-									
-									scope.removeItemValue(key,newvalue)
-									scope.addItem(key, newvalue, start);
-									scope.refreshStore(key, start);
-									scope.grid.getSelectionModel().selectRow(0, false);
-									scope.updateOtherCache();
-									
-									
-								});
-							dialog.show(this.fileWinId + 'menu_uploadplugin');
-//		var appletClient = new Ext.sccportal.Applet({
-//					host : this.host,
-//					user : this.hostUserName,
-//					passwd : this.hostPwd,
-//					home : this.currentdir,
-//					dlgtype : 'Upload',
-//					port : this.fileTransferPort,
-//					rootpath : this.rootdir,
-//					defaultpath : this.workdir,
-//					fileTransferProtocol : this.fileTransferProtocol,
-//					servername : this.serverName,
-//					clientkey : this.clientKey
-//				});
+		dialog = new Ext.ux.UploadDialog.Dialog({
+					url : 'uploadServerFile.action',
+					reset_on_hide : false,
+					allow_close_on_upload : true,
+					upload_autostart : false,
+					base_params : {
+						filepath : scope.currentdir
+					}
+				});
+		dialog.on('uploadsuccess', function(dialog, filename, data, record) {
+					var currentdir = scope.currentdir;
+					var clusterIp = scope.host;
+					var key = scope.packetKey(clusterIp, currentdir);
+					var currentCacheData = scope.getData(key);
+					var start = scope.getPagingToolBarCursor();
+
+					var newvalue = new Object();
+					newvalue.name = data.fileFileName;
+					newvalue.permission = '-rwxrwxrwx';
+					newvalue.typeString = 'File';
+					newvalue.size = data.fileSize;
+					newvalue.type = 0;
+					newvalue.lastModified = Ext.ux.Util
+							.formatTime(data.fileLastModified);
+					newvalue.currentPath = currentdir + "/" + filename;
+
+					scope.removeItemValue(key, newvalue)
+					scope.addItem(key, newvalue, start);
+					scope.refreshStore(key, start);
+					scope.grid.getSelectionModel().selectRow(0, false);
+					scope.updateOtherCache();
+
+				});
+		dialog.show(this.fileWinId + 'menu_uploadplugin');
+		// var appletClient = new Ext.sccportal.Applet({
+		// host : this.host,
+		// user : this.hostUserName,
+		// passwd : this.hostPwd,
+		// home : this.currentdir,
+		// dlgtype : 'Upload',
+		// port : this.fileTransferPort,
+		// rootpath : this.rootdir,
+		// defaultpath : this.workdir,
+		// fileTransferProtocol : this.fileTransferProtocol,
+		// servername : this.serverName,
+		// clientkey : this.clientKey
+		// });
 
 	},
 
@@ -1772,7 +1773,7 @@ var fileSupport = {
 								scope.setWinCmpFocus()
 							});
 					if (pasteType == "cut") {
-						// ¿½±´µ±Ç°µÄ¶«Î÷»ØÈ¥Ô´Ä¿Â¼µÄÄÚÈÝ
+						// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½È¥Ô´Ä¿Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 						resumeSourcePasteItems();
 					}
 
@@ -4211,10 +4212,9 @@ var fileSupport = {
 			var imgid = openFileWinId + "_img";
 			var html = '<center><img id="' + imgid
 					+ '" src="showImageContent.action?filepath='
-					+ Ext.ux.Util.URLencode(scope.currentdir) + '&filename='
-					+ Ext.ux.Util.URLencode(filename) + '&clusterCode='
-					+ scope.clusterCode + '&date=' + String(new Date())
-					+ '"/></center>';
+					+ scope.currentdir + '&filename=' + filename
+					+ '&clusterCode=' + scope.clusterCode + '&date='
+					+ String(new Date()) + '"/></center>';
 			var img = null;
 			var lasttime = new Date().getTime();
 			var IsImageOk = function IsImageOk(img) {
@@ -4239,8 +4239,7 @@ var fileSupport = {
 				if (IsImageOk(img)) {
 					img = new Image();
 					img.src = 'showImageContent.action?filepath='
-							+ Ext.ux.Util.URLencode(scope.currentdir)
-							+ '&filename=' + Ext.ux.Util.URLencode(filename)
+							+ scope.currentdir + '&filename=' + filename
 							+ '&clusterCode=' + scope.clusterCode + '&date='
 							+ String(new Date());
 
@@ -4264,10 +4263,9 @@ var fileSupport = {
 			var html = '<center><iframe id="'
 					+ pdfid
 					+ '" scolling="no" frameborder="no" style="height:100%;width:100%" src="showPdfContent.action?filepath='
-					+ Ext.ux.Util.URLencode(scope.currentdir) + '&filename='
-					+ Ext.ux.Util.URLencode(filename) + '&clusterCode='
-					+ scope.clusterCode + '&date=' + String(new Date())
-					+ '"/></center>';
+					+ scope.currentdir + '&filename=' + filename
+					+ '&clusterCode=' + scope.clusterCode + '&date='
+					+ String(new Date()) + '"/></center>';
 			var isLoading = false;
 			var refresh = function() {
 				var pdfiframe = document.getElementById(pdfid);
@@ -4279,9 +4277,7 @@ var fileSupport = {
 
 					if (pdfiframe.readyState == 'complete') {
 						pdfiframe.src = 'showPdfContent.action?filepath='
-								+ Ext.ux.Util.URLencode(scope.currentdir)
-								+ '&filename='
-								+ Ext.ux.Util.URLencode(filename)
+								+ scope.currentdir + '&filename=' + filename
 								+ '&clusterCode=' + scope.clusterCode
 								+ '&date=' + String(new Date());
 						isLoading = true;
@@ -4295,9 +4291,7 @@ var fileSupport = {
 					if (isLoading === false) {
 						isLoading = true;
 						pdfiframe.src = 'showPdfContent.action?filepath='
-								+ Ext.ux.Util.URLencode(scope.currentdir)
-								+ '&filename='
-								+ Ext.ux.Util.URLencode(filename)
+								+ scope.currentdir + '&filename=' + filename
 								+ '&clusterCode=' + scope.clusterCode
 								+ '&date=' + String(new Date());
 						return true;
@@ -6624,7 +6618,6 @@ var fileSupport = {
 
 					if (scope.grid.store.reader.jsonData.fileInfo.exception) {
 
-				
 						scope.errorStatus();
 
 						var exception = scope.grid.getStore().reader.jsonData.fileInfo.exception;
@@ -6633,12 +6626,11 @@ var fileSupport = {
 						scope.execeptionRefresh();
 					} else {
 
-					
-						if(path==""||path==null)
-						{
-						scope.currentdir=scope.grid.store.reader.jsonData.fileInfo.currentPath;
-						path=scope.currentdir;
-						Ext.getCmp(scope.fileWinId+"txt_url").setValue(path);
+						if (path == "" || path == null) {
+							scope.currentdir = scope.grid.store.reader.jsonData.fileInfo.currentPath;
+							path = scope.currentdir;
+							Ext.getCmp(scope.fileWinId + "txt_url")
+									.setValue(path);
 						}
 						if (path == scope.currentdir) {
 							var pageStart = scope.grid.store.reader.jsonData.pageStart;
@@ -8116,7 +8108,7 @@ var fileSupport = {
 		var targetscope = this;
 		new Ext.dd.DropTarget(targetscope.grid.getEl(), {
 
-					ddGroup : "mygrid",// Õâ¸öÓëÉÏÃæddGroup¶ÔÓ¦
+					ddGroup : "mygrid",// 
 					copy : false,
 					// notifyOver : function(dd, e, data){
 					// // var ddata=dd.getDragData(e);
@@ -8243,11 +8235,7 @@ var fileSupport = {
 					width : "100%",
 					region : 'center',
 					autoScroll : true,
-					items : ['->', new Ext.form.Checkbox({
-										id : textareaid
-												+ 'txt_search_lettercase',
-										boxLabel : i18n.text_find_case_sensitive
-									}), '-', i18n.text_find_title, {
+					items : [i18n.text_find_title, {
 								xtype : 'textfield',
 								labelStyle : "font-size:15px;",
 								width : 150,
@@ -8256,7 +8244,7 @@ var fileSupport = {
 								name : textareaid + 'txt_search',
 								value : ''
 
-							},
+							}, 
 							// {
 							// xtype : 'hidden',
 							// id : textareaid+ 'txt_search_number',
@@ -8273,8 +8261,11 @@ var fileSupport = {
 									search(true, textareaid);
 
 								}
-							}
-
+							},'-', new Ext.form.Checkbox({
+										id : textareaid
+												+ 'txt_search_lettercase',
+										boxLabel : i18n.text_find_case_sensitive
+									})
 					]
 				});
 
@@ -8913,7 +8904,7 @@ var fileSupport = {
 				}
 			}
 
-			// Ext.MessageBox.alert('show','µ±Ç°Ñ¡ÖÐµÄÊý¾ÝÊÇ'+data);
+			// Ext.MessageBox.alert('show','ï¿½ï¿½Ç°Ñ¡ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'+data);
 		} else if (rowIndex != scope.cellclickdata_rowindex) {
 			var fileFieldName = grid.getColumnModel().getDataIndex(fileIndex);
 			var fileDataname = record.get(fileFieldName);

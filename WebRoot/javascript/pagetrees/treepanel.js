@@ -14,7 +14,7 @@ var TreePanel = function(id, text) {
 				tbar : [
 
 				{
-							text : '重新加载根',
+							text :i18n.config_reload,
 							handler : function() {
 								var loader = Ext.getCmp(id + '_tree')
 										.getLoader();
@@ -70,7 +70,7 @@ var TreePanel = function(id, text) {
 				autoScroll : true,
 				enableTabScroll : true,
 				items : [{
-							html : "1"
+							html : "<div style='text-align:center;'>News Manament</div>"
 						}]
 
 			});
@@ -113,9 +113,6 @@ TreePanel.prototype = {
 								name : 'newsCode',
 								mapping : 'newsCode'
 							}, {
-								name : 'type',
-								mapping : 'type'
-							}, {
 								name : 'newsPicture',
 								mapping : 'newsPicture'
 							}, {
@@ -135,15 +132,15 @@ TreePanel.prototype = {
 		var pageComboBox = new Ext.form.ComboBox({
 			id : gridid + "_pageTypeCombo",
 			limit : 10,
-			fieldLabel : '分页',
+			fieldLabel : i18n.paging,
 			triggerAction : 'all',
 			mode : 'local',
 			store : new Ext.data.SimpleStore({
 
 						fields : ['page', 'pagedisplay'],
-						data : [['10', '每页10条'], ['50', '每页50条'],
-								['100', '每页100条'], ['200', '每页200条'],
-								['500', '每页500条'], ['100000000', '全部']]
+						data : [['10', i18n.page_perpage+'10'+i18n.page_unit], ['50', i18n.page_perpage+'50'+i18n.page_unit],
+								['100', i18n.page_perpage+'100'+i18n.page_unit], ['200', i18n.page_perpage+'200'+i18n.page_unit],
+								['500', i18n.page_perpage+'500'+i18n.page_unit], ['100000000', i18n.page_pageall]]
 					}),
 			value : '10',
 			editable : 'true',
@@ -171,13 +168,13 @@ TreePanel.prototype = {
 
 		var languageComboBox = new Ext.form.ComboBox({
 			id : gridid + "_languageTypeCombo",
-			fieldLabel : '语言',
+			fieldLabel : i18n.language,
 			triggerAction : 'all',
 			mode : 'local',
 			store : new Ext.data.SimpleStore({
 
 						fields : ['type', 'language'],
-						data : [['', '所有'], ['1', '中文'], ['2', 'English']]
+						data : [['', i18n.language_all], ['1', i18n.chinese], ['2', i18n.english]]
 					}),
 			value : '',
 			editable : 'false',
@@ -237,8 +234,9 @@ TreePanel.prototype = {
 					store : store,
 					pageSize : pageComboBox.limit,
 					displayInfo : true,
-					displayMsg : '第 {0} 条到 {1} 条，一共 {2} 条',
-					emptyMsg : '沒有记录'
+					displayMsg : i18n.from + ' {0} ' + i18n.to + ' {1} ' + i18n.postfix
+					+ ' {2} ' + i18n.dataunit,
+			emptyMsg : i18n.emptymsg
 				});
 		var sm = new Ext.grid.CheckboxSelectionModel();
 		var gridpanel = new Ext.grid.GridPanel({
@@ -248,62 +246,77 @@ TreePanel.prototype = {
 			closable : true,
 			split : true,
 			tbar : new Ext.Toolbar({
-						height : 30,
-						width : "100%",
-						region : 'center',
-						autoScroll : true,
-						items : ["选择语言", languageComboBox, {
-							text : "添加",
-							iconCls : "hd_006",
-							handler : function() {
-								scope.addNews(target, languageComboBox, sm);
-							}
-								// disabled : true
+				height : 30,
+				width : "100%",
+				region : 'center',
+				autoScroll : true,
+				items : [i18n.select_language, languageComboBox, {
+					text :i18n.news_add,
+					iconCls : "hd_006",
+					handler : function() {
+						scope.addNews(target, languageComboBox, sm, function() {
+									store.load({
+												params : {
+													start : pagingToolBar.cursor,
+													limit : pageComboBox.limit
+												}
+											});
+								});
+					}
+						// disabled : true
 
-							}, {
-							text : "编辑",
-							iconCls : "hd_006",
-							handler : function() {
-								scope.editNews(target, languageComboBox, sm);
-							}
-								// disabled : true
+				}, {
+					text : i18n.news_edit,
+					iconCls : "hd_006",
+					handler : function() {
+						scope.editNews(target, languageComboBox, sm,
+								function() {
+									store.load({
+												params : {
+													start : pagingToolBar.cursor,
+													limit : pageComboBox.limit
+												}
+											});
+								});
+					}
+						// disabled : true
 
-						}, {
-							text : "刪除",
-							iconCls : "hd_006",
-							handler : function() {
-								scope.delNews(target, languageComboBox, sm);
-							}
+				}, {
+					text : i18n.news_del,
+					iconCls : "hd_006",
+					handler : function() {
+						scope.delNews(target, languageComboBox, sm);
+					}
 
-								// disabled : true
+						// disabled : true
 
-							}, {
-							text : "刷新",
-							iconCls : "hd_006",
-							handler : function() {
+					}, {
+					text : i18n.news_refresh,
+					iconCls : "hd_006",
+					handler : function() {
 
-								// pagingToolBar.doLoad({
-								// params : {
-								// start : pagingToolBar.cursor
-								// }
-								// });
-								store.load({
-											params : {
-												start : pagingToolBar.cursor,
-												limit : pageComboBox.limit
-											}
-										});
+						// pagingToolBar.doLoad({
+						// params : {
+						// start : pagingToolBar.cursor
+						// }
+						// });
+						store.load({
+									params : {
+										start : pagingToolBar.cursor,
+										limit : pageComboBox.limit
+									}
+								});
 
-							}
+					}
 
-								// disabled : true
+						// disabled : true
 
-							}, '->',
+					}, '->',
 
-						pageComboBox
+				pageComboBox
 
-						]
-					}),
+				]
+			}),
 			// autoWidth : true,
 			// autoHeight : true,
 			autoScroll : true,
@@ -314,48 +327,43 @@ TreePanel.prototype = {
 			sm : sm,
 			bbar : pagingToolBar,
 			columns : [new Ext.grid.RowNumberer(), sm, {
-						header : "标题",
-						width : 100,
+						header : i18n.news_title,
+						width :300,
 						sortable : true,
 						dataIndex : "newsTitle"
 					}, {
-						header : "来源",
+						header : i18n.news_source,
 						width : 100,
 						sortable : true,
 						dataIndex : "newsSource"
 					}, {
-						header : "类型",
-						width : 100,
-						sortable : true,
-						dataIndex : "type"
-					}, {
-						header : "封面图片",
+						header : i18n.news_picture,
 						width : 100,
 						sortable : true,
 						dataIndex : "newsPicture"
 					}, {
-						header : "新闻标签",
+						header : i18n.news_tag,
 						width : 100,
 						sortable : true,
 						dataIndex : "newsTag"
 					}, {
-						header : "作者",
+						header : i18n.news_author,
 						width : 100,
 						sortable : true,
 						dataIndex : "author"
 					}, {
-						header : "语言",
-						width : 100,
+						header : i18n.news_language,
+						width : 50,
 						sortable : true,
 						dataIndex : "type"
 					}, {
-						header : "优先级",
-						width : 100,
+						header : i18n.news_priority,
+						width : 50,
 						sortable : true,
 						dataIndex : "newsPriority"
 					}, {
-						header : "创建时间",
-						width : 150,
+						header : i18n.news_date,
+						width : 100,
 						sortable : true,
 						dataIndex : "createDate"
 					}
@@ -401,25 +409,25 @@ TreePanel.prototype = {
 									selection.select(node);
 								},
 								scope : this,
-								text : "添加新栏目"
+								text : "add"
 							}, {
 								id : this.fileWinId + 'menu_refresh',
 								handler : function() {
 
 								},
-								text : "刷新栏目"
+								text : "refresh"
 							}, {
 								id : this.fileWinId + 'menu_edit',
 								handler : function() {
 
 								},
-								text : "编辑栏目"
+								text : "edit"
 							}, {
 								id : this.fileWinId + 'menu_del',
 								handler : function() {
 
 								},
-								text : "删除栏目"
+								text : "delete"
 							}]
 				});
 
@@ -430,16 +438,13 @@ TreePanel.prototype = {
 
 	addNews : function(node, languageComboBox, sm) {
 		var scope = this;
-		var newsWindow=new newsWindows(node,languageComboBox, null);
-		
+		var newsWindow = new newsWindows(node, languageComboBox, null);
+
 	},
-	
-	editNews:function(node, languageComboBox, sm)
-	{
-		var newsWindow=new newsWindows(node, languageComboBox, sm);
-		
-		
-		
+
+	editNews : function(node, languageComboBox, sm) {
+		var newsWindow = new newsWindows(node, languageComboBox, sm);
+
 	}
 
 }

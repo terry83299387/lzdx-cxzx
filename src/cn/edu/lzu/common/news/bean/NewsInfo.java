@@ -6,7 +6,7 @@ public class NewsInfo {
 	private String newsTitle;
 	private String newsContent;
 	private String newsLink;
-	private java.util.Date createDate;
+	private String createDate;
 	private String newsSource;
 	private String newsPicture;
 	private String newsTag;
@@ -43,10 +43,10 @@ public class NewsInfo {
 	public void setNewsLink(String newsLink) {
 		this.newsLink = newsLink;
 	}
-	public java.util.Date getCreateDate() {
+	public String getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(java.util.Date createDate) {
+	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
 	}
 	public String getNewsSource() {

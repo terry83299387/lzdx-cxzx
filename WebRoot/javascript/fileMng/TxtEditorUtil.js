@@ -46,7 +46,7 @@ function txtDel(textareaid) {
 	if (Ext.get(textareaid) != null) {
 		var e = document.getElementById(textareaid);
 		var r = getStartEnd(textareaid);
-		var _value = e.value;
+		var _value = e.value.replace(/\r\n/g,'\n');
 		e.value = _value.substring(0, r.start)
 				+ _value.substring(r.end, _value.length);
 		locatePoint(textareaid, r.start, r.start);
@@ -80,15 +80,17 @@ function locatePoint(textareaid, _x1, _x2) {
 	var tea = document.getElementById(textareaid);
 	if (tea.setSelectionRange) {
 		setTimeout(function() {
-					tea.setSelectionRange(_x1, _x2); // 将光标定位在textarea的开头，需要定位到其他位置的请自行修改
+					tea.setSelectionRange(_x1, _x2); // locate cursor 
 					tea.focus();
 				}, 0);
 	} else if (tea.createTextRange) {
 		var str = tea.value.substring(0, _x1);
-		var re = new RegExp("[\\n]", "g");// 过滤掉换行符,不然你的文字会有问题,会比你的文字实际长度要长一些.搞死我了.我说我得到的数字怎么总比我的实际长度要长.
-		str = str.replace(re, "");// 过滤
+//		var re = new RegExp("[\\r]", "g");// 过滤掉换行符,不然你的文字会有问题,会比你的文字实际长度要长一些.搞死我了.我说我得到的数字怎么总比我的实际长度要长.
+//		str = str.replace(re, "");// 过滤
+//		str=str.replace(/\r\n/g,'\n');
 		var str2 = tea.value.substring(0, _x2);
-		str2 = str2.replace(re, "");// 过滤
+//		str2 = str2.replace(re, "");// 过滤
+//		str2=str2.replace(/\r\n/g,'\n');
 		var txt = tea.createTextRange();
 		_x1 = str.length;
 		_x2 = str2.length;
@@ -118,14 +120,16 @@ function getCaretForTextArea(textareaid) {
 	r.setEndPoint("StartToStart", j);// 在以前的文档选择对象和新的对象之间创建对象,妈的,不好解释,我表达能力不算太好.有兴趣自己去看msdn的资料
 	var str = r.text;// 获得对象的文本
 	// var re = new
-	// RegExp("[\\n]","g");//过滤掉换行符,不然你的文字会有问题,会比你的文字实际长度要长一些.搞死我了.我说我得到的数字怎么总比我的实际长度要长.
-	// str = str.replace(re,"");//过滤
+	// RegExp("[\\r]","g");
+	// str = str.replace(re,"");
+	str=str.replace(/\r\n/g,'\n');//must do it in compatibility with IE(IE enter'operator needs 2 length while ff just 1)
 	pos = str.length;// 获得长度.也就是光标的位置
 	// alert(pos);
 	r.collapse(false);
 	r.select();// 把光标恢复到以前的位置
 	txb.scrollTop = s;// 把滚动条恢复到以前的位置
 	start = pos - sellength;
+//		alert(start+' '+pos);
 	return {
 		start : start,
 		end : pos
@@ -138,7 +142,7 @@ function getStartEnd(textareaid) {
 	var selectedText;
 	var e = document.getElementById(textareaid);
 	// ie利用Range，这个和非文本框的是一样的!
-	if (document.selection && (document.selection.type == "Text")) {
+	if (document.selection ) {
 		// var range=document.selection.createRange();
 		// var txtlength=range.text.length;
 
@@ -183,7 +187,7 @@ function showSelectTextarea(textareaid) {
 
 function copyToClipboard(textareaid, txt) {
 	if (window.clipboardData) {
-		window.clipboardData.clearData();
+//		window.clipboardData.clearData();
 		window.clipboardData.setData("Text", txt);
 	} else if (navigator.userAgent.indexOf("Opera") != -1) {
 		window.location = txt;
@@ -219,6 +223,10 @@ function copyToClipboard(textareaid, txt) {
 			return false;
 		clip.setData(trans, null, clipid.kGlobalClipboard);
 
+	}
+	else
+	{
+		  alert('For security limitation,please press "ctrl+c" or "ctrl+x" instead');
 	}
 }
 
@@ -266,6 +274,48 @@ function getClipboard() {
 				return (str.data.substring(0, len.value / 2));
 			}
 		}
+		else
+		{
+		  alert('For security limitation,please press "ctrl+v" instead');
+		}
 	}
 	return null;
+}
+
+function setCursorAtTxt(o,start,txtlength)
+{
+   if (typeof o == "string") {
+			o = document.getElementById(o);
+		}
+		if (o == null) return;
+		var  movestart=o.value.length;
+		var  moveend=movestart;
+		
+		if(start>=0&&start<movestart)
+		{
+		  movestart=start;
+		}
+		else
+		{
+		   movestart=o.value.length;
+		}
+		if(txtlength>0)
+		{
+		  moveend=movestart+txtlength;
+		}
+		if (o.setSelectionRange) { // FF
+					o.setSelectionRange(movestart, moveend);
+					o.focus(); 
+		} else if (o.createTextRange) { // IE
+			
+			var textRange = o.createTextRange();
+			textRange.moveStart( "character", 0) 
+			textRange.moveEnd( "character", 0);
+			textRange.collapse( true); // move cursor to start position 
+			textRange.moveEnd( "character", moveend); 
+			textRange.moveStart( "character", movestart); 
+			textRange.select();
+		}
+	
+	
 }

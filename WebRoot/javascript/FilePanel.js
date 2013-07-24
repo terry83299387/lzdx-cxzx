@@ -93,15 +93,7 @@ Ext.apply(filePanel_1, fileSupport, {
 													focus : true
 												}]),
 								text : i18n.btn_refresh
-							}, {
-								id : this.fileWinId + 'menu_tail',
-								handler : this.tail.createDelegate(this),
-								text : i18n.menu_tail
-							}, '-', {
-								id : this.fileWinId + 'menu_md5',
-								handler : this.md5.createDelegate(this),
-								text : i18n.menu_md5
-							}, {
+							},  {
 								id : this.fileWinId + 'menu_dos2unix',
 								handler : this.dos2unix.createDelegate(this),
 								text : i18n.menu_dos2unix
@@ -164,9 +156,9 @@ Ext.apply(filePanel_1, fileSupport, {
 								handler : this.rename.createDelegate(this),
 								text : i18n.menu_rename
 							}, '-', {
-								id : this.fileWinId + 'menu_properties',
-								handler : this.properties.createDelegate(this),
-								text : i18n.menu_properties
+								id : this.fileWinId + 'tb_properties',
+								text : i18n.menu_properties,
+								handler : this.properties.createDelegate(this)
 							}]
 				});
 		var rightClick = this.rightClick;
@@ -225,21 +217,6 @@ Ext.apply(filePanel_1, fileSupport, {
 									}
 								}
 
-							}, {
-								id : this.fileWinId + 'tb_tail',
-								text : i18n.menu_tail,
-								icon : "images/Menus/03.gif",
-								handler : this.tail.createDelegate(this)
-							}, '-', {
-								id : this.fileWinId + 'tb_md5',
-								text : i18n.menu_md5,
-								icon : "images/Menus/03.gif",
-								handler : this.md5.createDelegate(this)
-							}, {
-								id : this.fileWinId + 'tb_dos2unix',
-								text : i18n.menu_dos2unix,
-								icon : "images/Menus/03.gif",
-								handler : this.dos2unix.createDelegate(this)
 							}, '-', {
 								id : this.fileWinId + 'tb_delete',
 								text : i18n.menu_delete,
@@ -397,12 +374,6 @@ Ext.apply(filePanel_1, fileSupport, {
 								// tooltipType : "title",
 								iconCls : "hd_download",
 								handler : this.download.createDelegate(this)
-							}, {
-								id : this.fileWinId + 'tb_defaultdir',
-								text : i18n.btn_file_defaultdir,
-								iconCls : "hd-home",
-								handler : this.openDefaultDir
-										.createDelegate(this)
 							}]
 				});
 		var tb3 = new Ext.Toolbar({
@@ -491,7 +462,7 @@ Ext.apply(filePanel_1, fileSupport, {
 				// width : 200,
 				dataIndex : 'lastModified'
 			}, {
-				header : i18n.col_filepermission,
+				header : i18n.file_title_preview,
 				sortable : true,
 				dataIndex : 'currentPath',
 				renderer : Ext.ux.Util.formatReview
@@ -918,18 +889,6 @@ Ext.apply(templateRemoteFilePanel_1, fileSupport, {
 													focus : true
 												}]),
 								text : i18n.btn_refresh
-							}, {
-								id : this.fileWinId + 'menu_tail',
-								handler : this.tail.createDelegate(this),
-								text : i18n.menu_tail
-							}, '-', {
-								id : this.fileWinId + 'menu_md5',
-								handler : this.md5.createDelegate(this),
-								text : i18n.menu_md5
-							}, {
-								id : this.fileWinId + 'menu_dos2unix',
-								handler : this.dos2unix.createDelegate(this),
-								text : i18n.menu_dos2unix
 							}, '-', {
 								id : this.fileWinId + 'menu_new',
 								text : i18n.menu_new,
@@ -1232,17 +1191,6 @@ Ext.apply(templateRemoteFilePanel_1, fileSupport, {
 						handler : this.refresh.createDelegate(this, [{
 											focus : true
 										}])
-					}, {
-						id : this.fileWinId + 'tb_defaultdir',
-						// text : i18n.btn_job_defaultdir,
-						tooltip : this.defaultdir,
-						tooltipType : "title",
-						iconCls : "hd-home",
-						handler : function() {
-							scope.openDefaultDir({
-										folder : scope.workdir
-									});
-						}
 					}, i18n.lab_url, new Ext.form.TextField({
 								id : this.fileWinId + 'txt_url',
 								width : '100%',
@@ -1336,7 +1284,7 @@ Ext.apply(templateRemoteFilePanel_1, fileSupport, {
 				// width : 200,
 				dataIndex : 'lastModified'
 			}, {
-				header : i18n.col_filepermission,
+				header : i18n.file_title_preview,
 				sortable : true,
 				dataIndex : 'currentPath',
 				renderer : Ext.ux.Util.formatReview
@@ -1994,18 +1942,6 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 													focus : true
 												}]),
 								text : i18n.btn_refresh
-							}, {
-								id : this.fileWinId + 'menu_tail',
-								handler : this.tail.createDelegate(this),
-								text : i18n.menu_tail
-							}, '-', {
-								id : this.fileWinId + 'menu_md5',
-								handler : this.md5.createDelegate(this),
-								text : i18n.menu_md5
-							}, {
-								id : this.fileWinId + 'menu_dos2unix',
-								handler : this.dos2unix.createDelegate(this),
-								text : i18n.menu_dos2unix
 							}, '-', {
 								id : this.fileWinId + 'menu_new',
 								text : i18n.menu_new,
@@ -2319,18 +2255,7 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 						handler : this.refresh.createDelegate(this, [{
 											focus : true
 										}])
-					}, {
-						id : this.fileWinId + 'tb_defaultdir',
-						// text : i18n.btn_job_defaultdir,
-						tooltip : this.defaultdir,
-						tooltipType : "title",
-						iconCls : "hd-home",
-						handler : function() {
-							scope.openDefaultDir({
-										folder : scope.workdir
-									});
-						}
-					}, i18n.lab_url, new Ext.form.TextField({
+					},i18n.lab_url, new Ext.form.TextField({
 								id : this.fileWinId + 'txt_url',
 								width : '100%',
 								value : this.defaultdir,
@@ -2410,7 +2335,7 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 				// width : 200,
 				dataIndex : 'lastModified'
 			}, {
-				header : i18n.col_filepermission,
+				header : i18n.file_title_preview,
 				sortable : true,
 				dataIndex : 'currentPath',
 				renderer : Ext.ux.Util.formatReview

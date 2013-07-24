@@ -45,18 +45,6 @@
 		</action>
 
 
-		<action name="doTailFile"
-			class="cn.edu.lzu.common.file.action.FileOperate"
-			method="tailFile">
-			<result name="success" type="stream">
-				<param name="inputName">inputStream</param>
-				<param name="contentDisposition">
-					attachment;filename=${filename}
-				</param>
-				<param name="bufferSize">4096</param>
-			</result>
-			<result name="error" type="json" />
-		</action>
 		
 		<action name="doSaveFile"
 			class="cn.edu.lzu.common.file.action.FileOperate"
@@ -140,26 +128,6 @@
 			<result name="error" type="json" />
 		</action>
 
-        <action name="doMd5File"
-			class="cn.edu.lzu.common.file.action.FileOperate"
-			method="md5File">
-			<result type="json" />
-			<result name="error" type="json" />
-		</action>
-
-  		<action name="doDos2unix"
-			class="cn.edu.lzu.common.file.action.FileOperate"
-			method="dos2Unix">
-			<result type="json" />
-			<result name="error" type="json" />
-		</action>
-
-		<action name="showClusterListInFileMng"
-			class="cn.edu.lzu.common.file.action.FileOperate"
-			method="showClusterListInFileMng">
-			<result type="json" />
-			<result name="error" type="json" />
-		</action>
 		
 		<action name="uploadServerFile"
 			class="cn.edu.lzu.common.file.action.UploadFile"

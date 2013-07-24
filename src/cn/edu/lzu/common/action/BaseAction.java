@@ -3,6 +3,8 @@ package cn.edu.lzu.common.action;
 
 
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,8 +40,14 @@ public class BaseAction extends ActionSupport {
 	public void init() {
 		request = (HttpServletRequest) ActionContext.getContext().get(ServletActionContext.HTTP_REQUEST);
 		request.getSession().setAttribute("exception", "");
+//		try {
+//			request.setCharacterEncoding("UTF-8");
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		
+//		}/////////////////////////
 		response = (HttpServletResponse) ActionContext.getContext().get(ServletActionContext.HTTP_RESPONSE);
-		response.setContentType("application/json;charset=utf-8");
+		response.setContentType("application/json;charset=GBK");
 		
 	}
 
