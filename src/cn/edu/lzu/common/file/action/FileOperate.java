@@ -197,7 +197,7 @@ public class FileOperate extends ActionSupport {
 	public String newFolder() {
 		try {
 			init();
-			String fileName = request.getParameter("filemame");
+			String fileName = request.getParameter("filename");
 			String absoluteFilePath = physicalBaseDir + fileName;
 
 			java.io.File file = new java.io.File(absoluteFilePath);
@@ -220,7 +220,7 @@ public class FileOperate extends ActionSupport {
 	public String newFile() {
 		try {
 			init();
-			String fileName = request.getParameter("filemame");
+			String fileName = request.getParameter("filename");
 			String absoluteFilePath = physicalBaseDir + fileName;
 
 			java.io.File file = new java.io.File(absoluteFilePath);
