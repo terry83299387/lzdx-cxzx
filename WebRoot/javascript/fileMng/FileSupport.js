@@ -953,6 +953,8 @@ var fileSupport = {
 
 		function parseExistFileErrorFromException(exception) {
 			var isFileError = false;
+			if(exception)
+			{
 			for (var i = 0; i < movefilenamelist.length; i++) {
 
 				// alert(srcfilepath + "/" +
@@ -963,6 +965,7 @@ var fileSupport = {
 					break;
 				}
 
+			}
 			}
 			return isFileError;
 
@@ -1773,7 +1776,7 @@ var fileSupport = {
 								scope.setWinCmpFocus()
 							});
 					if (pasteType == "cut") {
-						// ������ǰ�Ķ�����ȥԴĿ¼������
+						// 锟斤拷锟斤拷锟斤拷前锟侥讹拷锟斤拷锟斤拷去源目录锟斤拷锟斤拷锟斤拷
 						resumeSourcePasteItems();
 					}
 
@@ -8904,7 +8907,7 @@ var fileSupport = {
 				}
 			}
 
-			// Ext.MessageBox.alert('show','��ǰѡ�е������'+data);
+			// Ext.MessageBox.alert('show','锟斤拷前选锟叫碉拷锟斤拷锟斤拷锟�+data);
 		} else if (rowIndex != scope.cellclickdata_rowindex) {
 			var fileFieldName = grid.getColumnModel().getDataIndex(fileIndex);
 			var fileDataname = record.get(fileFieldName);
