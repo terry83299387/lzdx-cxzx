@@ -17,6 +17,14 @@ public class Fileoperator {
 
 	}
 
+	public boolean moveFiles(String srcPath, String destPath,
+			java.io.File srcFile, java.io.File destFile) {
+
+		srcFile.renameTo(destFile);
+		return true;
+
+	}
+
 	public boolean copyFiles(String srcPath, String destPath,
 			java.io.File srcFile, java.io.File destFile) {
 		String sPath = srcFile.getAbsolutePath().substring(srcPath.length());
@@ -70,6 +78,24 @@ public class Fileoperator {
 			bos.close();
 			bs.close();
 
+		}
+
+	}
+
+	public boolean saveFileContent(java.io.File file, String content)
+			throws IOException {
+		java.io.BufferedWriter bw = null;
+		java.io.FileWriter fw = new java.io.FileWriter(file);
+		try {
+			bw = new java.io.BufferedWriter(fw);
+
+			bw.write(content);
+
+			bw.close();
+			return true;
+		} finally {
+			if (bw != null)
+				bw.close();
 		}
 
 	}

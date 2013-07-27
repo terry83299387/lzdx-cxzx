@@ -37,6 +37,16 @@ public class FileOperate extends ActionSupport {
 	private String scope = null;
 	private PageFileInfo fileInfo = new PageFileInfo();
 	private int pageStart = -1;
+	
+	private int unique=1;
+
+	public int getUnique() {
+		return unique;
+	}
+
+	public void setUnique(int unique) {
+		this.unique = unique;
+	}
 
 	private List<PageFileInfo> fileItems = new ArrayList<PageFileInfo>();;
 
@@ -82,68 +92,72 @@ public class FileOperate extends ActionSupport {
 		}
 
 	}
-	
-	
-	public String paste()
-	{
+
+	public String paste() {
 		try {
 			init();
 			String srcFilePath = request.getParameter("srcfilepath");
 			String destFilePath = request.getParameter("destfilepath");
 			String flag = request.getParameter("pasteflag");
-			String[] fileNameArray=request.getParameter("filenamelist").split(",");
-			String[] destFileNameArray=request.getParameter("tonewfilenamelist").split(",");
-			
-			boolean suc=true;
-			
-			for(int i=0;i<fileNameArray.length;i++)
-			{
-				java.io.File srcFile=new java.io.File(physicalBaseDir+srcFilePath+"/"+fileNameArray[i]);
-				java.io.File destFile=new java.io.File(physicalBaseDir+destFilePath+"/"+destFileNameArray[i]);
-				
-				Fileoperator fo=new Fileoperator();
-				if(!fo.copyFiles(physicalBaseDir+srcFilePath, physicalBaseDir+destFilePath, srcFile, destFile))
-				{
-					suc=false;
+			String[] fileNameArray = request.getParameter("filenamelist")
+					.split(",");
+			String[] destFileNameArray = request.getParameter(
+					"tonewfilenamelist").split(",");
+
+			boolean suc = true;
+
+			for (int i = 0; i < fileNameArray.length; i++) {
+				java.io.File srcFile = new java.io.File(physicalBaseDir
+						+ srcFilePath + "/" + fileNameArray[i]);
+				java.io.File destFile = new java.io.File(physicalBaseDir
+						+ destFilePath + "/" + destFileNameArray[i]);
+
+				Fileoperator fo = new Fileoperator();
+
+				if (flag.equals("copy")) {
+					if (!fo.copyFiles(physicalBaseDir + srcFilePath,
+							physicalBaseDir + destFilePath, srcFile, destFile)) {
+						suc = false;
+					}
+				} else {
+					if (!fo.moveFiles(physicalBaseDir + srcFilePath,
+							physicalBaseDir + destFilePath, srcFile, destFile)) {
+						suc = false;
+					}
 				}
 			}
-			
-			if(suc)
-			{
-				
+
+			if (suc) {
+
 				return SUCCESS;
-			}
-			else
-			{
+			} else {
 				return ERROR;
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 
 			fileInfo.setException(e.getMessage());
 			return ERROR;
 		}
-		
-		
+
 	}
-	
+
 	public String delFile() {
 		try {
 			init();
-			String error="";
+			String error = "";
 			String filePath = request.getParameter("filepath");
-			String[] fileNameArray=request.getParameter("filenamelist").split(",");
-			boolean suc=true;
-			Fileoperator fo=new Fileoperator();
-			for(String fileName:fileNameArray)
-			{
-				String path=physicalBaseDir+filePath+"/"+fileName;
-				java.io.File file=new java.io.File(path);
-				
-				if(!fo.delFiles(file))
-				{
-					error+=file.getName()+",";
-					suc=false;
+			String[] fileNameArray = request.getParameter("filenamelist")
+					.split(",");
+			boolean suc = true;
+			Fileoperator fo = new Fileoperator();
+			for (String fileName : fileNameArray) {
+				String path = physicalBaseDir + filePath + "/" + fileName;
+				java.io.File file = new java.io.File(path);
+
+				if (!fo.delFiles(file)) {
+					error += file.getName() + ",";
+					suc = false;
 				}
 			}
 
@@ -163,7 +177,6 @@ public class FileOperate extends ActionSupport {
 		}
 	}
 
-	
 	public String renameFile() {
 		try {
 			init();
@@ -208,6 +221,28 @@ public class FileOperate extends ActionSupport {
 				return ERROR;
 			}
 
+		}
+
+		catch (Exception e) {
+
+			fileInfo.setException(e.getMessage());
+			return ERROR;
+		}
+	}
+	
+	public String saveFile()
+	{
+		try {
+			init();
+			String filePath = request.getParameter("filepath");
+			String fileContent = request.getParameter("filecontent");
+			String absoluteFilePath = physicalBaseDir + filePath;
+			
+			java.io.File file=new java.io.File(absoluteFilePath);
+			Fileoperator fo = new Fileoperator();
+			fo.saveFileContent(file, fileContent);
+			return SUCCESS;
+			
 		}
 
 		catch (Exception e) {
