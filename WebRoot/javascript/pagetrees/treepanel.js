@@ -14,7 +14,7 @@ var TreePanel = function(id, text) {
 				tbar : [
 
 				{
-							text :i18n.config_reload,
+							text : i18n.config_reload,
 							handler : function() {
 								var loader = Ext.getCmp(id + '_tree')
 										.getLoader();
@@ -62,18 +62,18 @@ var TreePanel = function(id, text) {
 			});
 
 	this.subjectTabs = new Ext.TabPanel({
-				id : id + "_subjectTabs",
-				region : 'center',
-				frame : true,
-				margins : '3 3 3 0',
-				activeTab : 0,
-				autoScroll : true,
-				enableTabScroll : true,
-				items : [{
-							html : "<div style='text-align:center;'>News Manament</div>"
-						}]
+		id : id + "_subjectTabs",
+		region : 'center',
+		frame : true,
+		margins : '3 3 3 0',
+		activeTab : 0,
+		autoScroll : true,
+		enableTabScroll : true,
+		items : [{
+					html : "<div style='text-align:center;'>News Manament</div>"
+				}]
 
-			});
+	});
 
 }
 TreePanel.prototype = {
@@ -138,9 +138,28 @@ TreePanel.prototype = {
 			store : new Ext.data.SimpleStore({
 
 						fields : ['page', 'pagedisplay'],
-						data : [['10', i18n.page_perpage+'10'+i18n.page_unit], ['50', i18n.page_perpage+'50'+i18n.page_unit],
-								['100', i18n.page_perpage+'100'+i18n.page_unit], ['200', i18n.page_perpage+'200'+i18n.page_unit],
-								['500', i18n.page_perpage+'500'+i18n.page_unit], ['100000000', i18n.page_pageall]]
+						data : [
+								[
+										'10',
+										i18n.page_perpage + '10'
+												+ i18n.page_unit],
+								[
+										'50',
+										i18n.page_perpage + '50'
+												+ i18n.page_unit],
+								[
+										'100',
+										i18n.page_perpage + '100'
+												+ i18n.page_unit],
+								[
+										'200',
+										i18n.page_perpage + '200'
+												+ i18n.page_unit],
+								[
+										'500',
+										i18n.page_perpage + '500'
+												+ i18n.page_unit],
+								['100000000', i18n.page_pageall]]
 					}),
 			value : '10',
 			editable : 'true',
@@ -174,7 +193,8 @@ TreePanel.prototype = {
 			store : new Ext.data.SimpleStore({
 
 						fields : ['type', 'language'],
-						data : [['', i18n.language_all], ['1', i18n.chinese], ['2', i18n.english]]
+						data : [['', i18n.language_all], ['1', i18n.chinese],
+								['2', i18n.english]]
 					}),
 			value : '',
 			editable : 'false',
@@ -234,9 +254,9 @@ TreePanel.prototype = {
 					store : store,
 					pageSize : pageComboBox.limit,
 					displayInfo : true,
-					displayMsg : i18n.from + ' {0} ' + i18n.to + ' {1} ' + i18n.postfix
-					+ ' {2} ' + i18n.dataunit,
-			emptyMsg : i18n.emptymsg
+					displayMsg : i18n.from + ' {0} ' + i18n.to + ' {1} '
+							+ i18n.postfix + ' {2} ' + i18n.dataunit,
+					emptyMsg : i18n.emptymsg
 				});
 		var sm = new Ext.grid.CheckboxSelectionModel();
 		var gridpanel = new Ext.grid.GridPanel({
@@ -251,7 +271,7 @@ TreePanel.prototype = {
 				region : 'center',
 				autoScroll : true,
 				items : [i18n.select_language, languageComboBox, {
-					text :i18n.news_add,
+					text : i18n.news_add,
 					iconCls : "hd_006",
 					handler : function() {
 						scope.addNews(target, languageComboBox, sm, function() {
@@ -325,10 +345,11 @@ TreePanel.prototype = {
 			frame : true,
 			store : store,
 			sm : sm,
+			pagingbar : pagingToolBar,
 			bbar : pagingToolBar,
 			columns : [new Ext.grid.RowNumberer(), sm, {
 						header : i18n.news_title,
-						width :300,
+						width : 300,
 						sortable : true,
 						dataIndex : "newsTitle"
 					}, {
@@ -438,12 +459,77 @@ TreePanel.prototype = {
 
 	addNews : function(node, languageComboBox, sm) {
 		var scope = this;
-		var newsWindow = new newsWindows(node, languageComboBox, null);
+		var newsWindow = new newsWindows(node, languageComboBox, null,
+				scope.refreshNews);
 
 	},
 
 	editNews : function(node, languageComboBox, sm) {
-		var newsWindow = new newsWindows(node, languageComboBox, sm);
+		var newsWindow = new newsWindows(node, languageComboBox, sm,
+				scope.refreshNews);
+
+	},
+
+	refreshNews : function(node) {
+		var gridPanel = Ext.getCmp(node.id + "_grid");
+		if (gridPanel) {
+			gridPanel.getEl().mask(i18n.mask_wait);
+			gridPanel.store.load({
+						params : {
+							start : gridPanel.pagingbar.cursor,
+							limit : gridPanel.pagingbar.limit
+						},
+						callback : function() {
+							gridPanel.getEl().unmask();
+						}
+					});
+		}
+	},
+
+	delNews : function(node, languageComboBox, sm) {
+		var scope=this;
+		var newsCodes = "";
+		for (var i = 0; i < sm.getSelections().length; i++) {
+			if (i == 0) {
+				newsCodes = sm.getSelections()[i].data.newsCode;
+
+			} else {
+				newsCodes = newsCodes + ","
+						+ sm.getSelections()[i].data.newsCode;
+			}
+		}
+		if (newsCodes == "") {
+			return;
+		}
+
+		var gridPanel = Ext.getCmp(node.id + "_grid");
+
+		gridPanel.getEl().mask(i18n.mask_wait);
+		Ext.Ajax.request({
+					url : 'deleteNews.action',
+					params : {
+						newsCodes : newsCodes
+
+					},
+					success : function(resp, opts) {
+						var responseObject = Ext.util.JSON
+								.decode(resp.responseText);
+						scope.refreshNews(node);
+//						gridPanel.store.load({
+//									params : {
+//										start : gridPanel.pagingbar.cursor,
+//										limit : gridPanel.pagingbar.limit
+//									}
+//								});
+
+						gridPanel.getEl().unmask();
+
+					},
+					failure : function(resp, opts) {
+						Ext.MessageBox.alert(i18n.error, "delete news error!");
+						gridPanel.getEl().unmask();
+					}
+				});
 
 	}
 

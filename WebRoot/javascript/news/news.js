@@ -1,5 +1,4 @@
-var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,
-		callback) {
+var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,callback) {
 	var desktop; // = this.app.getDesktop();
 	if (typeof app == 'undefined' || app == null) {
 		desktop = this.app.getDesktop();
@@ -219,7 +218,7 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,
 								scope.submitData(subjectId, newscode,
 										function() {
 											Ext.getCmp(newsWinId).close();
-											callback();
+											callback(subjectItem);
 										});
 							}
 						}), new Ext.Button({
@@ -227,23 +226,15 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,
 							handler : function() {
 								scope.submitData(subjectId, newscode,
 										function() {
-											callback();
+											
 											Ext.getCmp(newsWinId).close();
+											callback(subjectItem);
 											new newsWindows(subjectItem,
-													languageComboBox, null,
-													callback);
+													languageComboBox, null,callback
+													);
 
 										});
 
-							}
-						}), new Ext.Button({
-							text : i18n.news_handler_submit_nothing,
-							handler : function() {
-								scope.submitData(subjectId, newscode,
-										function() {
-
-											callback();
-										});
 							}
 						})],
 				autoScroll : true,
@@ -358,14 +349,14 @@ newsWindows.prototype = {
 						failure : function(resp, opts) {
 							Ext.MessageBox
 									.alert(i18n.error, "read data error!");
-							this.win.getEl().unmask();
+							scope.win.getEl().unmask();
 						}
 					});
 		}
 	},
 
 	submitData : function(subjectCode, newscode, callback) {
-
+		var scope=this;
 		this.win.getEl().mask(i18n.mask_wait);
 		var params = this.getData();
 		params.subjectCode = subjectCode;
@@ -383,7 +374,7 @@ newsWindows.prototype = {
 					},
 					failure : function(resp, opts) {
 						Ext.MessageBox.alert(i18n.error, "read data error!");
-						this.win.getEl().unmask();
+						scope.win.getEl().unmask();
 					}
 				});
 
