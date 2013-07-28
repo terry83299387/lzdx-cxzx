@@ -348,7 +348,6 @@ AppDesktop.FileWindow = Ext.extend(Ext.app.Module, {
 AppDesktop.UserWindow = Ext.extend(Ext.app.Module, {
 	id : 'user-win',
 	init : function() {
-
 		this.launcher = {
 			text : i18n.user_management,
 			iconCls : 'icon-user1',
@@ -358,36 +357,78 @@ AppDesktop.UserWindow = Ext.extend(Ext.app.Module, {
 		}
 	},
 	createWindow : function() {
-		var desktop; // = this.app.getDesktop();
-		if (typeof app == 'undefined' || app == null) {
+		var desktop;
+		if (app == null) {
 			desktop = this.app.getDesktop();
 		} else {
 			desktop = app.getDesktop();
 		}
 
-		// Ext.get(document.body).mask(i18n.mask_wait);
-		// Ext.get("div_cursor").replaceClass("cursor_hand",
-		// "cursor_wait");
 		Ext.DomHelper.overwrite(Ext.get("user-win-shortcut"), {
 			tag : "a",
 			html : '<a href="#" class="a1"><img src="images/icons/user_0.png"/><div><font style="FONT-FAMILY: Microsoft Yahei">'
 					+ i18n.user_management + '</font></div></a>'
 		});
+
 		var win;
+		var winWidth = Ext.lib.Dom.getViewWidth();
+		var winHeight = Ext.lib.Dom.getViewHeight();
 
-		var windowwidth = Ext.lib.Dom.getViewWidth();
-
-		var windowheight = Ext.lib.Dom.getViewHeight();
-
-		Ext.DomHelper.overwrite(Ext.get("news-win-shortcut"), {
+		Ext.DomHelper.overwrite(Ext.get("user-win-shortcut"), {
 			tag : 'a',
 			html : '<a href="#" class="a2"><img src="images/icons/user_0.png"/><div><font style="FONT-FAMILY: Microsoft Yahei">'
 					+ i18n.user_management + '</font></div></a>'
 		});
 
-		
+		var userWinId = 'user-win'
+				+ FileMngGlobal.getGlobalFileWindowAutoSequence();
+		var userPanelId = userWinId + '_user-panel';
+
 		
 
+		var panel = new Ext.Panel({
+			id : userPanelId,
+			frame : false,
+			split:true,
+//			layout : "fix",
+			items: [new Ext.Button({
+				id : userWinId + 'btn_url1',
+				icon : "./images/file/go.png",
+				tooltip : i18n.menu_go_url,
+				tooltipType : "title",
+				cls : "x-btn-text-icon",
+				handler : function() {
+					alert("new user");
+				}
+			})],
+			tbar: [new Ext.Button({
+				id : userWinId + 'btn_url2',
+				icon : "./images/file/go.png",
+				tooltip : i18n.menu_go_url,
+				tooltipType : "title",
+				cls : "x-btn-text-icon",
+				handler : function() {
+					alert("new user");
+				}
+			})]
+		});
+
+		win = desktop.createWindow({
+					id : userWinId,
+					title : i18n.news_management,
+					frame : true,
+					layout : 'fit',
+					x : winWidth * 1 / 8,
+					y : winHeight * 1 / 18,
+					width : winWidth * 3 / 4,
+					height : winHeight * 8 / 9,
+					iconCls : 'icon-dynamic1',
+					shim : false,
+					animCollapse : false,
+					constrainHeader : true,
+					items : [panel]
+				});
+
+		win.show();
 	}
-
 })
