@@ -105,6 +105,51 @@ public class NewsDao {
 		}
 	}
 
+	public void delNewsGroup(String[] newsGroup) throws Exception {
+		if (newsGroup == null) {
+			throw new Exception("newsid is null");
+		}
+
+		String newsCodes="";
+		for(int i=0;i<newsGroup.length;i++)
+		{
+			if(i==0)
+			{
+				newsCodes="'"+newsGroup[i]+"'";
+				
+			}
+			else
+			{
+				newsCodes=newsCodes+",'"+newsGroup[i]+"'";
+			}
+				
+		}
+		
+		try {
+			Session sess = HibernateUtil.currentSession();
+			Transaction t = sess.beginTransaction();
+
+			String hql = "delete News a where a.newsCode in ("+newsCodes+")";
+			Query query = sess.createQuery(hql);
+//			query.setString(0, newsCodes);
+			query.executeUpdate();
+
+			// java.util.List<UserRegister> list = sess.createCriteria(
+			// UserRegister.class).add(
+			// Restrictions.eq("localUser", user.getLocalUser())).list();
+			// for(UserRegister u:list)
+			// {
+			// sess.delete(u);
+			// }
+
+			t.commit();
+		} finally {
+			HibernateUtil.closeSession();
+		}
+		
+		
+	}
+	
 	public void delNews(String newsid) throws Exception {
 
 		if (newsid == null) {

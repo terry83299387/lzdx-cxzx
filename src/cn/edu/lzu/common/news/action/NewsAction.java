@@ -10,7 +10,7 @@ public class NewsAction extends BaseAction {
 	private long results;
 	private java.util.List<NewsInfo> newsList = new java.util.ArrayList<NewsInfo>();
 	private java.text.DateFormat dateFormat = new java.text.SimpleDateFormat(
-	"yyyy-MM-dd");
+			"yyyy-MM-dd");
 	private NewsInfo newsInfo;
 
 	public NewsInfo getNewsInfo() {
@@ -35,6 +35,20 @@ public class NewsAction extends BaseAction {
 
 	public void setNewsList(java.util.List<NewsInfo> newsList) {
 		this.newsList = newsList;
+	}
+
+	public String deleteNews() {
+		try {
+			init();
+			String delNewsGroup = request.getParameter("newsCodes");
+			NewsDao nd = new NewsDao();
+			nd.delNewsGroup(delNewsGroup.split(","));
+
+		} catch (Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+
 	}
 
 	public String submitNews() {
@@ -62,11 +76,15 @@ public class NewsAction extends BaseAction {
 				createDate = dateFormat.parse(newsCreateDate);
 			}
 			
-			if(newsPriority==null)
+			int priority=0;
+			try
 			{
-				newsPriority="0";
+				priority=Integer.valueOf(newsPriority);
 			}
-
+			catch (Exception e)
+			{
+				priority=0;
+			}
 			News news = new News();
 			
 			
@@ -77,7 +95,7 @@ public class NewsAction extends BaseAction {
 			news.setNewsContent(newsContent);
 			news.setNewsPicture(newsPicture);
 			news.setNewsLink(null);
-			news.setNewsPriority(Integer.valueOf(newsPriority));
+			news.setNewsPriority(priority);
 			news.setNewsSource(newsSource);
 			news.setNewsTag(newsTag);
 			news.setNewsTitle(newsTitle);
@@ -116,8 +134,7 @@ public class NewsAction extends BaseAction {
 			newsInfo.setNewsPicture(news.getNewsPicture());
 			newsInfo.setNewsTag(news.getNewsTag());
 			newsInfo.setAuthor(news.getAuthor());
-			
-			
+
 			newsInfo.setCreateDate(dateFormat.format(news.getCreateDate()));
 			newsInfo.setNewsPriority(news.getNewsPriority());
 			newsInfo.setType(news.getType());
@@ -149,7 +166,8 @@ public class NewsAction extends BaseAction {
 				newsInfo.setNewsPicture((String) o[3]);
 				newsInfo.setNewsTag((String) o[4]);
 				newsInfo.setAuthor((String) o[5]);
-				newsInfo.setCreateDate(dateFormat.format((java.util.Date) o[6]));
+				newsInfo
+						.setCreateDate(dateFormat.format((java.util.Date) o[6]));
 				newsInfo.setNewsPriority((Integer) o[7]);
 				newsInfo.setType((String) o[8]);
 				newsList.add(newsInfo);

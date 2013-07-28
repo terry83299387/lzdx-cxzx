@@ -20,6 +20,13 @@
 			<result name="error" type="json" />
 		</action>
 		
+		<action name="deleteNews"
+			class="cn.edu.lzu.common.news.action.NewsAction"
+			method="deleteNews">
+			<result type="json" />
+			<result name="error" type="json" />
+		</action>
+		
 		<action name="submitNews"
 			class="cn.edu.lzu.common.news.action.NewsAction"
 			method="submitNews">
