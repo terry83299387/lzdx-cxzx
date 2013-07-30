@@ -105,6 +105,9 @@
 			<script type="text/javascript" src="javascript/Ext.ux.UploadDialog.js"></script>
 			<script type="text/javascript" src="javascript/news/news.js"></script>
 
+			<script type="text/javascript" src="javascript/user/UserWin.js"></script>
+			<script type="text/javascript" src="javascript/user/NewUser.js"></script>
+
 			<script src="tinymce/tinymce.dev.js"></script>
 
 	

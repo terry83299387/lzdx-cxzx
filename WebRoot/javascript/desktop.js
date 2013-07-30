@@ -370,7 +370,7 @@ AppDesktop.UserWindow = Ext.extend(Ext.app.Module, {
 					+ i18n.user_management + '</font></div></a>'
 		});
 
-		var win;
+		var win = desktop.getWindow('user-win');
 		var winWidth = Ext.lib.Dom.getViewWidth();
 		var winHeight = Ext.lib.Dom.getViewHeight();
 
@@ -380,55 +380,81 @@ AppDesktop.UserWindow = Ext.extend(Ext.app.Module, {
 					+ i18n.user_management + '</font></div></a>'
 		});
 
-		var userWinId = 'user-win'
-				+ FileMngGlobal.getGlobalFileWindowAutoSequence();
-		var userPanelId = userWinId + '_user-panel';
+        if (!win) {
+			var grid = new Ext.Desktop.UserWin().grid;
+            win = desktop.createWindow({
+                id: 'user-win',
+                title: '用户管理',
+				x : winWidth * 1 / 8,
+				y : winHeight * 1 / 18,
+				width : winWidth * 3 / 4,
+				height : winHeight * 8 / 9,
+                iconCls: 'user',
+                shim: false,
+                animCollapse: true,
+                constrainHeader: true,
+                layout: 'fit',
+                items: grid
+            });
 
-		
-
-		var panel = new Ext.Panel({
-			id : userPanelId,
-			frame : false,
-			split:true,
-//			layout : "fix",
-			items: [new Ext.Button({
-				id : userWinId + 'btn_url1',
-				icon : "./images/file/go.png",
-				tooltip : i18n.menu_go_url,
-				tooltipType : "title",
-				cls : "x-btn-text-icon",
-				handler : function() {
-					alert("new user");
-				}
-			})],
-			tbar: [new Ext.Button({
-				id : userWinId + 'btn_url2',
-				icon : "./images/file/go.png",
-				tooltip : i18n.menu_go_url,
-				tooltipType : "title",
-				cls : "x-btn-text-icon",
-				handler : function() {
-					alert("new user");
-				}
-			})]
-		});
-
-		win = desktop.createWindow({
-					id : userWinId,
-					title : i18n.news_management,
-					frame : true,
-					layout : 'fit',
-					x : winWidth * 1 / 8,
-					y : winHeight * 1 / 18,
-					width : winWidth * 3 / 4,
-					height : winHeight * 8 / 9,
-					iconCls : 'icon-dynamic1',
-					shim : false,
-					animCollapse : false,
-					constrainHeader : true,
-					items : [panel]
-				});
-
-		win.show();
+			grid.getStore().load({
+	            params: {
+	                start: 0,
+	                limit: 18
+	            }
+    		});
+        }
+        win.show();
+//
+//		var userWinId = 'user-win'
+//				+ FileMngGlobal.getGlobalFileWindowAutoSequence();
+//		var userPanelId = userWinId + '_user-panel';
+//
+//		
+//
+//		var panel = new Ext.Desktop.UserWin({
+//			id : userPanelId,
+//			frame : false,
+//			split:true,
+////			layout : "fix",
+//			items: [new Ext.Button({
+//				id : userWinId + 'btn_url1',
+//				icon : "./images/file/go.png",
+//				tooltip : i18n.menu_go_url,
+//				tooltipType : "title",
+//				cls : "x-btn-text-icon",
+//				handler : function() {
+//					alert("new user");
+//				}
+//			})],
+//			tbar: [new Ext.Button({
+//				id : userWinId + 'btn_url2',
+//				icon : "./images/file/go.png",
+//				tooltip : i18n.menu_go_url,
+//				tooltipType : "title",
+//				cls : "x-btn-text-icon",
+//				handler : function() {
+//					alert("new user");
+//				}
+//			})]
+//		});
+//
+//		win = desktop.createWindow({
+//					id : userWinId,
+//					title : i18n.news_management,
+//					frame : true,
+//					layout : 'fit',
+//					x : winWidth * 1 / 8,
+//					y : winHeight * 1 / 18,
+//					width : winWidth * 3 / 4,
+//					height : winHeight * 8 / 9,
+//					iconCls : 'icon-dynamic1',
+//					shim : false,
+//					animCollapse : false,
+//					constrainHeader : true,
+//					items : [panel]
+//				});
+//
+//		win.show();
 	}
 })

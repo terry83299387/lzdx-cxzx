@@ -93,11 +93,13 @@ CREATE TABLE `users`(
 	`password` VARCHAR(100),
 	`role` INT(3) DEFAULT 3 COMMENT '0:superadmin,1:admin,2:common user,3:undefined',
 	`status` INT(3) DEFAULT 1 COMMENT '1:valid,0:invalid',
+	`real_name` VARCHAR(100),
+	`email` VARCHAR(100),
 	`create_date` DATETIME,
 	PRIMARY KEY (`user_code`)
 ) ENGINE=INNODB CHARSET=gbk COLLATE=gbk_chinese_ci; 
-INSERT INTO `users` (`user_code`, `user_name`, `password`, `role`, `status`, `create_date`)
-VALUES ('402981854b1f216601401f2ea8540201', 'superadmin', '123456', '0', '1', now());
+INSERT INTO `users` (`user_code`, `user_name`, `password`, `role`, `status`, `real_name`, `email`, `create_date`)
+VALUES ('402981854b1f216601401f2ea8540201', 'superadmin', '123456', '0', '1', 'super admin', '83299387@163.com', now());
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
