@@ -1,4 +1,5 @@
-var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,callback) {
+var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,
+		callback) {
 	var desktop; // = this.app.getDesktop();
 	if (typeof app == 'undefined' || app == null) {
 		desktop = this.app.getDesktop();
@@ -18,10 +19,14 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,cal
 	var newsWinId = 'news-win-'
 			+ FileMngGlobal.getGlobalFileWindowAutoSequence();
 
+	var operation = i18n.news_add;
+
 	var newscode = null;
 	if (newsSelectionModel) {
+		
 		newscode = newsSelectionModel.getSelections()[0].data.newsCode;
 		newsWinId = 'news-win-' + newscode;
+		operation = i18n.news_edit;
 	}
 
 	var newsTextareaId = newsWinId + "textarea";
@@ -49,8 +54,6 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,cal
 		newsTagId : newsTagId,
 		nwsSourceId : newsSourceId
 	}
-
-	
 
 	var newsTitlePanel = new Ext.Panel({
 		// layout : 'column',
@@ -171,8 +174,12 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,cal
 														fields : ['type',
 																'language'],
 														data : [
-																['1', i18n.chinese],
-																['2', i18n.english]]
+																[
+																		'1',
+																		i18n.chinese],
+																[
+																		'2',
+																		i18n.english]]
 													}),
 											value : lan,
 											editable : 'false',
@@ -222,16 +229,16 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,cal
 										});
 							}
 						}), new Ext.Button({
-							text :i18n.news_handler_submit_new,
+							text : i18n.news_handler_submit_new,
 							handler : function() {
 								scope.submitData(subjectId, newscode,
 										function() {
-											
+
 											Ext.getCmp(newsWinId).close();
 											callback(subjectItem);
 											new newsWindows(subjectItem,
-													languageComboBox, null,callback
-													);
+													languageComboBox, null,
+													callback);
 
 										});
 
@@ -251,14 +258,14 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,cal
 
 	this.win = desktop.createWindow({
 				id : newsWinId,
-				title : subjectText,
+				title : subjectText + '(' + operation + ')',
 				frame : true,
 				layout : 'fit',
 				x : windowwidth * 1 / 8 + 10 * fwnum,
 				y : windowheight * 1 / 18 + 10 * fwnum,
 				width : windowwidth * 3 / 4,
 				height : windowheight * 8 / 9,
-				iconCls : 'icon-file1',
+				iconCls : 'icon-dynamic1',
 				// autoScroll : true,
 				shim : false,
 				animCollapse : false,
@@ -273,9 +280,8 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,cal
 						// tinyMCE.execCommand('mceAddControl', true,
 						// newsTextareaId);
 					},
-					'close':function()
-					{
-					tinyMCE.execCommand('mceRemoveEditor', true,
+					'close' : function() {
+						tinyMCE.execCommand('mceRemoveEditor', true,
 								newsTextareaId);
 					}
 
@@ -299,8 +305,8 @@ newsWindows.prototype = {
 		document.getElementById(this.newsId.nwsSourceId).value = data.newsSource;
 		if (data.newsPicture != null && data.newsPicture != "") {
 			document.getElementById(this.newsId.newsTitlePictureId).value = data.newsPicture;
-			document.getElementById(this.newsId.newsTitlePictureId+"_img").src = data.newsPicture;
-			document.getElementById(this.newsId.newsTitlePictureId+"_img").style.visibility="visible";
+			document.getElementById(this.newsId.newsTitlePictureId + "_img").src = data.newsPicture;
+			document.getElementById(this.newsId.newsTitlePictureId + "_img").style.visibility = "visible";
 		}
 		Ext.getCmp(this.newsId.newsCreateDateId).setValue(data.createDate
 				.replace("T00:00:00", ""));
@@ -356,7 +362,7 @@ newsWindows.prototype = {
 	},
 
 	submitData : function(subjectCode, newscode, callback) {
-		var scope=this;
+		var scope = this;
 		this.win.getEl().mask(i18n.mask_wait);
 		var params = this.getData();
 		params.subjectCode = subjectCode;
