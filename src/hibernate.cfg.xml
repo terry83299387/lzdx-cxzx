@@ -39,7 +39,6 @@
 	
 	<mapping resource="cn/edu/lzu/db/beans/News.hbm.xml" />
 	<mapping resource="cn/edu/lzu/db/beans/SubjectsNewsRelation.hbm.xml" />
-
-	
+	<mapping resource="cn/edu/lzu/db/beans/User.hbm.xml" />
 </session-factory>
 </hibernate-configuration>

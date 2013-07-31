@@ -1,9 +1,9 @@
 /**
  */
 Ext.Desktop.NewUser = function(grid) {
-    this.grid = grid;
+	var scope = this;
     
-    this.formPanel = new Ext.form.FormPanel({
+    var formPanel = new Ext.form.FormPanel({
         items: [{
             xtype: 'fieldset',
             title: '用户信息',
@@ -11,9 +11,9 @@ Ext.Desktop.NewUser = function(grid) {
             defaultType: 'textfield',
             labelAlign: 'center',
             labelWidth: 100,
-            items: [{ // ext-all-debug 27335
+            items: [{
                 fieldLabel: '用户类型',
-                name: 'newUserRole',
+                name: 'role',
                 xtype: "combo",
                 mode: 'local',
                 store: new Ext.data.SimpleStore({
@@ -52,34 +52,52 @@ Ext.Desktop.NewUser = function(grid) {
         }],
         buttons: [{
             text: '添加',
-            handler: this.newUser.createDelegate(this)
+            handler: function() {
+            	newUser();
+            }
         }, {
             text: '取消',
-            handler: this.close.createDelegate(this)
+            handler: function() {
+            	scope.close();
+            }
         }]
     });
-    
-    Ext.Desktop.NewUser.superclass.constructor.call(this, {
-        title: '添加新用户',
-        layout: 'fit',
-        width: 380,
-        height: 440,
-//        closeAction: 'hide',
-//        plain: true,
-//        constrain: true,
-//        modal: false,
-        items: [this.formPanel]
-    });
-};
 
-Ext.extend(Ext.Desktop.NewUser, Ext.Window, {
-    init: function() {
-    },
-    
-    newUser: function() {
-    	var scope = this;
-        var grid = this.grid;
-        var formPanel = this.formPanel;
+	var desktop = app.getDesktop();
+	var win = desktop.createWindow({
+        id: 'new-user-win',
+        title: '添加新用户',
+		width : 380,
+		height : 280,
+        iconCls: 'user',
+        shim: false,
+        animCollapse: true,
+        constrainHeader: true,
+        layout: 'fit',
+        items: formPanel
+    });
+
+	this.show = function() {
+		this.clear();
+		win.show();
+	}
+
+	this.close = function() {
+		win.close();
+	}
+
+	this.clear = function() {
+        var form = formPanel.getForm();
+
+        form.findField('userName').setValue("");
+        form.findField('password').setValue("");
+        form.findField('confirmPwd').setValue("");
+        form.findField('realName').setValue("");
+        form.findField('role').setValue("1");
+        form.findField('email').setValue("");
+	}
+
+	var newUser = function() {
         var form = formPanel.getForm();
 
         var userName = form.findField('userName').getValue();
@@ -127,7 +145,7 @@ Ext.extend(Ext.Desktop.NewUser, Ext.Window, {
             success: function(resp, opts) {
                 var responseText = Ext.util.JSON.decode(resp.responseText);
                 if (responseText.exception) {
-                    Ext.example.msg('Failure', 'Info:' + responseText.exception);
+                    Ext.Msg.alert('Failure', 'Info:' + responseText.exception);
                 } else {
                     grid.getStore().reload({
                         params: {
@@ -135,14 +153,14 @@ Ext.extend(Ext.Desktop.NewUser, Ext.Window, {
                             limit: 18
                         }
                     });
-                    Ext.example.msg('Succeed', '用户添加成功');
+                    Ext.Msg.alert('Succeed', '用户添加成功');
                     scope.close();
                 }
             },
             failure: function(resp, opts){
                 var exception = resp.statusText;
-                Ext.example.msg('Failure', 'Info:' + exception);
+                Ext.Msg.alert('Failure', 'Info:' + exception);
             }
         });
     }
-});
+};

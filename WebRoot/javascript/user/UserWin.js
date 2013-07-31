@@ -162,7 +162,8 @@ Ext.Desktop.UserWin.prototype = {
 
     newUser: function(btn) {
 		var win = new Ext.Desktop.NewUser(this.grid);
-		win.show(btn);
+		win.show();
+		// TODO
     },
 
     refreshUserList: function(btn) {
