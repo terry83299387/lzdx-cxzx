@@ -10,15 +10,16 @@ Ext.Desktop.NewUser = function(grid) {
             autoHeight: true,
             defaultType: 'textfield',
             labelAlign: 'center',
-            items: [{
+            labelWidth: 100,
+            items: [{ // ext-all-debug 27335
                 fieldLabel: '用户类型',
+                name: 'newUserRole',
                 xtype: "combo",
-                name: 'role',
+                mode: 'local',
                 store: new Ext.data.SimpleStore({
                     fields: ['text', 'value'],
                     data: [["admin" , "1"], ["common user", "2"]]
                 }),
-                mode: 'local',
                 displayField: 'text',
                 valueField: 'value',
                 value : "1",
@@ -63,11 +64,10 @@ Ext.Desktop.NewUser = function(grid) {
         layout: 'fit',
         width: 380,
         height: 440,
-        closeAction: 'hide',
-        plain: true,
-        constrain: true,
-        modal: true,
-        layout: 'fit',
+//        closeAction: 'hide',
+//        plain: true,
+//        constrain: true,
+//        modal: false,
         items: [this.formPanel]
     });
 };
