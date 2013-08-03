@@ -15,14 +15,16 @@ Ext.Desktop.NewUser = function(grid) {
                 fieldLabel: '用户类型',
                 name: 'role',
                 xtype: "combo",
-                mode: 'local',
                 store: new Ext.data.SimpleStore({
                     fields: ['text', 'value'],
-                    data: [["admin" , "1"], ["common user", "2"]]
+                    data: (currentUser.role == "0"
+                    	? [["管理员" , "1"], ["普通用户", "2"]]
+                    	: [["普通用户", "2"]])
                 }),
+                mode: 'local',
                 displayField: 'text',
                 valueField: 'value',
-                value : "1",
+                value : (currentUser.role == 0 ? "1" : "2"),
                 readOnly: true,
                 triggerAction: 'all',
                 width: 200
@@ -78,7 +80,7 @@ Ext.Desktop.NewUser = function(grid) {
     });
 
 	this.show = function() {
-		this.clear();
+		this.reset();
 		win.show();
 	}
 
@@ -86,14 +88,13 @@ Ext.Desktop.NewUser = function(grid) {
 		win.close();
 	}
 
-	this.clear = function() {
+	this.reset = function() {
         var form = formPanel.getForm();
 
         form.findField('userName').setValue("");
         form.findField('password').setValue("");
         form.findField('confirmPwd').setValue("");
         form.findField('realName').setValue("");
-        form.findField('role').setValue("1");
         form.findField('email').setValue("");
 	}
 
@@ -145,7 +146,7 @@ Ext.Desktop.NewUser = function(grid) {
             success: function(resp, opts) {
                 var responseText = Ext.util.JSON.decode(resp.responseText);
                 if (responseText.exception) {
-                    Ext.Msg.alert('Failure', 'Info:' + responseText.exception);
+                    Ext.Msg.alert('错误', responseText.exception);
                 } else {
                     grid.getStore().reload({
                         params: {
@@ -153,13 +154,13 @@ Ext.Desktop.NewUser = function(grid) {
                             limit: 18
                         }
                     });
-                    Ext.Msg.alert('Succeed', '用户添加成功');
+//                    Ext.Msg.alert('成功', '用户添加成功');
                     scope.close();
                 }
             },
             failure: function(resp, opts){
                 var exception = resp.statusText;
-                Ext.Msg.alert('Failure', 'Info:' + exception);
+                Ext.Msg.alert('错误', exception);
             }
         });
     }

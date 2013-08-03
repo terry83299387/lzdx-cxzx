@@ -6,7 +6,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 	<HEAD>
-		<TITLE>Xfinity</TITLE>
+		<TITLE>?Title?</TITLE>
 		<META http-equiv=Content-Type content="text/html; charset=UTF-8">
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 		<LINK href="shared/login/global.css" type=text/css rel=STYLESHEET>
@@ -22,19 +22,48 @@
 		<script type="text/javascript" src="javascript/cookieUtil.js"></script>
 
 		<script type="text/javascript" >
-			function check(){	
-			 document.loginForm.submit();	
-			 return true;
+			function _key() {
+				if (document.addEventListener) { // Firefox
+					document.addEventListener("keypress", fireFoxHandler, true);
+				} else {
+					if (event.keyCode == 13) {
+						check();
+					}
+				}
+			}
+
+			function fireFoxHandler(event) {
+				if (event.keyCode == 13)
+					check();
+			}
+
+			function check() {
+				var frm = document.loginForm;
+
+				if (frm.userName.value == "") {
+					alert('<s:text name="scc.src.portal.user.nameisnull"/>');
+					document.loginForm.userName.focus();
+					return false;
+				} else if (frm.password.value == "") {
+					alert('<s:text name="scc.src.portal.password.notnull"/>');
+				    frm.password.focus(); 
+				     return false;
+				} else if (frm.rand.value=="") {
+					alert('<s:text name="scc.src.portal.rand.notnull"/>');
+				    frm.rand.focus();
+				    return false;
+				} else {
+					document.loginForm.submit();
+					return true;
+				}
 			}
 		</script>
-
 	</HEAD>
 	<BODY bgColor=#ffffff leftMargin=0 topMargin=0 rightMargin=0
-		marginheight="0" marginwidth="0"
-		onload="javascript:document.loginForm.userName.focus();">
-
+			marginheight="0" marginwidth="0"
+			onload="javascript:document.loginForm.userName.focus();"
+			onkeydown="_key()">
 		<table>
-			
 			<table>
 				<s:i18n name="globalMessage">
 					<CENTER>
@@ -96,18 +125,18 @@
 																						<strong><s:property
 																								value="%{getText('scc.form.label.common.login')}" />
 																					</strong> </font>
-
 																				</TD>
 																			</TR>
 																			<TR>
 																				<TD class=content_gray_bold>
 																					<div class="yahei-font">
-																						<font style='FONT-FAMILY: "Microsoft Yahei"'>
+																						<%--<font style='FONT-FAMILY: "Microsoft Yahei"'>
 																							<s:property
 																								value="%{getText('scc.form.label.common.login.prompt')}" />
-																								<input type='hidden' id="exception" value='<s:property value="#session.exception" />' />
+																								--%><input type='hidden' id="exception" value='<s:property value="#session.exception" />' />
 																							<font color="red"><s:property
-																									value="#session.exception" /> </font> </font>
+																									value="#session.exception" /></font>
+																						<%--</font>--%>
 																					</div>
 																				</TD>
 																			</TR>
@@ -118,10 +147,8 @@
 																		action="login.action">
 																		<TABLE cellSpacing=0 cellPadding=0 width=318 border=0>
 																			<TBODY>
-														
 																				<TR>
 																					<TD align=left>
-
 																						<SPAN class=content_black_bold><font
 																							style='FONT-FAMILY: "Microsoft Yahei"'><s:property
 																									value="%{getText('scc.form.label.common.user.name')}" />
@@ -184,12 +211,11 @@
 																					<TD height=8>
 																					</TD>
 																				</TR>
-																				
 																				<TR>
 																					<TD height=8>
 																					</TD>
 																				</TR>
-																				<TR>
+																				<%--<TR>
 																					<TD align=left>
 																						
 																						<font style='FONT-FAMILY: "Microsoft Yahei"'>
@@ -199,7 +225,7 @@
 																						</font>
 																					</TD>
 																				</TR>
-																				<TR>
+																				--%><TR>
 																					<BR>
 																					<TD height=10>
 																						<IMG height=10 alt=""
@@ -213,7 +239,7 @@
 																								style="FONT-FAMILY: Microsoft Yahei"
 																								value='<s:property value="%{getText('scc.form.button.common.login')}"/>'
 																								 onclick="return check() "/> </span>
-																						<font style='FONT-FAMILY: "Microsoft Yahei"'><A
+																						<%--<font style='FONT-FAMILY: "Microsoft Yahei"'><A
 																							href="#"
 																							onClick='window.location.href="toForgetPassword.do?request_locale="+document.getElementById("langSelecter").value'><s:property
 																									value="%{getText('scc.form.label.common.password.forget')}" />
@@ -223,7 +249,7 @@
 																							onClick='window.location.href="toRegister.do?request_locale="+document.getElementById("langSelecter").value'><s:property
 																									value="%{getText('scc.form.button.common.register')}" />
 																						</A> </font>
-																					</TD>
+																					--%></TD>
 																				</TR>
 																				<TR>
 																					<TD noWrap align=right>
@@ -268,13 +294,9 @@
 																		<img src="shared/login/tree.gif" border="0" />
 																	</div>
 																</TD>
-
 															</TR>
 															<tr>
-
-															
 															</tr>
-
 														</TBODY>
 													</TABLE>
 												</DIV>
@@ -305,9 +327,7 @@
 										<FONT class=disclaimer
 											face="Geneva, Verdana, Arial, Helvetica" color=#999999 size=1>Copyright
 											© 2010 Shanghai Supercomputer Center All Rights Reserved</FONT>
-
 									</TD>
-
 								</TR>
 								<TR>
 									<TD align=middle>
@@ -317,7 +337,6 @@
 										<BR>
 										<BR>
 									</TD>
-
 								</TR>
 								<TR>
 									<TD align=middle>
@@ -331,7 +350,6 @@
 										<BR>
 										<BR>
 									</TD>
-
 								</TR>
 							</TBODY>
 						</TABLE>
@@ -340,7 +358,6 @@
 				<iframe src="loadjs.htm" height="0px" style=" border:0px"></iframe>
 	</BODY>
 </HTML>
-
 <%
 	// clean exception in session
 	request.getSession().setAttribute("exception", "");

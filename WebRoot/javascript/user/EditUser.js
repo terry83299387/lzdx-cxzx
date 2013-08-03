@@ -1,40 +1,58 @@
 /**
  */
-Ext.scc.EditAccountUser = function(grid, record) {
-    this.grid = grid;
-    this.record = record;
+Ext.Desktop.EditUser = function(grid, record) {
+	var scope = this;
 
-    this.formPanel = new Ext.form.FormPanel({
+    var formPanel = new Ext.form.FormPanel({
         items: [{
             xtype: 'fieldset',
-            title: 'ç”¨æˆ·ä¿¡æ¯',
+            title: 'ÓÃ»§ĞÅÏ¢',
             autoHeight: true,
             defaultType: 'textfield',
             labelAlign: 'center',
+            labelWidth: 100,
             items: [{
-                fieldLabel: 'ç”¨æˆ·å',
+                fieldLabel: 'ÓÃ»§Ãû',
                 name: 'userName',
+                width: 200,
                 value : record.get("userName"),
-                width: 200
+                disabled : true
             }, {
-                fieldLabel: 'ä¿®æ”¹å¯†ç ',
+                fieldLabel: 'ÃÜÂë',
                 name: 'password',
                 inputType: "password",
-                value : record.get("password"),
-                width: 200
+                width: 200,
+                value : record.get("password")
             }, {
-                fieldLabel: 'ç¡®è®¤å¯†ç ',
+                fieldLabel: 'È·ÈÏÃÜÂë',
                 name: 'confirmPwd',
                 inputType: "password",
-                value : record.get("password"),
-                width: 200
+                width: 200,
+                value : record.get("password")
             }, {
-                fieldLabel: 'çŠ¶æ€',
+                fieldLabel: 'ÓÃ»§ÀàĞÍ',
+                name: 'role',
                 xtype: "combo",
-                name: 'status',
                 store: new Ext.data.SimpleStore({
                     fields: ['text', 'value'],
-                    data: [["å¯ç”¨" , "0"], ["ç¦ç”¨", "1"]]
+                    data: (currentUser.role == "0"
+                    	? [["¹ÜÀíÔ±" , "1"], ["ÆÕÍ¨ÓÃ»§", "2"]]
+                    	: [["ÆÕÍ¨ÓÃ»§", "2"]])
+                }),
+                mode: 'local',
+                displayField: 'text',
+                valueField: 'value',
+                value : record.get("role"),
+                readOnly: true,
+                triggerAction: 'all',
+                width: 200
+            }, {
+                fieldLabel: 'ÓÃ»§×´Ì¬',
+                name: 'status',
+                xtype: "combo",
+                store: new Ext.data.SimpleStore({
+                    fields: ['text', 'value'],
+                    data: [["Õı³£" , "1"], ["½ûÓÃ", "0"]]
                 }),
                 mode: 'local',
                 displayField: 'text',
@@ -44,132 +62,117 @@ Ext.scc.EditAccountUser = function(grid, record) {
                 triggerAction: 'all',
                 width: 200
             }, {
-                fieldLabel: 'å…¬å¸åç§°',
-                name: 'companyName',
-                value : record.get("companyName"),
-                width: 200
-            }, {
-                fieldLabel: 'å…¬å¸ç±»å‹',
-                name: 'companyType',
-                value : record.get("companyType"),
-                width: 200
-            }, {
-                fieldLabel: 'å…¬å¸ç”µè¯',
-                name: 'officeTel',
-                value : record.get("officeTel"),
-                width: 200
-            }, {
-                fieldLabel: 'å…¬å¸åœ°å€',
-                name: 'companyAddress',
-                value : record.get("companyAddress"),
-                width: 200
-            }, {
-                fieldLabel: 'å…¬å¸é‚®ç¼–',
-                name: 'postcode',
-                value : record.get("postcode"),
-                width: 200
-            }, {
-                fieldLabel: 'ä¼ çœŸ',
-                name: 'fax',
-                value : record.get("fax"),
-                width: 200
+                fieldLabel: 'ÕæÊµĞÕÃû',
+                name: 'realName',
+                width: 200,
+                value : record.get("realName")
             }, {
                 fieldLabel: 'email',
                 name: 'email',
-                value : record.get("email"),
-                width: 200
+                width: 200,
+                value : record.get("email")
 			}]
         }],
         buttons: [{
-            text: 'ç¡®å®š',
-            handler: this.editAccountUser.createDelegate(this)
+            text: 'È·¶¨',
+            handler: function() {
+            	editUser();
+            }
         }, {
-            text: 'å–æ¶ˆ',
-            handler: this.close.createDelegate(this)
+            text: 'È¡Ïû',
+            handler: function() {
+            	scope.close();
+            }
         }]
     });
-    
-    Ext.scc.EditAccountUser.superclass.constructor.call(this, {
-        title: 'ä¿®æ”¹ç”¨æˆ·',
-        layout: 'fit',
-        width: 380,
-        height: 460,
-        closeAction: 'hide',
-        plain: true,
-        constrain: true,
-        modal: true,
-        layout: 'fit',
-        items: [this.formPanel]
-    });
-};
 
-Ext.extend(Ext.scc.EditAccountUser, Ext.Window, {
-    init: function() {
-    },
-    
-    editAccountUser: function() {
-    	var scope = this;
-        var grid = this.grid;
-        var formPanel = this.formPanel;
+	var desktop = app.getDesktop();
+	var win = desktop.createWindow({
+        id: 'edit-user-win',
+        title: '±à¼­ÓÃ»§',
+		width : 380,
+		height : 310,
+        iconCls: 'user',
+        shim: false,
+        animCollapse: true,
+        constrainHeader: true,
+        layout: 'fit',
+        items: formPanel
+    });
+
+	this.show = function() {
+		this.reset();
+		win.show();
+	}
+
+	this.close = function() {
+		win.close();
+	}
+
+	this.reset = function() {
+        var form = formPanel.getForm();
+
+        form.findField('userName').setValue(record.get("userName"));
+        form.findField('password').setValue(record.get("password"));
+        form.findField('confirmPwd').setValue(record.get("password"));
+        form.findField('role').setValue(record.get("role"));
+        form.findField('status').setValue(record.get("status"));
+        form.findField('realName').setValue(record.get("realName"));
+        form.findField('email').setValue(record.get("email"));
+	}
+
+	var editUser = function() {
         var form = formPanel.getForm();
 
         var userName = form.findField('userName').getValue();
         var password = form.findField('password').getValue();
         var confirmPwd = form.findField('confirmPwd').getValue();
+        var realName = form.findField('realName').getValue();
+        var role = form.findField('role').getValue();
         var status = form.findField('status').getValue();
-        var companyName = form.findField('companyName').getValue();
-        var companyType = form.findField('companyType').getValue();
-        var officeTel = form.findField('officeTel').getValue();
-        var companyAddress = form.findField('companyAddress').getValue();
-        var postcode = form.findField('postcode').getValue();
-        var fax = form.findField('fax').getValue();
         var email = form.findField('email').getValue();
 
-        // æ£€æŸ¥ç”¨æˆ·åæ ¼å¼æ˜¯å¦æ­£ç¡®
+        // check userName
 		if (userName == "") {
-			Ext.Msg.alert('é”™è¯¯', 'ç”¨æˆ·åä¸èƒ½ä¸ºç©º');
+			Ext.Msg.alert('Error', 'userName is empty');
             return;
 		}
 		var userNamePattern = /^[a-zA-Z0-9_]+$/;
 		if (!userNamePattern.test(userName)) {
-			Ext.Msg.alert('é”™è¯¯', 'ç”¨æˆ·ååªèƒ½ç”±å­—æ¯ã€æ•°å­—å’Œä¸‹åˆ’çº¿ï¼ˆ_ï¼‰ç»„æˆ');
+			Ext.Msg.alert('Error', '×ÖÄ¸¡¢Êı×ÖºÍÏÂ»®Ïß');
             return;
 		}
 
-        // æ£€æŸ¥å¯†ç æ ¼å¼æ˜¯å¦æ­£ç¡®ï¼Œä¸¤æ¬¡å¯†ç æ˜¯å¦ä¸€è‡´
+        // check password
 		if (password == "") {
-			Ext.Msg.alert('é”™è¯¯', 'å¯†ç ä¸èƒ½ä¸ºç©º');
+			Ext.Msg.alert('Error', 'password is empty');
             return;
 		}
 		var pwdPattern = /^[a-zA-Z0-9!@#$%^&*()_+=\-[\];:'",<.>\/?~`\\|]+$/;
 		if (!pwdPattern.test(password)) {
-			Ext.Msg.alert('é”™è¯¯', 'å¯†ç å¿…é¡»ç”±å­—æ¯æ•°å­—å’Œç‰¹æ®Šç¬¦å·ç»„æˆ');
+			Ext.Msg.alert('Error', '×ÖÄ¸¡¢Êı×ÖºÍÌØÊâ·ûºÅ');
             return;
 		}
 		if (password != confirmPwd) {
-			Ext.Msg.alert('é”™è¯¯', 'ä¸¤æ¬¡å¯†ç ä¸ä¸€è‡´');
+			Ext.Msg.alert('Error', 'Á½´ÎÃÜÂë²»Ò»ÖÂ');
             return;
 		}
 
         Ext.Ajax.request({
-            url: 'editAccountUser.action',
+            url: 'editUser.action',
             params: {
-            	userCode: scope.record.get("userCode"),
-            	userName: userName,
-            	password: password,
+            	userCode : record.get("userCode"),
+            	userName : userName,
+            	password : password,
+            	realName : realName,
+            	role : role,
             	status : status,
-            	companyName : companyName,
-            	companyType : companyType,
-            	officeTel : officeTel,
-            	companyAddress : companyAddress,
-            	postcode : postcode,
-            	fax : fax,
             	email : email
             },
             success: function(resp, opts) {
                 var responseText = Ext.util.JSON.decode(resp.responseText);
                 if (responseText.exception) {
-                    Ext.example.msg('å¤±è´¥ä¿¡æ¯', 'å¤±è´¥åŸå› ï¼š' + responseText.exception);
+                    Ext.Msg.alert('´íÎó', responseText.exception);
                 } else {
                     grid.getStore().reload({
                         params: {
@@ -177,14 +180,14 @@ Ext.extend(Ext.scc.EditAccountUser, Ext.Window, {
                             limit: 18
                         }
                     });
-                    Ext.example.msg('æˆåŠŸä¿¡æ¯', 'ä¿®æ”¹ç”¨æˆ·ä¿¡æ¯æˆåŠŸ');
+//                    Ext.Msg.alert('³É¹¦', 'ÓÃ»§ĞŞ¸Ä³É¹¦');
                     scope.close();
                 }
             },
             failure: function(resp, opts){
                 var exception = resp.statusText;
-                Ext.example.msg('å¤±è´¥ä¿¡æ¯', 'å¤±è´¥åŸå› ï¼š' + exception);
+                Ext.Msg.alert('´íÎó', exception);
             }
         });
     }
-});
+};

@@ -11,64 +11,66 @@ Ext.Desktop.UserWin.prototype = {
             dataIndex: 'userCode',
             hidden: true
         }, {
-            header: 'userName',
+            header: '用户名',
             dataIndex: 'userName',
-            width: 10
+            width: 80
 		}, {
-            header: 'password',
+            header: '密码',
             dataIndex: 'password',
-            width: 10,
+            width: 20,
 	        renderer: function(value) {
 	        	return "*******";
 	        },
             hidden: true
 		}, {
-            header: 'realName',
+            header: '真实姓名',
             dataIndex: 'realName',
-            width: 10
+            width: 80
 		}, {
-            header: 'role',
+            header: '角色',
             dataIndex: 'role',
 	        renderer: function(value) {
-	        	switch (value) { // TODO i18n
+	        	switch (value) {
 	        		case 0:
-	        			return 'super admin';
+	        			return '超级管理员';
 	        		case 1:
-	        			return 'admin';
+	        			return '管理员';
 	        		case 2:
-	        			return 'common user';
+	        			return '普通用户';
 	        		default:
-	        			return 'invalid user role';
+	        			return '无效';
 	        	}
-	        }
+	        },
+            width: 60
         }, {
-            header: 'status',
+            header: '状态',
             dataIndex: 'status',
 	        renderer: function(value) {
-	        	switch (value) { // TODO i18n
+	        	switch (value) {
 	        		case 0:
-	        			return 'invalid';
+	        			return '禁用';
 	        		case 1:
-	        			return 'valid';
+	        			return '正常';
 	        		default:
-	        			return 'invalid user status';
+	        			return '未知';
 	        	}
-	        }
+	        },
+            width: 60
         }, {
             header: 'Email',
             dataIndex: 'email',
-            width: 25
+            width: 120
         }, {
-            header: 'createDate',
+            header: '创建日期',
             dataIndex: 'createDate',
-            width: 15,
+            width: 60,
             type: "date",
             renderer: Ext.util.Format.dateRenderer('Y年m月d日')
         }]);
 
         var userListReader = new Ext.data.JsonReader({
             totalProperty: "size",
-            root: "userList",
+            root: "users",
             fields: [{
                 name: 'userCode'
             }, {
@@ -163,7 +165,6 @@ Ext.Desktop.UserWin.prototype = {
     newUser: function(btn) {
 		var win = new Ext.Desktop.NewUser(this.grid);
 		win.show();
-		// TODO
     },
 
     refreshUserList: function(btn) {
@@ -174,11 +175,38 @@ Ext.Desktop.UserWin.prototype = {
 		var grid = this.grid;
 		var selRow = grid.getSelectionModel().getSelected();
 
-		var win = new Ext.Desktop.EditUser(grid, selRow);
-		win.show(btn);
+		var win = new Ext.Desktop.EditUser(this.grid, selRow);
+		win.show();
 	},
 
 	cancelUser: function(btn) {
-		// TODO
+        var grid = this.grid;
+		var selRow = grid.getSelectionModel().getSelected();
+
+        Ext.Msg.confirm('信息', '确定要删除该用户吗？', function(btn) {
+            if (btn != 'yes') {
+            	return;
+            }
+
+            Ext.Ajax.request({
+                url: 'deleteUser.action',
+                params: {
+                    userCode: selRow.get('userCode')
+                },
+                success: function(resp, opts){
+                    var responseText = Ext.util.JSON.decode(resp.responseText);
+                    if (responseText.exception) {
+                        Ext.example.msg('错误', responseText.exception);
+                    } else {
+                        grid.getStore().reload();
+//                        Ext.example.msg('成功', '成功');
+                    }
+                },
+                failure: function(resp, opts){
+                    var exception = resp.statusText;
+                    Ext.example.msg('错误', exception);
+                }
+            });
+        });
 	}
 }
