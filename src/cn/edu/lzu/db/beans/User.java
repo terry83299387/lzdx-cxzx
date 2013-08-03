@@ -8,6 +8,13 @@ public class User implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1564605583257170781L;
 
+	public static final int SUPER_ADMIN = 0;
+	public static final int ADMIN = 1;
+	public static final int COMMON_USER = 2;
+
+	public static final int INVALID_STATUS = 0;
+	public static final int VALID_STATUS = 1;
+
 	private String userCode;
 	private String userName;
 	private String password;

@@ -1,19 +1,20 @@
 package cn.edu.lzu.db.beans;
 
 import java.io.Serializable;
+import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 import cn.edu.lzu.db.HibernateUtil;
 
 public class UserDao {
 
-	public User addUser(User user) throws Exception {
-		if (user == null) {
-			throw new Exception("Register user is null");
-		}
-
+	public User addUser(User user) throws HibernateException {
 		try {
 			Session sess = HibernateUtil.currentSession();
 			Transaction t = sess.beginTransaction();
@@ -26,54 +27,94 @@ public class UserDao {
 		}
 	}
 
-//	public News getNews(String code) {
-//		try {
-//			Session sess = HibernateUtil.currentSession();
-//			java.util.List<News> list = sess.createCriteria(News.class)
-//					.add(Restrictions.eq("newsCode", code)).list();
-//			News news;
-//			if (list.size() == 1) {
-//				news = list.get(0);
-//				return news;
-//			} else {
-//				return null;
-//			}
-//		} finally {
-//			HibernateUtil.closeSession();
-//		}
-//	}
-//
-//	public void updateNews(News news) throws Exception {
-//		if (news == null) {
-//			throw new Exception("Register subject is null");
-//		}
-//		try {
-//			Session sess = HibernateUtil.currentSession();
-//			Transaction t = sess.beginTransaction();
-//			sess.update(news);
-//			t.commit();
-//		} finally {
-//			HibernateUtil.closeSession();
-//		}
-//	}
-//
-//	public void delNews(String newsid) throws Exception {
-//		if (newsid == null) {
-//			throw new Exception("newsid is null");
-//		}
-//
-//		try {
-//			Session sess = HibernateUtil.currentSession();
-//			Transaction t = sess.beginTransaction();
-//
-//			String hql = "delete News a where a.newsCode=?";
-//			Query query = sess.createQuery(hql);
-//			query.setString(0, newsid);
-//			query.executeUpdate();
-//
-//			t.commit();
-//		} finally {
-//			HibernateUtil.closeSession();
-//		}
-//	}
+	@SuppressWarnings("unchecked")
+	public List<User> listUsers(int types) throws HibernateException {
+		try {
+			Session sess = HibernateUtil.currentSession();
+			Transaction t = sess.beginTransaction();
+
+			Criteria criteria = sess.createCriteria(User.class);
+
+			Criterion criterion1 = null, criterion2 = null;
+			if ((types & User.ADMIN) != 0) {
+				criterion1 = Restrictions.eq("role", User.ADMIN);
+			}
+			if ((types & User.COMMON_USER) != 0) {
+				criterion2 = Restrictions.eq("role", User.COMMON_USER);
+				if (criterion1 != null) {
+					criterion1 = Restrictions.or(criterion1, criterion2);
+				} else {
+					criterion1 = criterion2;
+				}
+			}
+			if (criterion1 != null) {
+				criteria.add(criterion1);
+			}
+			List<User> list = criteria.list();
+			t.commit();
+
+			return list;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	public User getUser(String userCode) throws HibernateException {
+		try {
+			Session sess = HibernateUtil.currentSession();
+			Transaction t = sess.beginTransaction();
+
+			Criteria criteria = sess.createCriteria(User.class);
+			Criterion criterion = Restrictions.idEq(userCode);
+			criteria.add(criterion);
+			User user = (User) criteria.uniqueResult();
+			t.commit();
+
+			return user;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<User> getUserByName(String userName) throws HibernateException {
+		try {
+			Session sess = HibernateUtil.currentSession();
+			Transaction t = sess.beginTransaction();
+
+			Criteria criteria = sess.createCriteria(User.class);
+			Criterion criterion = Restrictions.eq("userName", userName);
+			criteria.add(criterion);
+			List<User> users = criteria.list();
+			t.commit();
+
+			return users;
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	public void modifyUser(User user) throws HibernateException {
+		try {
+			Session sess = HibernateUtil.currentSession();
+			Transaction ts = sess.beginTransaction();
+
+			sess.update(user);
+
+			ts.commit();
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	public void deleteUser(User user) throws HibernateException {
+		try {
+			Session sess = HibernateUtil.currentSession();
+			Transaction t = sess.beginTransaction();
+			sess.delete(user);
+			t.commit();
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
 }

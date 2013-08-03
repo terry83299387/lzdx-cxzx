@@ -4,9 +4,27 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="user" extends="json-default">
+		<action name="listUsers"
+			class="cn.edu.lzu.common.action.UserAction"
+			method="listUsers">
+			<result type="json" />
+			<result name="error" type="json" />
+		</action>
 		<action name="newUser"
 			class="cn.edu.lzu.common.action.UserAction"
 			method="newUser">
+			<result type="json" />
+			<result name="error" type="json" />
+		</action>
+		<action name="editUser"
+			class="cn.edu.lzu.common.action.UserAction"
+			method="editUser">
+			<result type="json" />
+			<result name="error" type="json" />
+		</action>
+		<action name="deleteUser"
+			class="cn.edu.lzu.common.action.UserAction"
+			method="deleteUser">
 			<result type="json" />
 			<result name="error" type="json" />
 		</action>
