@@ -669,7 +669,9 @@
        	win_close:'<s:text name="scc.window.title.close"/>',
        	
        	
-       		file_title_preview:'<s:text name="lzdx.file.title.preview"/>',
+       	file_title_preview:'<s:text name="lzdx.file.title.preview"/>',
+       	editor_file_adv:'<s:text name="lzdx.editor.title.fileadv"/>',
+       		
        		
        	tb_store:'<s:text name="lzdx.window.store"/>',
        		tb_minimize:'<s:text name="lzdx.window.minimize"/>',
@@ -706,8 +708,8 @@
        		page_management:'<s:text name="lzdx.page.management"/>',
        		
        		news_handler_submit_close:'<s:text name="lzdx.news.handler.submitclose"/>',
-       		news_handler_submit_new:'<s:text name="lzdx.page.handler.submitnew"/>',
-       		news_handler_submit_nothing:'<s:text name="lzdx.page.handler.submitnothing"/>'
+       		news_handler_submit_new:'<s:text name="lzdx.news.handler.submitnew"/>',
+       		select_one_news:'<s:text name="lzdx.news.selectonenews"/>'
 		
 	}
 	Ext.MessageBox.buttonText.yes = i18n.confirm;
