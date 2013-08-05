@@ -1,6 +1,7 @@
 package cn.edu.lzu.common.file.action;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -29,6 +30,16 @@ public class ShowFileContent extends ActionSupport {
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	// private HttpServletResponse response;
+
+	private String fileFileName;
+	
+	public String getFileFileName() {
+		return fileFileName;
+	}
+
+	public void setFileFileName(String fileFileName) {
+		this.fileFileName = fileFileName;
+	}
 
 	private InputStream inputStream;
 
@@ -139,6 +150,27 @@ public class ShowFileContent extends ActionSupport {
 
 	private Log log = LogFactory.getLog("sccportal.global");
 
+	public String downloadFile()
+	{
+		
+		
+		try {
+			init();
+			String fileName= request.getParameter("filename");
+			String filePath=physicalBaseDir + fileName;
+			java.io.File file=new java.io.File(filePath);
+			this.fileFileName=file.getName();
+			inputStream=new java.io.BufferedInputStream(new java.io.FileInputStream(file));
+		} catch (Exception e) {
+			fileInfo.setException(e.getMessage());
+			log.error(e.getMessage());
+			return ERROR;
+		}
+		
+		return SUCCESS;
+	}
+	
+	
 	public String showFile() {
 
 		
