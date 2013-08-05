@@ -272,7 +272,7 @@ TreePanel.prototype = {
 				autoScroll : true,
 				items : [i18n.select_language, languageComboBox, {
 					text : i18n.news_add,
-					iconCls : "hd_006",
+					iconCls : "hd_017",
 					handler : function() {
 						scope.addNews(target, languageComboBox, sm, function() {
 									store.load({
@@ -287,7 +287,7 @@ TreePanel.prototype = {
 
 				}, {
 					text : i18n.news_edit,
-					iconCls : "hd_006",
+					iconCls : "hd_002",
 					handler : function() {
 						scope.editNews(target, languageComboBox, sm,
 								function() {
@@ -303,7 +303,7 @@ TreePanel.prototype = {
 
 				}, {
 					text : i18n.news_del,
-					iconCls : "hd_006",
+					iconCls : "jB_02",
 					handler : function() {
 						scope.delNews(target, languageComboBox, sm);
 					}
@@ -312,7 +312,7 @@ TreePanel.prototype = {
 
 					}, {
 					text : i18n.news_refresh,
-					iconCls : "hd_006",
+					iconCls : "hd_015",
 					handler : function() {
 
 						// pagingToolBar.doLoad({
@@ -465,6 +465,10 @@ TreePanel.prototype = {
 	},
 
 	editNews : function(node, languageComboBox, sm) {
+		if (sm.getSelections().length != 1) {
+			Ext.MessageBox.alert(i18n.error, i18n.select_one_news);
+			return;
+		}
 		var newsWindow = new newsWindows(node, languageComboBox, sm,
 				scope.refreshNews);
 
@@ -487,50 +491,68 @@ TreePanel.prototype = {
 	},
 
 	delNews : function(node, languageComboBox, sm) {
-		var scope=this;
-		var newsCodes = "";
-		for (var i = 0; i < sm.getSelections().length; i++) {
-			if (i == 0) {
-				newsCodes = sm.getSelections()[i].data.newsCode;
+		Ext.Msg.buttonText.yes = i18n.confirm;
+		Ext.Msg.buttonText.no = i18n.no;
+		var scope = this;
+		Ext.MessageBox.show({
+					title : i18n.prompt,
+					msg : i18n.news_del+"?",
+					buttons : Ext.Msg.YESNO,
+					icon : Ext.Msg.WARNIN,
+					scope : scope,
+					fn : function(btn) {
 
-			} else {
-				newsCodes = newsCodes + ","
-						+ sm.getSelections()[i].data.newsCode;
-			}
-		}
-		if (newsCodes == "") {
-			return;
-		}
+						if (btn == 'yes') {
 
-		var gridPanel = Ext.getCmp(node.id + "_grid");
+							
+							var newsCodes = "";
+							for (var i = 0; i < sm.getSelections().length; i++) {
+								if (i == 0) {
+									newsCodes = sm.getSelections()[i].data.newsCode;
 
-		gridPanel.getEl().mask(i18n.mask_wait);
-		Ext.Ajax.request({
-					url : 'deleteNews.action',
-					params : {
-						newsCodes : newsCodes
+								} else {
+									newsCodes = newsCodes
+											+ ","
+											+ sm.getSelections()[i].data.newsCode;
+								}
+							}
+							if (newsCodes == "") {
+								return;
+							}
 
-					},
-					success : function(resp, opts) {
-						var responseObject = Ext.util.JSON
-								.decode(resp.responseText);
-						scope.refreshNews(node);
-//						gridPanel.store.load({
-//									params : {
-//										start : gridPanel.pagingbar.cursor,
-//										limit : gridPanel.pagingbar.limit
-//									}
-//								});
+							var gridPanel = Ext.getCmp(node.id + "_grid");
 
-						gridPanel.getEl().unmask();
+							gridPanel.getEl().mask(i18n.mask_wait);
+							Ext.Ajax.request({
+										url : 'deleteNews.action',
+										params : {
+											newsCodes : newsCodes
 
-					},
-					failure : function(resp, opts) {
-						Ext.MessageBox.alert(i18n.error, "delete news error!");
-						gridPanel.getEl().unmask();
+										},
+										success : function(resp, opts) {
+											var responseObject = Ext.util.JSON
+													.decode(resp.responseText);
+											scope.refreshNews(node);
+											// gridPanel.store.load({
+											// params : {
+											// start :
+											// gridPanel.pagingbar.cursor,
+											// limit : gridPanel.pagingbar.limit
+											// }
+											// });
+
+											gridPanel.getEl().unmask();
+
+										},
+										failure : function(resp, opts) {
+											Ext.MessageBox.alert(i18n.error,
+													"delete news error!");
+											gridPanel.getEl().unmask();
+										}
+									});
+						}
 					}
 				});
-
 	}
 
 }

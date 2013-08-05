@@ -74,7 +74,7 @@ var FileSeletor = function(fileWinId,sourceId,fileSelectedFunc) {
 }
 
 
-var TinymceFileSeletor = function(editor,defaultEditorHandler) {
+var TinymceFileSeletor = function(editor,path,defaultEditorHandler,defaultInsertContent) {
 	var sourceId=editor.id;
 	var fileWinId = sourceId + "-file-win";
 	var filePanelid = sourceId + '-file-panel';
@@ -89,6 +89,7 @@ var TinymceFileSeletor = function(editor,defaultEditorHandler) {
 
 				editor : editor,
 				defaultEditorHandler:defaultEditorHandler,
+				fileSelectedFunc:defaultInsertContent,
 				clusterIp : window.location.hostname,
 				currentPath : "/homefiles",
 				workdir : "/homefiles",
@@ -97,10 +98,9 @@ var TinymceFileSeletor = function(editor,defaultEditorHandler) {
 				fileWinId : fileWinId,
 
 				// id : 'FormPanel',
-
 				layout : 'fit',
 				autoScroll : true,
-				selectionMode : false,
+				selectionMode : true,
 				beforeClosedFunction : null
 
 			});
@@ -143,5 +143,5 @@ var TinymceFileSeletor = function(editor,defaultEditorHandler) {
 	win.show();
 
 	FileMngGlobal.registeredToGlobalFileWindow(filePanel, win, null, null);
-	filePanel.firstLoad();
+	filePanel.firstLoad(path);
 }

@@ -93,11 +93,7 @@ Ext.apply(filePanel_1, fileSupport, {
 													focus : true
 												}]),
 								text : i18n.btn_refresh
-							},  {
-								id : this.fileWinId + 'menu_dos2unix',
-								handler : this.dos2unix.createDelegate(this),
-								text : i18n.menu_dos2unix
-							}, '-', {
+							},  '-', {
 								text : i18n.menu_new,
 								id : this.fileWinId + 'menu_new',
 								menu : [{
@@ -1763,6 +1759,9 @@ Ext.apply(templateRemoteFilePanel_1, fileSupport, {
 		var selFileNames = '';
 		var selFilePath = '';
 		var value = this.currentdir;
+		if (value.indexOf("/") == 0) {
+			value = value.substring(1, value.length);
+		}
 		var count = 0;
 		for (var i = 0; i < sels.length; i++) {
 
@@ -1798,9 +1797,9 @@ Ext.apply(templateRemoteFilePanel_1, fileSupport, {
 		var fileSels = this.getSelectedFile();
 		var selFileNames = fileSels.selFileNames;
 		var selFilePath = fileSels.selFilePath;
-		if (selFilePath.indexOf("/") == 0) {
-			selFilePath = selFilePath.substring(1, selFilePath.length);
-		}
+//		if (selFilePath.indexOf("/") == 0) {
+//			selFilePath = selFilePath.substring(1, selFilePath.length);
+//		}
 		var value = this.currentdir;
 
 		if (selFileNames != '') {
@@ -2120,10 +2119,10 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 								handler : this.download.createDelegate(this)
 							}, {
 								id : this.fileWinId + 'tb_default',
-								text : i18n.menu_download,
+								text : i18n.editor_file_adv,
 								// tooltip : i18n.menu_download,
 								// tooltipType : "title",
-								iconCls : "hd_download",
+								iconCls : "hd_004",
 								handler : function() {
 									scope.defaultEditorHandler();
 								}
@@ -2161,7 +2160,7 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 										// fieldLabel : i18n.lab_filename,
 										id : this.fileWinId + 'filename',
 										value : this.defaultfile,
-										readOnly : true,
+//										readOnly : true,
 										// allowBlank: false,
 										// labelStyle : "width:60;",
 										// maxLength : 100,
@@ -2781,26 +2780,36 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 			// .getElementById(this.remoteTextFieldId);
 			// remoteTextField.value = filePath;
 			// Ext.ux.Util.setCursorLast(remoteTextField);
-			this.editor.insertContent("<img src='" + filePath + "' />");
-
+//			this.editor.insertContent("<img src='" + filePath + "' />");
+			var content="";
+			for(var i=0;i<filepath.length;i++)
+			{
+				content+="<a href='" + filePath[i] + "' />"+this.getFileName(filePath[i])+"</a>";
+			
+			}
+			this.editor.insertContent(content);
 		}
 	},
 
 	getSelectedFile : function() {
 		var sels = this.grid.getSelectionModel().getSelections();
 		var selFileNames = '';
-		var selFilePath = '';
+		var selFilePath = [];
 		var value = this.currentdir;
+		if (value.indexOf("/") == 0) {
+			value = value.substring(1, value.length);
+		}
 		var count = 0;
 		for (var i = 0; i < sels.length; i++) {
 
 			if (sels[i].get('type') == 0) {
 				if (count != 0) {
 					selFileNames = selFileNames + ' ';
-					selFilePath = selFilePath + '|';
+//					selFilePath = selFilePath + '|';
 				}
 				selFileNames += '"' + sels[i].get('name') + '"';
-				selFilePath += value + '/' + sels[i].get('name');
+//				selFilePath += value + '/' + sels[i].get('name');
+				selFilePath.push( value + '/' + sels[i].get('name'));
 				count++;
 			}
 
@@ -2826,9 +2835,9 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 		var fileSels = this.getSelectedFile();
 		var selFileNames = fileSels.selFileNames;
 		var selFilePath = fileSels.selFilePath;
-		if (selFilePath.indexOf("/") == 0) {
-			selFilePath = selFilePath.substring(1, selFilePath.length);
-		}
+//		if (selFilePath.indexOf("/") == 0) {
+//			selFilePath = selFilePath.substring(1, selFilePath.length);
+//		}
 		var value = this.currentdir;
 
 		if (selFileNames != '') {
@@ -2872,15 +2881,16 @@ Ext.apply(tinymceRemoteFilePanel_1, fileSupport, {
 		// }
 
 	},
-	firstLoad : function() {
+	firstLoad : function(path) {
 
-		var win, data, dom = this.editor.dom, imgElm = this.editor.selection
-				.getNode();
+//		var win, data, dom = this.editor.dom, imgElm = this.editor.selection
+//				.getNode();
+
+		
+
+//		var path = dom.getAttrib(imgElm, 'src');
 
 		var firstPath = this.defaultdir;
-
-		var path = dom.getAttrib(imgElm, 'src');
-
 		if (path != null) {
 			path="/"+path;
 			if (path.indexOf(this.workdir) == 0) {

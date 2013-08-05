@@ -483,34 +483,38 @@ var fileSupport = {
 
 		for (var i = 0; i < len; i++) {
 			var sel = sels[i];
-			if (this.currentdir.lastIndexOf('/') == this.currentdir.length - 1) {
+//			if (this.currentdir.lastIndexOf('/') == this.currentdir.length - 1) {
+//
+//				filesArray = filesArray + this.currentdir + sel.get('name')
+//						+ '|';
+//			} else {
+//
+//				filesArray = filesArray + this.currentdir + '/'
+//						+ sel.get('name') + '|';
+//			}
 
-				filesArray = filesArray + this.currentdir + sel.get('name')
-						+ '|';
-			} else {
-
-				filesArray = filesArray + this.currentdir + '/'
-						+ sel.get('name') + '|';
-			}
-
+			var filename=this.currentdir+'/'+sel.get('name');
+			
+			window.open("downloadFile.action?filename="+filename);
+			
 		}
 
-		filesArray = filesArray.substring(0, filesArray.length - 1);
+//		filesArray = filesArray.substring(0, filesArray.length - 1);
 
-		var appletClient = new Ext.sccportal.Applet({
-					host : this.host,
-					user : this.hostUserName,
-					passwd : this.hostPwd,
-					files : filesArray,
-					home : this.currentdir,
-					dlgtype : 'Download',
-					rootpath : this.rootdir,
-					defaultpath : this.workdir,
-					port : this.fileTransferPort,
-					fileTransferProtocol : this.fileTransferProtocol,
-					servername : this.serverName,
-					clientkey : this.clientKey
-				});
+//		var appletClient = new Ext.sccportal.Applet({
+//					host : this.host,
+//					user : this.hostUserName,
+//					passwd : this.hostPwd,
+//					files : filesArray,
+//					home : this.currentdir,
+//					dlgtype : 'Download',
+//					rootpath : this.rootdir,
+//					defaultpath : this.workdir,
+//					port : this.fileTransferPort,
+//					fileTransferProtocol : this.fileTransferProtocol,
+//					servername : this.serverName,
+//					clientkey : this.clientKey
+//				});
 	},
 	del : function() {
 		Ext.Msg.buttonText.yes = i18n.confirm;
