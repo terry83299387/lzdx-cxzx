@@ -244,7 +244,29 @@ tinymce.PluginManager.add('image', function(editor) {
 	function showFileDialog()
 	{
 		
-	 TinymceFileSeletor(editor,showDialog);
+	var insertContentFun=function(pathArray)
+	{
+		var content="";
+		if(pathArray)
+		{
+		for(var i=0;i<pathArray.length;i++)
+		{
+		content+="<img src='" + pathArray[i] + "' /><br />";
+			
+		
+		}
+		this.editor.insertContent(content);
+		}
+	
+	
+	}
+	
+	var win, data, dom = editor.dom, imgElm = editor.selection
+				.getNode();
+
+	var path = dom.getAttrib(imgElm, 'src');
+		
+	 TinymceFileSeletor(editor,path,showDialog,insertContentFun);
 	
 	}
 	

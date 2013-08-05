@@ -176,11 +176,51 @@ tinymce.PluginManager.add('link', function(editor) {
 		});
 	}
 
+	function showFileDialog()
+	{
+		
+	var insertContentFun=function(pathArray)
+	{
+		var content="";
+		if(pathArray)
+		{
+		for(var i=0;i<pathArray.length;i++)
+		{
+		content+="<a href='" + pathArray[i] + "' >"+pathArray[i].substring(pathArray[i].lastIndexOf("/")+1,pathArray[i].length)+"</a><br />";
+			
+		}
+		this.editor.insertContent(content);
+		}
+	
+	
+	}
+	
+	var win, data={}, dom = editor.dom;
+	var selection = editor.selection;
+	var path;
+	var selectedElm = selection.getNode();
+		anchorElm = dom.getParent(selectedElm, 'a[href]');
+		if (anchorElm) {
+			selection.select(anchorElm);
+		
+
+		data.text = initialText = selection.getContent({format: 'text'});
+		data.href = anchorElm ? dom.getAttrib(anchorElm, 'href') : '';
+		data.target = anchorElm ? dom.getAttrib(anchorElm, 'target') : '';
+		data.rel = anchorElm ? dom.getAttrib(anchorElm, 'rel') : '';
+		path=data.href;
+		}
+		
+	 TinymceFileSeletor(editor,path,showDialog,insertContentFun);
+	
+	}
+	
+	
 	editor.addButton('link', {
 		icon: 'link',
 		tooltip: 'Insert/edit link',
 		shortcut: 'Ctrl+K',
-		onclick: showDialog,
+		onclick: showFileDialog,
 		stateSelector: 'a[href]'
 	});
 
@@ -191,7 +231,7 @@ tinymce.PluginManager.add('link', function(editor) {
 		stateSelector: 'a[href]'
 	});
 
-	editor.addShortcut('Ctrl+K', '', showDialog);
+	editor.addShortcut('Ctrl+K', '', showFileDialog);
 
 	this.showDialog = showDialog;
 
@@ -199,7 +239,7 @@ tinymce.PluginManager.add('link', function(editor) {
 		icon: 'link',
 		text: 'Insert link',
 		shortcut: 'Ctrl+K',
-		onclick: showDialog,
+		onclick: showFileDialog,
 		stateSelector: 'a[href]',
 		context: 'insert',
 		prependToContext: true
