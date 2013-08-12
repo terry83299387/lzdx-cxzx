@@ -38,10 +38,10 @@ public class UserAction extends BaseAction {
 		try {
 			// check parameters
 			if (userName == null || userName.trim().length() == 0) {
-				throw new Exception("用户名为空");
+				throw new Exception("user name is empty!");
 			}
 			if (passwd == null || passwd.trim().length() == 0) {
-				throw new Exception("密码为空");
+				throw new Exception("password is empty!");
 			}
 
 			// check random
@@ -50,10 +50,10 @@ public class UserAction extends BaseAction {
 			if (rand != null && inputRand != null) {
 				String randStr = rand.toString();
 				if (!inputRand.equals(randStr)) {
-					throw new Exception("验证码错误!");
+					throw new Exception("error random code!");
 				}
 			} else {
-				throw new Exception("验证码不能为空!");
+				throw new Exception("random code is empty!");
 			}
 
 			// check user name and password
@@ -61,24 +61,24 @@ public class UserAction extends BaseAction {
 			List<User> users = userDao.getUserByName(userName);
 
 			if (users == null || users.size() == 0) {
-				throw new Exception("用户名或密码错误");
+				throw new Exception("user name or password is wrong");
 			}
 			if (users.size() > 1) {
-				throw new Exception("错误的用户名或密码");
+				throw new Exception("wrong user name or password");
 			}
 
 			User user = users.get(0);
 			if (!passwd.equals(user.getPassword())) {
-				throw new Exception("用户名或密码错误!");
+				throw new Exception("wrong user name or password!");
 			}
 
 			if (user.getRole() != User.SUPER_ADMIN
 					&& user.getRole() != User.ADMIN) {
-				throw new Exception("该用户不是管理员，请更换用户重新登录");
+				throw new Exception("permission denied! wrong role!");
 			}
 
 			if (user.getStatus() != User.VALID_STATUS) {
-				throw new Exception("该用户目前不可用，请联系管理员");
+				throw new Exception("current user is invalid, please contact us!");
 			}
 
 			// save user info
@@ -145,7 +145,7 @@ public class UserAction extends BaseAction {
 
 		try {
 			if (userName == null || userName.trim().length() == 0) {
-				throw new Exception("用户名不能为空");
+				throw new Exception("user name is empty!");
 			}
 
 			// check whether user exists
@@ -153,7 +153,7 @@ public class UserAction extends BaseAction {
 			List<User> users = userDao.getUserByName(userName);
 
 			if (users != null && users.size() != 0) {
-				throw new Exception("该用户已存在!");
+				throw new Exception("user name is reduplicate, choose another one please");
 			}
 
 			// add new user
@@ -168,7 +168,7 @@ public class UserAction extends BaseAction {
 
 			User userAdded = userDao.addUser(user);
 			if (userAdded == null) {
-				throw new Exception("用户添加失败！");
+				throw new Exception("add user failed, try again later");
 			}
 
 			StringBuilder logStr = new StringBuilder();
@@ -205,7 +205,7 @@ public class UserAction extends BaseAction {
 			User user = userDao.getUser(userCode);
 
 			if (user == null) {
-				throw new Exception("无法编辑，用户信息无效");
+				throw new Exception("user is illegal");
 			}
 
 			boolean anyChange = false;

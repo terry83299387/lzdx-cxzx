@@ -709,8 +709,43 @@
        		
        		news_handler_submit_close:'<s:text name="lzdx.news.handler.submitclose"/>',
        		news_handler_submit_new:'<s:text name="lzdx.news.handler.submitnew"/>',
-       		select_one_news:'<s:text name="lzdx.news.selectonenews"/>'
-		
+       		select_one_news:'<s:text name="lzdx.news.selectonenews"/>',
+
+       	user_adduser:'<s:text name="lzdx.user.adduser"/>',
+       	user_admin:'<s:text name="lzdx.user.admin"/>',
+       	user_commonuser:'<s:text name="lzdx.user.commonuser"/>',
+       	user_onfirmdelete:'<s:text name="lzdx.user.onfirmdelete"/>',
+       	user_createdate:'<s:text name="lzdx.user.createdate"/>',
+       	user_delete:'<s:text name="lzdx.user.delete"/>',
+       	user_disable:'<s:text name="lzdx.user.disable"/>',
+       	user_edit:'<s:text name="lzdx.user.edit"/>',
+       	user_error:'<s:text name="lzdx.user.error"/>',
+       	user_info:'<s:text name="lzdx.user.info"/>',
+       	user_invalid:'<s:text name="lzdx.user.invalid"/>',
+       	user_loading:'<s:text name="lzdx.user.loading"/>',
+       	user_nodata:'<s:text name="lzdx.user.nodata"/>',
+       	user_password:'<s:text name="lzdx.user.password"/>',
+       	user_realname:'<s:text name="lzdx.user.realname"/>',
+       	user_refresh:'<s:text name="lzdx.user.refresh"/>',
+       	user_role:'<s:text name="lzdx.user.role"/>',
+       	user_status:'<s:text name="lzdx.user.status"/>',
+       	user_superadmin:'<s:text name="lzdx.user.superadmin"/>',
+       	user_toolbarformat:'<s:text name="lzdx.user.toolbarformat"/>',
+       	user_unknown:'<s:text name="lzdx.user.unknown"/>',
+       	user_username:'<s:text name="lzdx.user.username"/>',
+       	user_valid:'<s:text name="lzdx.user.valid"/>',
+       	user_ymdformat1:'<s:text name="lzdx.user.ymdformat1"/>',
+       	user_userinfo:'<s:text name="lzdx.user.userinfo"/>',
+       	user_usertype:'<s:text name="lzdx.user.usertype"/>',
+       	user_confirmpassword:'<s:text name="lzdx.user.confirmpassword"/>',
+       	user_add:'<s:text name="lzdx.user.add"/>',
+       	user_cancel:'<s:text name="lzdx.user.cancel"/>',
+       	user_useremptyerror:'<s:text name="lzdx.user.useremptyerror"/>',
+       	user_userformaterror:'<s:text name="lzdx.user.userformaterror"/>',
+       	user_passwordemptyerror:'<s:text name="lzdx.user.passwordemptyerror"/>',
+       	user_passwordinconsistent:'<s:text name="lzdx.user.passwordinconsistent"/>',
+       	user_comfirm:'<s:text name="lzdx.user.comfirm"/>',
+       	user_edituser:'<s:text name="lzdx.user.edituser"/>'
 	}
 	Ext.MessageBox.buttonText.yes = i18n.confirm;
 	Ext.MessageBox.buttonText.no = i18n.cancel;

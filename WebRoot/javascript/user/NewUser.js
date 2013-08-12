@@ -6,20 +6,20 @@ Ext.Desktop.NewUser = function(grid) {
     var formPanel = new Ext.form.FormPanel({
         items: [{
             xtype: 'fieldset',
-            title: '用户信息',
+            title: i18n.user_userinfo,
             autoHeight: true,
             defaultType: 'textfield',
             labelAlign: 'center',
             labelWidth: 100,
             items: [{
-                fieldLabel: '用户类型',
+                fieldLabel: i18n.user_usertype,
                 name: 'role',
                 xtype: "combo",
                 store: new Ext.data.SimpleStore({
                     fields: ['text', 'value'],
                     data: (currentUser.role == "0"
-                    	? [["管理员" , "1"], ["普通用户", "2"]]
-                    	: [["普通用户", "2"]])
+                    	? [[i18n.user_admin , "1"], [i18n.user_commonuser, "2"]]
+                    	: [[i18n.user_commonuser, "2"]])
                 }),
                 mode: 'local',
                 displayField: 'text',
@@ -29,21 +29,21 @@ Ext.Desktop.NewUser = function(grid) {
                 triggerAction: 'all',
                 width: 200
             }, {
-                fieldLabel: '用户名',
+                fieldLabel: i18n.user_username,
                 name: 'userName',
                 width: 200
             }, {
-                fieldLabel: '密码',
+                fieldLabel: i18n.user_password,
                 name: 'password',
                 inputType: "password",
                 width: 200
             }, {
-                fieldLabel: '确认密码',
+                fieldLabel: i18n.user_confirmpassword,
                 name: 'confirmPwd',
                 inputType: "password",
                 width: 200
             }, {
-                fieldLabel: '真实姓名',
+                fieldLabel: i18n.user_realname,
                 name: 'realName',
                 width: 200
             }, {
@@ -53,12 +53,12 @@ Ext.Desktop.NewUser = function(grid) {
 			}]
         }],
         buttons: [{
-            text: '添加',
+            text: i18n.user_add,
             handler: function() {
             	newUser();
             }
         }, {
-            text: '取消',
+            text: i18n.user_cancel,
             handler: function() {
             	scope.close();
             }
@@ -68,7 +68,7 @@ Ext.Desktop.NewUser = function(grid) {
 	var desktop = app.getDesktop();
 	var win = desktop.createWindow({
         id: 'new-user-win',
-        title: '添加新用户',
+        title: i18n.user_adduser,
 		width : 380,
 		height : 280,
         iconCls: 'user',
@@ -110,27 +110,27 @@ Ext.Desktop.NewUser = function(grid) {
 
         // check userName
 		if (userName == "") {
-			Ext.Msg.alert('Error', 'userName is empty');
+			Ext.Msg.alert(i18n.user_error, i18n.user_useremptyerror);
             return;
 		}
 		var userNamePattern = /^[a-zA-Z0-9_]+$/;
 		if (!userNamePattern.test(userName)) {
-			Ext.Msg.alert('Error', '字母、数字和下划线');
+			Ext.Msg.alert(i18n.user_error, i18n.user_userformaterror);
             return;
 		}
 
         // check password
 		if (password == "") {
-			Ext.Msg.alert('Error', 'password is empty');
+			Ext.Msg.alert(i18n.user_error, i18n.user_passwordemptyerror);
             return;
 		}
 		var pwdPattern = /^[a-zA-Z0-9!@#$%^&*()_+=\-[\];:'",<.>\/?~`\\|]+$/;
 		if (!pwdPattern.test(password)) {
-			Ext.Msg.alert('Error', '字母、数字和特殊符号');
+			Ext.Msg.alert(i18n.user_error, i18n.user_userformaterror);
             return;
 		}
 		if (password != confirmPwd) {
-			Ext.Msg.alert('Error', '两次密码不一致');
+			Ext.Msg.alert(i18n.user_error, i18n.user_passwordinconsistent);
             return;
 		}
 
@@ -146,7 +146,7 @@ Ext.Desktop.NewUser = function(grid) {
             success: function(resp, opts) {
                 var responseText = Ext.util.JSON.decode(resp.responseText);
                 if (responseText.exception) {
-                    Ext.Msg.alert('错误', responseText.exception);
+                    Ext.Msg.alert(i18n.user_error, responseText.exception);
                 } else {
                     grid.getStore().reload({
                         params: {
@@ -154,13 +154,12 @@ Ext.Desktop.NewUser = function(grid) {
                             limit: 18
                         }
                     });
-//                    Ext.Msg.alert('成功', '用户添加成功');
                     scope.close();
                 }
             },
             failure: function(resp, opts){
                 var exception = resp.statusText;
-                Ext.Msg.alert('错误', exception);
+                Ext.Msg.alert(i18n.user_error, exception);
             }
         });
     }

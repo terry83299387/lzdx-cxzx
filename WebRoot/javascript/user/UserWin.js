@@ -11,11 +11,11 @@ Ext.Desktop.UserWin.prototype = {
             dataIndex: 'userCode',
             hidden: true
         }, {
-            header: '用户名',
+            header: i18n.user_username,
             dataIndex: 'userName',
             width: 80
 		}, {
-            header: '密码',
+            header: i18n.user_password,
             dataIndex: 'password',
             width: 20,
 	        renderer: function(value) {
@@ -23,36 +23,36 @@ Ext.Desktop.UserWin.prototype = {
 	        },
             hidden: true
 		}, {
-            header: '真实姓名',
+            header: i18n.user_realname,
             dataIndex: 'realName',
             width: 80
 		}, {
-            header: '角色',
+            header: i18n.user_role,
             dataIndex: 'role',
 	        renderer: function(value) {
 	        	switch (value) {
 	        		case 0:
-	        			return '超级管理员';
+	        			return i18n.user_superadmin;
 	        		case 1:
-	        			return '管理员';
+	        			return i18n.user_admin;
 	        		case 2:
-	        			return '普通用户';
+	        			return i18n.user_commonuser;
 	        		default:
-	        			return '无效';
+	        			return i18n.user_invalid;
 	        	}
 	        },
             width: 60
         }, {
-            header: '状态',
+            header: i18n.user_status,
             dataIndex: 'status',
 	        renderer: function(value) {
 	        	switch (value) {
 	        		case 0:
-	        			return '禁用';
+	        			return i18n.user_disable;
 	        		case 1:
-	        			return '正常';
+	        			return i18n.user_valid;
 	        		default:
-	        			return '未知';
+	        			return i18n.user_unknown;
 	        	}
 	        },
             width: 60
@@ -61,11 +61,11 @@ Ext.Desktop.UserWin.prototype = {
             dataIndex: 'email',
             width: 120
         }, {
-            header: '创建日期',
+            header: i18n.user_createdate,
             dataIndex: 'createDate',
             width: 60,
             type: "date",
-            renderer: Ext.util.Format.dateRenderer('Y年m月d日')
+            renderer: Ext.util.Format.dateRenderer(i18n.user_ymdformat1)
         }]);
 
         var userListReader = new Ext.data.JsonReader({
@@ -103,8 +103,8 @@ Ext.Desktop.UserWin.prototype = {
             pageSize: 18,
             store: userListStore,
             displayInfo: true,
-            displayMsg: '显示第 {0} 条到第 {1} 条记录,一共 {2} 条',
-            emptyMsg: "没有记录"
+            displayMsg: i18n.user_toolbarformat,
+            emptyMsg: i18n.user_nodata
         });
         
         var grid = new Ext.grid.GridPanel({
@@ -120,17 +120,17 @@ Ext.Desktop.UserWin.prototype = {
                 forceFit: true
             },
             loadMask: {
-                msg: '正在载入数据,请稍等...'
+                msg: i18n.user_loading
             },
             
             tbar: [{
-                text: '添加新用户',
-                tooltip: '添加新用户',
+                text: i18n.user_adduser,
+                tooltip: i18n.user_adduser,
                 iconCls: 'add',
                 handler: this.newUser.createDelegate(this)
             }, '-', {
-                text: '刷新',
-                tooltip: '刷新用户列表',
+                text: i18n.user_refresh,
+                tooltip: i18n.user_refresh,
                 iconCls: 'add',
                 handler: this.refreshUserList.createDelegate(this)
             }],
@@ -141,13 +141,13 @@ Ext.Desktop.UserWin.prototype = {
         var contextmenu = new Ext.menu.Menu({
             id: 'userListCtxMenu',
             items: ['-', {
-                text: '编辑',
-                tooltip: '编辑用户',
+                text: i18n.user_edit,
+                tooltip: i18n.user_edit,
                 iconCls: 'option',
                 handler: this.editUser.createDelegate(this)
             }, '-', {
-                text: "<span style='color:red;font-weight:bold;'>删除</span>",
-                tooltip: '删除用户',
+                text: "<span style='color:red;font-weight:bold;'>" + i18n.user_delete + "</span>",
+                tooltip: i18n.user_delete,
                 iconCls: 'remove',
                 handler: this.cancelUser.createDelegate(this)
             }]
@@ -183,7 +183,7 @@ Ext.Desktop.UserWin.prototype = {
         var grid = this.grid;
 		var selRow = grid.getSelectionModel().getSelected();
 
-        Ext.Msg.confirm('信息', '确定要删除该用户吗？', function(btn) {
+        Ext.Msg.confirm(i18n.user_info, i18n.user_confirmdelete, function(btn) {
             if (btn != 'yes') {
             	return;
             }
@@ -196,15 +196,14 @@ Ext.Desktop.UserWin.prototype = {
                 success: function(resp, opts){
                     var responseText = Ext.util.JSON.decode(resp.responseText);
                     if (responseText.exception) {
-                        Ext.example.msg('错误', responseText.exception);
+                        Ext.example.msg(i18n.user_error, responseText.exception);
                     } else {
                         grid.getStore().reload();
-//                        Ext.example.msg('成功', '成功');
                     }
                 },
                 failure: function(resp, opts){
                     var exception = resp.statusText;
-                    Ext.example.msg('错误', exception);
+                    Ext.example.msg(i18n.user_error, exception);
                 }
             });
         });
