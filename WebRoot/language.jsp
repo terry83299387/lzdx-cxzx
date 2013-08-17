@@ -745,7 +745,9 @@
        	user_passwordemptyerror:'<s:text name="lzdx.user.passwordemptyerror"/>',
        	user_passwordinconsistent:'<s:text name="lzdx.user.passwordinconsistent"/>',
        	user_comfirm:'<s:text name="lzdx.user.comfirm"/>',
-       	user_edituser:'<s:text name="lzdx.user.edituser"/>'
+       	user_edituser:'<s:text name="lzdx.user.edituser"/>',
+
+		logout:'<s:text name="lzdx.startmenu.logout"/>'
 	}
 	Ext.MessageBox.buttonText.yes = i18n.confirm;
 	Ext.MessageBox.buttonText.no = i18n.cancel;
