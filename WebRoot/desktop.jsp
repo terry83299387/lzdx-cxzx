@@ -12,7 +12,8 @@
 <html>
 <s:i18n name="globalMessage">
 	<head>
-		<title>?Title?</title>
+		<title><s:property
+					value="%{getText('lzdx.page.title')}" /></title>
 		<META http-equiv=Content-Type content="text/html; charset=UTF-8">
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -103,15 +104,16 @@
 				selector: '.tinyclass',
 				theme: "modern",
 				plugins: [
-					"advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
+					"advlist autolink autosave download link image lists charmap print preview hr anchor pagebreak spellchecker",
 					"searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
 					"table contextmenu directionality emoticons template textcolor paste fullpage textcolor"
 				],
 				image_advtab: true,
 		        toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
-		        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image media code | inserttime preview | forecolor backcolor",
+		        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | download link unlink anchor image media code | inserttime preview | forecolor backcolor",
 		        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
-		 		toolbar4: "mybutton",
+		 		/*
+		 		toolbar4: "download | mybutton",
 				setup: function(editor) {
 			        editor.addButton('mybutton', {
 			            text: 'My button',
@@ -122,7 +124,7 @@
 			            }
 			        });
 		    	},
-
+				*/
 		        menubar: false,
 		        toolbar_items_size: 'small',
 
