@@ -186,7 +186,7 @@ tinymce.PluginManager.add('link', function(editor) {
 		{
 		for(var i=0;i<pathArray.length;i++)
 		{
-		content+="<a href='" + pathArray[i] + "' >"+pathArray[i].substring(pathArray[i].lastIndexOf("/")+1,pathArray[i].length)+"</a><br />";
+		content+="<a class='link' href='" + pathArray[i] + "' target='_blank' >"+pathArray[i].substring(pathArray[i].lastIndexOf("/")+1,pathArray[i].length)+"</a><br />";
 			
 		}
 		this.editor.insertContent(content);
@@ -221,14 +221,14 @@ tinymce.PluginManager.add('link', function(editor) {
 		tooltip: 'Insert/edit link',
 		shortcut: 'Ctrl+K',
 		onclick: showFileDialog,
-		stateSelector: 'a[href]'
+		stateSelector: 'a[class=link]'
 	});
 
 	editor.addButton('unlink', {
 		icon: 'unlink',
 		tooltip: 'Remove link(s)',
 		cmd: 'unlink',
-		stateSelector: 'a[href]'
+		stateSelector: 'a[class=link]'
 	});
 
 	editor.addShortcut('Ctrl+K', '', showFileDialog);
@@ -240,7 +240,7 @@ tinymce.PluginManager.add('link', function(editor) {
 		text: 'Insert link',
 		shortcut: 'Ctrl+K',
 		onclick: showFileDialog,
-		stateSelector: 'a[href]',
+		stateSelector: 'a[class=link]',
 		context: 'insert',
 		prependToContext: true
 	});
