@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>无标题文档</title>
+<title>welcome</title>
 
 <link rel="stylesheet" type="text/css"
 			href="display/css/default.css" />
