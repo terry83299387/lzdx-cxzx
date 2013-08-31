@@ -1,5 +1,7 @@
 var TreePanel = function(id, text) {
 
+	
+	
 	var scope = this;
 	var root = new Ext.tree.AsyncTreeNode({
 
