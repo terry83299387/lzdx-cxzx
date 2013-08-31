@@ -21,7 +21,17 @@ public class ConfigAction extends BaseAction{
 	
 	private final String physicalBaseDir= BasicPropertiesWork.getWebappsSitePath();
 	private String nodesJson;
+	private String root;
 	
+	
+	public String getRoot() {
+		return root;
+	}
+
+	public void setRoot(String root) {
+		this.root = root;
+	}
+
 	public String getNodesJson() {
 		return nodesJson;
 	}
@@ -43,7 +53,15 @@ public class ConfigAction extends BaseAction{
 	{
 		init() ;
 		String nodeId=request.getParameter("node");
-		
+		String language=request.getParameter("language");
+		if(language==null)
+		{
+			language="cn_name";
+		}
+		if(nodeId==null)
+		{
+			nodeId=root;
+		}
 		try {
 			XmlParse xmlParse=new XmlParse(physicalBaseDir+"/"+BasicPropertiesWork.getConfigPath());
 			java.util.List<Element> list=xmlParse.getChildrenAttributeList("id", nodeId);
@@ -59,7 +77,8 @@ public class ConfigAction extends BaseAction{
 				Config config=new Config();
 				config.setId(ht.get("id"));
 				config.setLeaf(xmlParse.isLeaf(e));
-				config.setText(ht.get("cn_name"));
+				config.setText(ht.get(language));
+				config.setLink(ht.get("link"));
 				nodes.add(config);
 			}
 			
