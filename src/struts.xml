@@ -5,6 +5,7 @@
 <struts>
 
 	<include file="struts-common.xml" />
+	 <include file="struts-display.xml" />
     <include file="struts-file.xml" />
     <include file="struts-news.xml" />
     <include file="struts-user.xml" />

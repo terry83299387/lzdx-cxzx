@@ -12,8 +12,8 @@ public class NewsDao {
 	public News getNews(String code) {
 		try {
 			Session sess = HibernateUtil.currentSession();
-			java.util.List<News> list = sess.createCriteria(News.class)
-					.add(Restrictions.eq("newsCode", code)).list();
+			java.util.List<News> list = sess.createCriteria(News.class).add(
+					Restrictions.eq("newsCode", code)).list();
 			News news;
 			if (list.size() == 1) {
 				news = list.get(0);
@@ -46,12 +46,53 @@ public class NewsDao {
 	//
 	// }
 
+	public java.util.List<Object[]> getAllSubSubjectNews(
+			java.util.Set<String> subjectCode, String lanType, int start,
+			int limit) {
+		try {
+			Session sess = HibernateUtil.currentSession();
+			String subjectcode = null;
+			for (String code : subjectCode) {
+				if (subjectcode == null) {
+					subjectcode = "'" + code + "'";
+				} else {
+					subjectcode += ",'" + code + "'";
+				}
+			}
+			Query query = null;
+			if (lanType.equals("")) {
+				String hql = "select distinct a.newsCode,a.newsTitle,a.newsSource,a.newsPicture,a.newsTag,a.author,a.createDate,a.newsPriority,a.type from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode and s.subjectCode in ("
+						+ subjectcode
+						+ ") order by a.newsPriority desc ,a.createDate desc";
+				query = sess.createQuery(hql).setFirstResult(start)
+						.setMaxResults(limit);
+
+			} else {
+				String hql = "select distinct a.newsCode,a.newsTitle,a.newsSource,a.newsPicture,a.newsTag,a.author,a.createDate,a.newsPriority,a.type from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode and s.subjectCode in  ("
+						+ subjectcode
+						+ ") and a.type=? order by a.newsPriority desc ,a.createDate desc";
+				query = sess.createQuery(hql).setFirstResult(start)
+						.setMaxResults(limit);
+				;
+
+				query.setString(0, lanType);
+			}
+
+			java.util.List<Object[]> list = query.list();
+
+			return list;
+
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
 	public java.util.List<Object[]> getAllSubjectNewsAttrib(String subjectCode,
 			String lanType) {
 		try {
 			Session sess = HibernateUtil.currentSession();
 			Query query = null;
-			if (lanType .equals("")) {
+			if (lanType.equals("")) {
 				String hql = "select distinct a.newsCode,a.newsTitle,a.newsSource,a.newsPicture,a.newsTag,a.author,a.createDate,a.newsPriority,a.type from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode and s.subjectCode=? order by a.newsPriority desc ,a.createDate desc";
 				query = sess.createQuery(hql);
 				query.setString(0, subjectCode);
@@ -110,28 +151,25 @@ public class NewsDao {
 			throw new Exception("newsid is null");
 		}
 
-		String newsCodes="";
-		for(int i=0;i<newsGroup.length;i++)
-		{
-			if(i==0)
-			{
-				newsCodes="'"+newsGroup[i]+"'";
-				
+		String newsCodes = "";
+		for (int i = 0; i < newsGroup.length; i++) {
+			if (i == 0) {
+				newsCodes = "'" + newsGroup[i] + "'";
+
+			} else {
+				newsCodes = newsCodes + ",'" + newsGroup[i] + "'";
 			}
-			else
-			{
-				newsCodes=newsCodes+",'"+newsGroup[i]+"'";
-			}
-				
+
 		}
-		
+
 		try {
 			Session sess = HibernateUtil.currentSession();
 			Transaction t = sess.beginTransaction();
 
-			String hql = "delete News a where a.newsCode in ("+newsCodes+")";
+			String hql = "delete News a where a.newsCode in (" + newsCodes
+					+ ")";
 			Query query = sess.createQuery(hql);
-//			query.setString(0, newsCodes);
+			// query.setString(0, newsCodes);
 			query.executeUpdate();
 
 			// java.util.List<UserRegister> list = sess.createCriteria(
@@ -146,10 +184,9 @@ public class NewsDao {
 		} finally {
 			HibernateUtil.closeSession();
 		}
-		
-		
+
 	}
-	
+
 	public void delNews(String newsid) throws Exception {
 
 		if (newsid == null) {

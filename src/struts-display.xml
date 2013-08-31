@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="display_news" extends="json-default">
+
+		<action name="showDisplayNewsList"
+			class="cn.edu.lzu.display.action.NewsAction"
+			method="showNewsList">
+			<result type="json" />
+			<result name="error" type="json" />
+		</action>
+
+		
+		
+
+	</package>
+</struts>

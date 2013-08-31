@@ -72,7 +72,7 @@ public class ConfigAction extends BaseAction{
 		
 		JSONArray json=JSONArray.fromObject(nodes);
 		nodesJson=json.toString().replace("\"", "'");
-//		nodesJson="[{id:'level1',text:'一级节点',leaft:false}]";
+//		nodesJson="[{id:'level1',text:'22',leaft:false}]";
 		return SUCCESS;
 		
 	}
