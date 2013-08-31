@@ -7,21 +7,68 @@
 	
 	</subject>
 	<subject id="zhongxingaikuang" cn_name="中心概况" en_name="Home" link="">
-		<subject id="zhongxinjieshao" cn_name="中心介绍" en_name="Institution Introduction" display="page"/>
-		<subject id="gedanweijieshao" cn_name="各单位介绍" en_name="others" display="list"/>
+		<subject id="zhongxinjieshao" cn_name="中心介绍" en_name="Institution Introduction" link=""/>
+		<subject id="gedanweijieshao" cn_name="各单位介绍" en_name="others" link=""/>
 	
 	</subject>
 	<subject id="xinwendongtai" cn_name="新闻动态" en_name="News" link="">
-		<subject id="tupianxinwen" cn_name="图片新闻" en_name="Picture" />
-		<subject id="guojiyanjiudongtai" cn_name="国际研究动态" en_name="International" />
+		<subject id="xinwendongtai_zuixingengxin" cn_name="最新更新" en_name="Picture" link=""/>
+		<subject id="guojiyanjiudongtai" cn_name="国际研究动态" en_name="International" link="">
+		<subject id="zhongxinjianbao" cn_name="中心简报" en_name="Home" link=""/>
+	</subject>
   	</subject>
   	
   	
-  	<subject id="notice_main" cn_name="通知" en_name="Notice" link="">
-		<subject id="tongzhixinwen" cn_name="通知新闻" en_name="Picture" >
-			<subject id="tupianxinwen" cn_name="图片新闻" en_name="Picture" />
+  	<subject id="tongzhigonggao" cn_name="通知公告" en_name="Notice" link="">
+		<subject id="xueshujiangzuo" cn_name="学术讲座" en_name="Academic Report" link=""/>
+		<subject id="huiyitongzhi" cn_name="会议通知" en_name="Meeting Notice" link=""/>
+  	</subject>
+  	
+  	<subject id="zhuzhijigou" cn_name="组织机构" en_name="Organization" link="">
+	
+  	</subject>
+  	
+  	<subject id="yanjiupingtai" cn_name="研究平台" en_name="Research" link="">
+	
+  	</subject>
+  	
+  	<subject id="kexueyanjiu" cn_name="科学研究" en_name="Science" link="">
+	
+  	</subject>
+  	<subject id="tuanduijianshe" cn_name="团队建设" en_name="Team" link="">
+		<subject id="yanjiuduiwu" cn_name="研究队伍" en_name="Research Team" link="">
+			<subject id="xinshengdaiganhanhuanjingxingchengyanhua" cn_name="新生代干旱环境形成演化" en_name="Cenozoic Drought Condition Formation and Evolvement" link="" >
+				<subject id="xinshengdaiganhanhuanjingxingchengyanhua_ptsxkxj" cn_name="平台首席科学家" en_name="Platform Chief Scientists" link="" />
+				<subject id="xinshengdaiganhanhuanjingxingchengyanhua_tdsxkxj" cn_name="团队首席科学家" en_name="Platform Chief Scientists" link="" />
+				<subject id="xinshengdaiganhanhuanjingxingchengyanhua_sxkxj" cn_name="首席科学家" en_name="Chief Scientists" link="" />
+				<subject id="xinshengdaiganhanhuanjingxingchengyanhua_yjgg" cn_name="研究骨干" en_name="Key Members" link="" />
+				<subject id="xinshengdaiganhanhuanjingxingchengyanhua_yjms" cn_name="研究秘书" en_name="Secretary" link="" />
+			</subject>
+			<subject id="wandisijiganhanhuanjingbianhua" cn_name="晚第四纪干旱环境变化" en_name="Late Quaternary Drought Condition Change" link="" >
+				<subject id="wandisijiganhanhuanjingbianhua_ptsxkxj" cn_name="平台首席科学家" en_name="Platform Chief Scientists" link="" />
+				<subject id="wandisijiganhanhuanjingbianhua_tdsxkxj" cn_name="团队首席科学家" en_name="Platform Chief Scientists" link="" />
+				<subject id="wandisijiganhanhuanjingbianhua_sxkxj" cn_name="首席科学家" en_name="Chief Scientists" link="" />
+				<subject id="wandisijiganhanhuanjingbianhua_yjgg" cn_name="研究骨干" en_name="Key Members" link="" />
+				<subject id="wandisijiganhanhuanjingbianhua_yjms" cn_name="研究秘书" en_name="Secretary" link="" />
+			</subject>
+			
 		</subject>
-		<subject id="guojiyanjiudongtai" cn_name="国际研究动态" en_name="International" />
+		<subject id="rencaipeiyang" cn_name="人才培养" en_name="People Cultivation" link="">
+			<subject id="rencaipeiyang_diqiukexuejingyingban" cn_name="地球科学精英班(本科)" en_name="Earch Science Undergraduate" link="" />
+			<subject id="rencaipeiyang_yanjiusheng" cn_name="研究生" en_name="Postgraduate" link="" />
+		</subject>
+		<subject id="rencaiyinjin" cn_name="人才引进" en_name="People Absorption" link="">
+  			<subject id="zhaopingonggao" cn_name="招聘公告" en_name="Recruitment Announcement" link="" />
+  			<subject id="yinjinrenyuantongji" cn_name="引进人员统计" en_name="People Absorption Statistics" link="" />
+  		</subject>
   	</subject>
-  	
+  	<subject id="hezuojiaoliu" cn_name="合作交流" en_name="Cooperation" link="">
+	
+  	</subject>
+  	<subject id="zhichengfuwu" cn_name="支撑服务" en_name="Services" link="">
+	
+  	</subject>
+  	<subject id="guizhangzhidu" cn_name="规章制度" en_name="Rules" link="">
+	
+  	</subject>
 </config>
