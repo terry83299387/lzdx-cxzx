@@ -6,7 +6,7 @@
 	
 	
 	</subject>
-	<subject id="zhongxingaikuang" cn_name="中心概况" en_name="Home" link="">
+	<subject id="zhongxingaikuang" cn_name="中心概况" en_name="Institution" link="">
 		<subject id="zhongxinjieshao" cn_name="中心介绍" en_name="Institution Introduction" link=""/>
 		<subject id="gedanweijieshao" cn_name="各单位介绍" en_name="others" link=""/>
 	
