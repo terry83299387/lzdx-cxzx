@@ -467,6 +467,7 @@ TreePanel.prototype = {
 	},
 
 	editNews : function(node, languageComboBox, sm) {
+		var scope = this;
 		if (sm.getSelections().length != 1) {
 			Ext.MessageBox.alert(i18n.error, i18n.select_one_news);
 			return;
