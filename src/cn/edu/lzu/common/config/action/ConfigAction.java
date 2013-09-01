@@ -17,7 +17,7 @@ public class ConfigAction extends BaseAction{
 	 */
 	private static final long serialVersionUID = 8985468983791863577L;
 
-	private java.util.ArrayList<Config> nodes=new java.util.ArrayList<Config>();
+	private java.util.List<Config> nodes=new java.util.ArrayList<Config>();
 	
 	private final String physicalBaseDir= BasicPropertiesWork.getWebappsSitePath();
 	private String nodesJson;
@@ -40,12 +40,12 @@ public class ConfigAction extends BaseAction{
 		this.nodesJson = nodesJson;
 	}
 
-	public java.util.ArrayList<Config> getNodes() {
+	public java.util.List<Config> getNodes() {
 		return nodes;
 		
 	}
 
-	public void setNodes(java.util.ArrayList<Config> nodes) {
+	public void setNodes(java.util.List<Config> nodes) {
 		this.nodes = nodes;
 	}
 

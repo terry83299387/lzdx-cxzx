@@ -8,9 +8,17 @@ public class NewsDetailAction extends NewsAction {
 
 	private String titleId;
 	private String newsCode;
-
+	private String language;
 	private NewsName newsName;
 	
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 	public NewsName getNewsName() {
 		return newsName;
 	}
@@ -40,8 +48,9 @@ public class NewsDetailAction extends NewsAction {
 		init();
 		titleId = request.getParameter("titleId");
 		newsCode = request.getParameter("newsCode");
+		language= request.getParameter("language");
 		newsName=new NewsName();
-		newsName.setLanguage( request.getParameter("language"));
+		newsName.setLanguage( language);
 		if(newsCode!=null)
 		{
 			 result = loadNews();
