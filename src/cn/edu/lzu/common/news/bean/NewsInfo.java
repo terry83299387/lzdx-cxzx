@@ -2,6 +2,7 @@ package cn.edu.lzu.common.news.bean;
 
 public class NewsInfo {
 
+	
 	private String newsCode;
 	private String newsTitle;
 	private String newsContent;

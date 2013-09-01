@@ -12,8 +12,20 @@
 			<result name="error" type="json" />
 		</action>
 
+		<action name="getMenuTitles"
+			class="cn.edu.lzu.display.action.TitleAction"
+			method="showTitles">
+			<param name="root">subject_root</param>
+			<result name="success" >menutitle.jsp</result>
+			<result name="error" >menutitle.jsp</result>
+		</action>
 		
-		
+		<action name="getNewsDetail"
+			class="cn.edu.lzu.display.action.NewsDetailAction"
+			method="showNews">
+			<result name="success" >newsdetail.jsp</result>
+			<result name="error" >newsdetail.jsp</result>
+		</action>
 
 	</package>
 </struts>
