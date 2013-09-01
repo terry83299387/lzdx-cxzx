@@ -1,17 +1,17 @@
-var lanType = "1";
+
 var limit = 12;
 var newsDynamics = {
 	nodeid : "xinwendongtai",
-	type : lanType,
 	range:'all',
+	language:lanType,
 	start : 0,
 	limit : limit
 
 }
 var noticePublic = {
 	nodeid : "tongzhigonggao",
-	type : lanType,
 	range:'all',
+	language:lanType,
 	start : 0,
 	limit : limit
 }
@@ -30,8 +30,8 @@ var newsTotable = function(titleId,newslist) {
 		var newsTitle = newslist[i].newsTitle;
 		var newsCode=newslist[i].newsCode;
 		var createDate = newslist[i].createDate;
-		row += "<tr><td class='title_td'><a target='_black' href='getNewsDetail.action?titleId="+titleId+"&&newsCode="+newsCode+"'>" + newsTitle
-				+ "</a></td><td class='date_td'>" + createDate + "</td></tr>";
+		row += "<tr><td class='title_td'><li><a target='_blank' href='getNewsDetail.action?language="+lanType+"&titleId="+titleId+"&newsCode="+newsCode+"'>" + newsTitle
+				+ "</a></li></td><td class='date_td'>" + createDate + "</td></tr>";
 	}
 
 	tablehtml += row + "</table>";
