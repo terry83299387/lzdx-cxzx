@@ -121,7 +121,20 @@ body {
 	border: 0px;
 	
 }
-
+.default_content_right_news a,.default_content_left_news a {
+	text-decoration: none;
+	line-height:16px;
+	color:black;
+	font-family: Arial;
+}
+.default_content_right_news a:hover,.default_content_left_news a:hover {
+	text-decoration: underline;
+	color:black;
+}
+.default_content_right_news a:visited,.default_content_left_news a:visited {
+	text-decoration: none;
+	color:black;
+}
 .default_content_right_news table .date_td,.default_content_left_news table .date_td
 	{
 	text-align: right;
@@ -147,5 +160,9 @@ body {
 
 .default_content_right_more a:hover,.default_content_left_more a:hover {
 	color: #5A3523;
-	text-decoration: underline
+	text-decoration: none;
+}
+.default_content_right_more a:visited,.default_content_left_more a:visited {
+	color: #5A3523;
+	text-decoration: none;
 }
