@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" type="text/css"
 			href="display/css/menutitle.css" />
+			
 </head>
 
 <body>

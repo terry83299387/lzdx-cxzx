@@ -112,23 +112,24 @@
 		        toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
 		        toolbar2: "cut copy paste | searchreplace | bullist numlist | outdent indent blockquote | undo redo | download link unlink anchor image media code | inserttime preview | forecolor backcolor",
 		        toolbar3: "table | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | spellchecker | visualchars visualblocks nonbreaking template pagebreak restoredraft",
-		 		/*
-		 		toolbar4: "download | mybutton",
+		 		
+		 		toolbar4: "content | mybutton",
 				setup: function(editor) {
 			        editor.addButton('mybutton', {
-			            text: 'My button',
-			            icon: 'image',
+			            text: 'insert content',
+			            icon: 'table',
 			            onclick: function() {
 			           		 var win, data, dom = editor.dom, imgElm = editor.selection.getNode();
-			                editor.insertContent("<img src='123.jpg' />");
+			                editor.insertContent("<div class='news_content' style=\"font-family:Arial;font-size: 14px;line-height: 23px; background-color:#D3EAFC;table-layout: fixed; word-wrap: break-word; overflow: hidden;width:600px; max-width: 600px; \"></div>");
 			            }
 			        });
 		    	},
-				*/
+				
 		        menubar: false,
 		        toolbar_items_size: 'small',
 
 		        style_formats: [
+		        
 		                {title: 'Bold text', inline: 'b'},
 		                {title: 'Red text', inline: 'span', styles: {color: '#ff0000'}},
 		                {title: 'Red header', block: 'h1', styles: {color: '#ff0000'}},

@@ -13,9 +13,9 @@
 	</subject>
 	<subject id="xinwendongtai" cn_name="新闻动态" en_name="News" link="">
 		<subject id="xinwendongtai_zuixingengxin" cn_name="最新更新" en_name="Picture" link=""/>
-		<subject id="guojiyanjiudongtai" cn_name="国际研究动态" en_name="International" link="">
+		<subject id="guojiyanjiudongtai" cn_name="国际研究动态" en_name="International" link=""/>
 		<subject id="zhongxinjianbao" cn_name="中心简报" en_name="Home" link=""/>
-	</subject>
+	
   	</subject>
   	
   	
