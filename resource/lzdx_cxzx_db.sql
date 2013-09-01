@@ -31,7 +31,7 @@ CREATE TABLE `news` (
   `news_tag` varchar(255) DEFAULT NULL,
   `author` varchar(255) DEFAULT NULL,
   `news_priority` smallint(6) DEFAULT NULL,
-  `news_type` varchar(3) DEFAULT NULL,
+  `news_type` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`news_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=gbk;
 
