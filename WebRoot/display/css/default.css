@@ -115,8 +115,11 @@ body {
 .default_content_right_news table,.default_content_left_news table {
 	width: 100%;
 	height: auto;
-	cellpadding: 0;
-	cellspacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padd: expression(this.cellPadding =     0);
+	border: 0px;
+	
 }
 
 .default_content_right_news table .date_td,.default_content_left_news table .date_td

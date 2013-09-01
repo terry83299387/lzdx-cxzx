@@ -18,7 +18,7 @@ var noticePublic = {
 
 var newsDynamicsId = "xinwendongtai";
 var noticePublicId = "tongzhigonggao";
-var newsTotable = function(newslist) {
+var newsTotable = function(titleId,newslist) {
 	if(newslist.length<=0)
 	{
 	return "";
@@ -28,9 +28,10 @@ var newsTotable = function(newslist) {
 	for (var i = 0; i < newslist.length; i++) {
 		
 		var newsTitle = newslist[i].newsTitle;
+		var newsCode=newslist[i].newsCode;
 		var createDate = newslist[i].createDate;
-		row += "<tr><td class='title_td'>" + newsTitle
-				+ "</td><td class='date_td'>" + createDate + "</td></tr>";
+		row += "<tr><td class='title_td'><a target='_black' href='getNewsDetail.action?titleId="+titleId+"&&newsCode="+newsCode+"'>" + newsTitle
+				+ "</a></td><td class='date_td'>" + createDate + "</td></tr>";
 	}
 
 	tablehtml += row + "</table>";
@@ -45,7 +46,7 @@ var callNewsList = function(id,data) {
 			}).done(function(msg) {
 				var table = "";
 				var newslist = msg.newsList;
-				var tablehtml = newsTotable(newslist);
+				var tablehtml = newsTotable(id,newslist);
 				$("#"+id).html(tablehtml);
 
 			});

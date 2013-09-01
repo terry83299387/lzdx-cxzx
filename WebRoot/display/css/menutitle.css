@@ -1,0 +1,78 @@
+html,body {
+	height: 100%;
+	width: 100%
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.page_banner {
+	position: relative;
+	background-image: url(../images/default/banner_2.png);
+	height: 115px;
+	width: 1024px;
+	color: #1289A9;
+	text-align: center;
+}
+
+.page_title table {
+	width: 1024px;
+	text-align: center;
+	border-collapse: collapse;
+	border-spacing: 0;
+	padd: expression(this.cellPadding =         0);
+	border: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.page_title table tr,.page_title table td {
+	height: 62px;
+	padding: 0;
+}
+
+.page_title .title_1:hover {
+	background-image: url(../images/page/title_fg.png);
+	background-repeat: repeat-x;
+}
+
+.page_title a {
+	font-weight: bold; 
+	text-decoration : none;
+	color: black;
+	text-decoration: none;
+}
+
+.page_title .title_1 {
+	background-image: url(../images/page/title_bg.png);
+	background-repeat: repeat-x;
+}
+
+.page_title .title_2 {
+	background-image: url(../images/page/title_fg.png);
+	background-repeat: repeat-x;
+}
+
+.page_title .title_split {
+	background-image: url(../images/page/title_split.gif);
+	background-repeat: repeat-x;
+	width: 2px;
+}
+
+.title_layout {
+ position:relative;
+ width:1024px;
+ height:100%;
+}
+.title_layout .title_menu_layout {
+	position:absolute;
+	top:0px;
+	left:0;
+}
+.title_layout .title_content_layout {
+	position:absolute;
+	top:177px;
+	left:0;
+	background-color:#95D3FA;
+}
