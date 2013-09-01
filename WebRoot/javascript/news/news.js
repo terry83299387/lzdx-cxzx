@@ -10,7 +10,7 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,
 
 	var subjectText = subjectItem.text;
 	var subjectId = subjectItem.id;
-	var lan = languageComboBox.getValue() == "2" ? "2" : "1";
+	var lan = languageComboBox.getValue() == "en_name" ? "en_name" : "cn_name";
 
 	var windowwidth = Ext.lib.Dom.getViewWidth();
 
@@ -175,10 +175,10 @@ var newsWindows = function(subjectItem, languageComboBox, newsSelectionModel,
 																'language'],
 														data : [
 																[
-																		'1',
+																		'cn_name',
 																		i18n.chinese],
 																[
-																		'2',
+																		'en_name',
 																		i18n.english]]
 													}),
 											value : lan,

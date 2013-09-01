@@ -195,8 +195,8 @@ TreePanel.prototype = {
 			store : new Ext.data.SimpleStore({
 
 						fields : ['type', 'language'],
-						data : [['', i18n.language_all], ['1', i18n.chinese],
-								['2', i18n.english]]
+						data : [['', i18n.language_all], ['cn_name', i18n.chinese],
+								['en_name', i18n.english]]
 					}),
 			value : '',
 			editable : 'false',
