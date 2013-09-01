@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css"
 			href="display/css/default.css" />
 <script type="text/javascript" src="display/js/jquery.js" ></script>			
-<script type="text/javascript" src="display/js/default.js" ></script>
+
 </head>
 
 <body>
@@ -30,5 +30,7 @@
 </div>
 <div class="default_bottom"></div>
 </center>
+<script>lanType="cn_name"</script>
+<script type="text/javascript" src="display/js/default.js" ></script>
 </body>
 </html>
