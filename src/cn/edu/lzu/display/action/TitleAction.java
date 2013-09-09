@@ -6,20 +6,38 @@ import cn.edu.lzu.common.config.bean.Config;
 public class TitleAction extends ConfigAction{
 
 	private String titleId;
+	private String language;
 	private static java.util.Map<String,java.util.List<Config>> cacheTitleMap=new java.util.concurrent.ConcurrentHashMap<String,java.util.List<Config>>();
 	public String getTitleId() {
 		return titleId;
+	}
+
+	public  java.util.Map<String, java.util.List<Config>> getCacheTitleMap() {
+		return cacheTitleMap;
+	}
+
+	public  void setCacheTitleMap(
+			java.util.Map<String, java.util.List<Config>> cacheTitleMap) {
+		TitleAction.cacheTitleMap = cacheTitleMap;
 	}
 
 	public void setTitleId(String titleId) {
 		this.titleId = titleId;
 	}
 
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
 	public String showTitles()
 	{
 		init();
 		String result=SUCCESS;
-		String language=request.getParameter("language");
+		language=request.getParameter("language");
 		if(language==null)
 		{
 			language="cn_name";

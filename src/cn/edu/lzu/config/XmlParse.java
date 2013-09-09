@@ -29,7 +29,6 @@ public class XmlParse {
 		return list.size();
 	}
 
-	
 	public boolean isLeaf(Element ele) {
 		if (ele.isTextOnly()) {
 			return true;
@@ -37,7 +36,6 @@ public class XmlParse {
 		return false;
 	}
 
-	
 	public List<Element> iteratorEle(Element ele) {
 		List<Element> list = new ArrayList<Element>();
 		if (ele.isTextOnly()) {
@@ -47,21 +45,21 @@ public class XmlParse {
 		}
 		return list;
 	}
-	
-	public List<Element> recurseEle(List<Element> list,Element ele) {
-//		List<Element> list = new ArrayList<Element>();
+
+	public List<Element> recurseEle(List<Element> list, Element ele) {
+		// List<Element> list = new ArrayList<Element>();
 		if (ele.isTextOnly()) {
 			list.add(ele);
 		} else {
 			list.add(ele);
 			List<Element> list1 = ele.elements();
-			for(Element e:list1)
-			{
-				recurseEle(list,e);
+			for (Element e : list1) {
+				recurseEle(list, e);
 			}
 		}
 		return list;
 	}
+
 	public String getDomNodeTxt(Object obj) throws Exception {
 		Node node = null;
 		if (obj instanceof String) {
@@ -78,7 +76,8 @@ public class XmlParse {
 
 	}
 
-	public java.util.Hashtable<String,String> getDomElementAttr(Object obj) throws Exception {
+	public java.util.Hashtable<String, String> getDomElementAttr(Object obj)
+			throws Exception {
 		Element element = null;
 		if (obj instanceof String) {
 			element = (Element) document.selectSingleNode(obj.toString());
@@ -91,6 +90,8 @@ public class XmlParse {
 		}
 
 		java.util.Hashtable<String, String> ht = null;
+		if(element==null)
+			return null;
 		for (int i = 0; i < element.attributeCount(); i++) {
 			if (ht == null)
 				ht = new java.util.Hashtable<String, String>();
@@ -101,7 +102,8 @@ public class XmlParse {
 		return ht;
 	}
 
-	public java.util.Hashtable<String,String> getDomElement(Object obj) throws Exception {
+	public java.util.Hashtable<String, String> getDomElement(Object obj)
+			throws Exception {
 		Element element = null;
 		if (obj instanceof String) {
 			element = (Element) document.selectSingleNode(obj.toString());
@@ -177,17 +179,23 @@ public class XmlParse {
 		return list;
 
 	}
-	
+
 	public List<Element> getAllChildrenAttributeList(final String attric,
 			final String value) throws Exception {
-		
 
 		Element e = (Element) document.selectSingleNode("//*[@" + attric
 				+ "=\"" + value + "\"]");
-		java.util.List<Element> list =new java.util.ArrayList<Element>();
-		recurseEle(list,e);
+		java.util.List<Element> list = new java.util.ArrayList<Element>();
+		recurseEle(list, e);
 
 		return list;
+
+	}
+
+	public java.util.Hashtable<String, String> getNodeAttr(final String attric,
+			final String value) throws Exception {
+		String path = "//*[@" + attric + "=\"" + value + "\"]";
+		return getDomElementAttr(path);
 
 	}
 

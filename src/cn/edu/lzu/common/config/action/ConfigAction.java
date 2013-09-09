@@ -19,7 +19,7 @@ public class ConfigAction extends BaseAction{
 
 	private java.util.List<Config> nodes=new java.util.ArrayList<Config>();
 	
-	private final String physicalBaseDir= BasicPropertiesWork.getWebappsSitePath();
+	protected final String physicalBaseDir= BasicPropertiesWork.getWebappsSitePath();
 	private String nodesJson;
 	private String root;
 	
@@ -49,6 +49,8 @@ public class ConfigAction extends BaseAction{
 		this.nodes = nodes;
 	}
 
+	
+	
 	public String showConfigNodes()
 	{
 		init() ;

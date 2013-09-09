@@ -149,7 +149,7 @@ public class NewsAction extends BaseAction {
 		try {
 			init();
 			String nodeid = request.getParameter("nodeid");
-			String lanType = request.getParameter("type");
+			String lanType = request.getParameter("language");
 			Integer start = Integer.valueOf(request.getParameter("start"));
 			Integer limit = Integer.valueOf(request.getParameter("limit"));
 

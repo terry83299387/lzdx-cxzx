@@ -4,12 +4,20 @@
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="display_news" extends="json-default">
+		
 
 		<action name="showDisplayNewsList"
 			class="cn.edu.lzu.display.action.NewsAction"
 			method="showNewsList">
 			<result type="json" />
 			<result name="error" type="json" />
+		</action>
+
+		<action name="defaultAction"
+			class="cn.edu.lzu.display.action.DefaultAction"
+			method="showDefault">
+			<result name="success" >default.jsp</result>
+			<result name="error" >default.jsp</result>
 		</action>
 
 		<action name="getMenuTitles"
@@ -25,6 +33,15 @@
 			method="showNews">
 			<result name="success" >newsdetail.jsp</result>
 			<result name="error" >newsdetail.jsp</result>
+		</action>
+		
+		<action name="getShouye"
+			class="cn.edu.lzu.display.action.ShouyeAction"
+			method="showTitles">
+			<param name="titles">tongzhigonggao,xinwendongtai,kejijinzhan,zhuantizhuanlan</param>
+			<param name="pictureNodeId">xinwendongtai</param>
+			<result name="success" >shouye.jsp</result>
+			<result name="error" >shouye.jsp</result>
 		</action>
 
 	</package>
