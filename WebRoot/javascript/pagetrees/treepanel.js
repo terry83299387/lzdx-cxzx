@@ -207,7 +207,7 @@ TreePanel.prototype = {
 				select : function(combo, record, index) {
 
 					var selectLan = combo.getValue();
-					store.baseParams.type = selectLan;
+					store.baseParams.language = selectLan;
 					store.load({
 								params : {
 									start : 0,
@@ -239,7 +239,7 @@ TreePanel.prototype = {
 					},
 					baseParams : {
 						nodeid : target.id,
-						type : languageComboBox.getValue(),
+						language : languageComboBox.getValue(),
 						limit : pageComboBox.limit
 					},
 					listeners : {

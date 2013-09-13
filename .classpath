@@ -8,5 +8,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/dom4j"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/3rdLib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/j2eeLib"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

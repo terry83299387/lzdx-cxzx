@@ -15,7 +15,7 @@
 <body>
 <center>
 <div class="default_banner">
-  <div class="default_language"><a href="">中&nbsp;&nbsp;文</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="">English</a></div>
+  <div class="default_language"><a href="defaultAction.action?language=cn_name">中&nbsp;&nbsp;文</a>&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="defaultAction.action?language=en_name">English</a></div>
 </div>
 <div><iframe class="default_iframe" src="default_galary.html" scrolling="no" frameborder="0" marginheight="0" marginwidth="0"></iframe></div>
 <div class="default_content">
@@ -30,7 +30,7 @@
 </div>
 <div class="default_bottom"></div>
 </center>
-<script>lanType="cn_name"</script>
+<script>lanType="<s:property value='language'/>"</script>
 <script type="text/javascript" src="display/js/default.js" ></script>
 </body>
 </html>

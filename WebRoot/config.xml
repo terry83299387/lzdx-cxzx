@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="gb2312"?>
 <config id="subject_root">
 
-	<subject id="shouye" cn_name="首页" en_name="Home" link="">
+	<subject id="shouye" cn_name="首页" en_name="Home" link="getShouye.action">
 		
-	
+		<subject id="zhuantizhuanlan" cn_name="专题专栏" en_name="Topics" link=""/>
 	
 	</subject>
 	<subject id="zhongxingaikuang" cn_name="中心概况" en_name="Institution" link="">
@@ -33,7 +33,7 @@
   	</subject>
   	
   	<subject id="kexueyanjiu" cn_name="科学研究" en_name="Science" link="">
-	
+			<subject id="kejijinzhan" cn_name="科技进展" en_name="Technology Advance" link=""/>
   	</subject>
   	<subject id="tuanduijianshe" cn_name="团队建设" en_name="Team" link="">
 		<subject id="yanjiuduiwu" cn_name="研究队伍" en_name="Research Team" link="">

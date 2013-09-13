@@ -1,0 +1,271 @@
+.shouye_area {
+	text-align: left;
+	width: 1024px;
+	height: 885px;
+	background-color: #95D3FA;
+	position: relative;
+	left: 0px;
+	top: 0px;
+	width: 1024px;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.shouye_0 {
+	position: absolute;
+	z-index: 1;
+	margin-left: 47px;
+	margin-top: 28px;
+	background-image: url(../images/page/shouye_bg1.png);
+	background-repeat: repeat-y;
+	height: 430px;
+	width: 333px;
+}
+
+.shouye_0_up {
+	margin-left: 20px;
+	margin-top: 45px;
+	line-height: 18px;
+	font-size: 14px;
+	position: absolute;
+	height: 370px;
+	width: 300px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.shouye_0_bottom {
+	position: absolute;
+	margin-left: 0px;
+	margin-top: 430px;
+	background-image: url(../images/page/shouye_bg1_bottom.png);
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 333px;
+}
+
+.shouye_1 {
+	position: absolute;
+	z-index: 1;
+	margin-left: 47px;
+	margin-top: 495px;
+	background-image: url(../images/page/shouye_bg1.png);
+	background-repeat: repeat-y;
+	height: 348px;
+	background-repeat: repeat-y;
+	height: 348px;
+	width: 333px;
+}
+
+.shouye_1_up {
+	position: absolute;
+	margin-left: 20px;
+	margin-top: 45px;
+	font-size: 14px;
+	height: 300px;
+	width: 300px;
+}
+
+.shouye_1_bottom {
+	position: absolute;
+	margin-left: 0px;
+	margin-top: 348px;
+	background-image: url(../images/page/shouye_bg1_bottom.png);
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 333px;
+}
+
+.shouye_2 {
+	position: absolute;
+	z-index: 1;
+	margin-left: 403px;
+	margin-top: 495px;
+	background-image: url(../images/page/shouye_bg1.png);
+	background-repeat: repeat-y;
+	height: 348px;
+	width: 333px;
+}
+
+.shouye_2_up {
+	position: absolute;
+	height: 300px;
+	width: 300px;
+	margin-left: 20px;
+	margin-top: 45px;
+}
+
+.shouye_2_bottom {
+	position: absolute;
+	background-image: url(../images/page/shouye_bg1_bottom.png);
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 333px;
+	margin-left: 0px;
+	margin-top: 348px;
+}
+
+.shouye_3 {
+	position: absolute;
+	z-index: 1;
+	margin-left: 760px;
+	margin-top: 495px;
+	background-image: url(../images/page/shouye_bg2.png);
+	background-repeat: repeat-y;
+	height: 348px;
+	width: 236px;
+}
+
+.shouye_3_up {
+	position: absolute;
+	height: 300px;
+	width: 200px;
+	margin-left: 20px;
+	margin-top: 45px;
+}
+
+.shouye_3_bottom {
+	position: absolute;
+	background-image: url(../images/page/shouye_bg2_bottom.png);
+	background-repeat: no-repeat;
+	height: 33px;
+	width: 236px;
+	margin-left: 0px;
+	margin-top: 348px;
+}
+
+.shouye_0_up a,.shouye_1_up a,.shouye_2_up a,.shouye_3_up a {
+	text-decoration: none;
+	color: black;
+	line-height: 18px;
+}
+
+.shouye_0_up a:hover,.shouye_1_up a:hover,.shouye_2_up a:hover,.shouye_3_up a:hover
+	{
+	text-decoration: underline;
+	line-height: 18px;
+}
+
+.shouye_bottom {
+	background-image: url(../images/page/page_bottom_bg.png);
+	height: 136px;
+	width: 1024px;
+}
+
+.shouye_button_0 {
+	position: absolute;
+	z-index: 2;
+	margin-left: 38px;
+	margin-top: 19px;
+	min-width: 155px;
+}
+
+.shouye_button_1 {
+	position: absolute;
+	z-index: 2;
+	margin-left: 38px;
+	margin-top: 483px;
+	min-width: 155px;
+}
+
+.shouye_button_2 {
+	position: absolute;
+	z-index: 2;
+	margin-left: 393px;
+	margin-top: 483px;
+	min-width: 155px;
+}
+
+.shouye_button_3 {
+	position: absolute;
+	z-index: 2;
+	margin-left: 795px;
+	margin-top: 483px;
+	min-width: 155px;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0px;
+	padd: expression(this.cellPadding =      0);
+	border: 0px;
+}
+
+table tr,table td {
+	padding: 0px;
+}
+
+.shouye_button_left {
+	height: 45px;
+	width: 4px;
+	background-image: url(../images/page/shouye_button_left_bg.png);
+	background-repeat: no-repeat;
+}
+
+.shouye_button_center {
+	font-size: 18px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #1D4E00;
+	line-height: 46px;
+	text-align: center;
+	height: 45px;
+	max-width: auto;
+	width: 155px;
+	table-layout: auto;
+	letter-spacing: 2px;
+	white-space: nowrap;
+	background-image: url(../images/page/shouye_button_center_bg.png);
+	background-repeat: repeat-x;
+	white-space: nowrap;
+}
+
+.shouye_button_right {
+	height: 45px;
+	width: 5px;
+	background-image: url(../images/page/shouye_button_right_bg.png);
+	background-repeat: no-repeat;
+}
+
+.shouye_picture_1 iframe {
+	height: 313px;
+	width: 525px;
+}
+
+.shouye_picture {
+	position: absolute;
+	z-index: 5;
+	margin-left: 413px;
+	margin-top: 16px;
+	height: 375px;
+	width: 590px;
+}
+
+.shouye_picture_2 {
+	position: absolute;
+	z-index: 3;
+	background-image: url(../images/page/shouye_pictures_bg3.png);
+	background-repeat: no-repeat;
+	height: 375px;
+	width: 595px;
+}
+
+.shouye_picture_1 {
+	position: absolute;
+	z-index: 5;
+	margin-left: 20px;
+	margin-top: 29px;
+	background-color: black;
+	height: 313px;
+	width: 525px;
+}
+
+.shouye_picture_3 {
+	position: absolute;
+	margin-left: 402px;
+	margin-top: 0px;
+	background-image: url(../images/page/cn_name_picture_title.png);
+	background-repeat: no-repeat;
+	z-index: 7;
+	height: 184px;
+	width: 180px;
+}

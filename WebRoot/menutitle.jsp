@@ -17,7 +17,7 @@
 <tr>
 <s:iterator value='nodes' status="st">
 <s:if test="#st.index>0"><td class='title_split'></td></s:if>
-<s:if test="id==titleId"><td class='title_2'></s:if><s:else><td class='title_1'></s:else><a target="_blank" href="<s:property value='link'/>?titleId=<s:property value='id'/>" ><s:property value='text'/></a></td>
+<s:if test="id==titleId"><td class='title_2'></s:if><s:else><td class='title_1'></s:else><a target="_blank" href="<s:property value='link'/>?titleId=<s:property value='id'/>&language=<s:property value='language'/>" ><s:property value='text'/></a></td>
 </s:iterator>
 </tr>
 </table>
