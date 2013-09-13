@@ -61,6 +61,9 @@ public class NewsAction extends BaseAction {
 		try {
 			init();
 			String newsCode = request.getParameter("newsCode");
+			if (newsCode == null) {
+				newsCode = (String) request.getAttribute("newsCode");
+			}
 
 			NewsDao nd = new NewsDao();
 			News news = nd.getNews(newsCode);
@@ -103,8 +106,19 @@ public class NewsAction extends BaseAction {
 			String nodeid = request.getParameter("nodeid");
 			String lanType = request.getParameter("language");
 			String range = request.getParameter("range");
-			Integer start = Integer.valueOf(request.getParameter("start"));
-			Integer limit = Integer.valueOf(request.getParameter("limit"));
+//			Integer start = Integer.valueOf(request.getParameter("start"));
+//			Integer limit = Integer.valueOf(request.getParameter("limit"));
+			int start = 0;
+			String startStr = request.getParameter("start");
+			if (startStr != null) {
+				start = Integer.valueOf(startStr);
+			}
+			int limit = start + 1024;
+			String limitStr = request.getParameter("limit");
+			if (limitStr != null) {
+				limit = Integer.valueOf(limitStr);
+			}
+
 			java.util.Set<String> nodeSet=new java.util.HashSet<String>();
 			
 			if ("all".equals(range)) {
@@ -135,6 +149,22 @@ public class NewsAction extends BaseAction {
 		} catch (Exception e) {
 			return ERROR;
 		}
+		return SUCCESS;
+	}
+
+	public String showNewsListOrDetail() {
+		init();
+		String isError = showNewsList();
+		if (ERROR.equals(isError)) {
+			return ERROR;
+		}
+
+		if (results == 1) {
+			String newsCode = newsList.get(0).getNewsCode();
+			request.setAttribute("newsCode", newsCode);
+			return loadNews();
+		}
+
 		return SUCCESS;
 	}
 

@@ -8,6 +8,9 @@ import cn.edu.lzu.common.config.bean.Config;
 import cn.edu.lzu.config.BasicPropertiesWork;
 import cn.edu.lzu.config.XmlParse;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
 
 
 public class ConfigAction extends BaseAction{
@@ -49,8 +52,6 @@ public class ConfigAction extends BaseAction{
 		this.nodes = nodes;
 	}
 
-	
-	
 	public String showConfigNodes()
 	{
 		init() ;
@@ -97,5 +98,54 @@ public class ConfigAction extends BaseAction{
 		return SUCCESS;
 		
 	}
-	
+
+	public String showNode() {
+		init();
+		String nodeId = request.getParameter("node");
+
+		try {
+			XmlParse xmlParse = new XmlParse(
+					physicalBaseDir + "/" + BasicPropertiesWork.getConfigPath());
+			Element node = xmlParse.getNode(nodeId);
+			if(node == null) {
+				return ERROR;
+			}
+
+			Config config = _getNodeConfig(xmlParse, node);
+			nodes.add(config);
+		} catch (Exception e) {
+			return ERROR;
+		}
+
+		return SUCCESS;
+	}
+
+	@SuppressWarnings("unchecked")
+	private Config _getNodeConfig(XmlParse xmlParse, Element node) throws Exception {
+		String language = request.getParameter("language");
+		if(language == null) {
+			language = "cn_name";
+		}
+		Config config = new Config();
+		Hashtable<String,String> attrs
+				= xmlParse.getDomElementAttr(node);
+		config.setId(attrs.get("id"));
+		config.setLeaf(xmlParse.isLeaf(node));
+		config.setText(attrs.get(language));
+		config.setLink(attrs.get("link"));
+
+		if (!xmlParse.isLeaf(node)) {
+			List<Element> children = node.elements();
+			List<Config> childrenConfig = new ArrayList<Config>();
+
+			for (Element child : children) {
+				Config childConfig = _getNodeConfig(xmlParse, child);
+				childrenConfig.add(childConfig);
+			}
+
+			config.setNodes(childrenConfig);
+		}
+
+		return config;
+	}
 }

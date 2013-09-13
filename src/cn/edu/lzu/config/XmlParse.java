@@ -199,4 +199,11 @@ public class XmlParse {
 
 	}
 
+	public Element getNode(String id) {
+		Element node = (Element) document
+				.selectSingleNode("//*[@id=\"" + id + "\"]");
+
+		return node;
+	}
+
 }
