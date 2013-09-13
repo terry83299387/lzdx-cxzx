@@ -39,5 +39,12 @@
 			<result name="success" >configTree.jsp</result>
 		</action>
 
+		<action name="showNode"
+			class="cn.edu.lzu.common.config.action.ConfigAction"
+			method="showNode">
+			<result name="success" type="json" />
+			<result name="error" type="json" />
+		</action>
+
 	</package>
 </struts>
