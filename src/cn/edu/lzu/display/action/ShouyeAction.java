@@ -19,6 +19,25 @@ public class ShouyeAction extends ConfigAction {
 	private String language;
 	private String titleId;
 	private String pictureNodeId;
+	private String searchTitle;
+	
+	
+	public String getSearchTitle() {
+		if("cn_name".equals(language))
+		{
+			searchTitle = "站内搜索";
+		}
+		else
+		{
+			searchTitle = "Website Search";
+		}
+		return searchTitle;
+	}
+
+	public void setSearchTitle(String searchTitle) {
+		
+		this.searchTitle=searchTitle;
+	}
 
 	public String getTitleJson() {
 		if (titleMap.keySet().size()==0) {
