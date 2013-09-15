@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
+import cn.edu.lzu.config.HtmlScript;
 import cn.edu.lzu.db.HibernateUtil;
 
 public class NewsDao {
@@ -123,6 +124,10 @@ public class NewsDao {
 		try {
 			Session sess = HibernateUtil.currentSession();
 			Transaction t = sess.beginTransaction();
+			if(news.getNewsContent()!=null)
+			{
+				news.setNewsContentNotHtml(HtmlScript.delHTMLTag(news.getNewsContent()));
+			}
 			sess.update(news);
 			t.commit();
 		} finally {
@@ -138,6 +143,10 @@ public class NewsDao {
 		try {
 			Session sess = HibernateUtil.currentSession();
 			Transaction t = sess.beginTransaction();
+			if(news.getNewsContent()!=null)
+			{
+				news.setNewsContentNotHtml(HtmlScript.delHTMLTag(news.getNewsContent()));
+			}
 			sess.save(news);
 			SubjectsNewsRelation snr = new SubjectsNewsRelation();
 			snr.setNewsCode(news.getNewsCode());

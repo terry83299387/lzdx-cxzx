@@ -17,6 +17,13 @@ public class News implements java.io.Serializable{
 	private String author;
 	private String type;
 	private int newsPriority;
+	private String newsContentNotHtml;
+	public String getNewsContentNotHtml() {
+		return newsContentNotHtml;
+	}
+	public void setNewsContentNotHtml(String newsContentNotHtml) {
+		this.newsContentNotHtml = newsContentNotHtml;
+	}
 	public String getType() {
 		return type;
 	}

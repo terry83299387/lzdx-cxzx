@@ -15,6 +15,7 @@
 		<property name="newsSource" column="news_source" />
 		<property name="newsTag" column="news_tag" />
 		<property name="newsContent" column="news_content" />
+		<property name="newsContentNotHtml" column="news_content_nothtml" />
 		<property name="newsLink" column="news_link" />
 		<property name="newsPicture" column="news_picture" />
 		<property name="author" column="author" />
