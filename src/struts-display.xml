@@ -49,6 +49,13 @@
 			<result type="json" />
 			<result name="error" type="json" />
 		</action>
+		
+		<action name="searchNews"
+			class="cn.edu.lzu.display.action.NewsSearchingAction"
+			method="searchNews">
+			<result type="json" />
+			<result name="error" type="json" />
+		</action>
 
 	</package>
 </struts>

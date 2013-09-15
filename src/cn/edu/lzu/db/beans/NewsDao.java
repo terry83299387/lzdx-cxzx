@@ -1,5 +1,8 @@
 package cn.edu.lzu.db.beans;
 
+import java.util.List;
+import java.util.Set;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -215,6 +218,68 @@ public class NewsDao {
 			HibernateUtil.closeSession();
 		}
 
+	}
+
+	public long getNewsCount(String nodeId, String lanType) throws Exception {
+		try {
+			Session sess = HibernateUtil.currentSession();
+			String hql = "select count(n.newsCode) from News n, SubjectsNewsRelation s "
+				+ "where n.newsCode=s.newsCode and s.subjectCode=? and n.type=?";
+			Query query = sess.createQuery(hql);
+			query.setString(0, nodeId);
+			query.setString(1, lanType);
+
+			List<Long> result = query.list();
+			if (result == null || result.size() == 0) {
+				return 0;
+			}
+			return result.get(0);
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
+	public List<Object[]> searchNews(Set<String> range, String keyword,
+			String lanType, int start, int limit) throws Exception {
+		if (keyword == null || keyword.length() == 0) {
+			throw new Exception("keyword can not be null.");
+		}
+		try {
+			Session sess = HibernateUtil.currentSession();
+
+			String subjects = null;
+			for (String subject : range) {
+				if (subjects == null) {
+					subjects = "'" + subject + "'";
+				} else {
+					subjects += ",'" + subject + "'";
+				}
+			}
+
+			Query query = null;
+			StringBuilder hql = new StringBuilder();
+			hql.append("select distinct a.newsCode,a.newsTitle,a.newsSource,a.author,a.createDate,a.newsContent ")
+				.append("from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode ");
+			if (lanType != null && lanType.length() != 0) {
+				hql.append("and a.type='").append(lanType).append("' ");
+			}
+			hql.append(" and s.subjectCode in (")
+				.append(subjects)
+				.append(") and (a.newsTitle like '%")
+				.append(keyword)
+				.append("%' or a.newsContent like '%")
+				.append(keyword)
+				.append("%') order by a.newsPriority desc ,a.createDate desc");
+
+			query = sess.createQuery(hql.toString()).setFirstResult(start)
+					.setMaxResults(limit);
+
+			java.util.List<Object[]> list = query.list();
+
+			return list;
+		} finally {
+			HibernateUtil.closeSession();
+		}
 	}
 
 }

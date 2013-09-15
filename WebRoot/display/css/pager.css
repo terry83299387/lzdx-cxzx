@@ -1,0 +1,41 @@
+/*
+ * styles for pager bar and its sub contents
+ */
+.pager_bar {
+	display : block;
+	font-family : Arial;
+	font-size : 13px;
+	border-top : 0 none;
+	float : left;
+	padding : 12px 0 30px 15px;
+	inline-height : 0;
+}
+
+.pager_bar .first_page, .pager_bar .pre_page, .pager_bar .next_page, .pager_bar .last_page {
+	font-family : ËÎÌו;
+	line-height : 23px;
+}
+
+.pager_bar .cur_page {
+	background : none repeat scroll 0 center transparent;
+	border : 1px solid #FFFFFF;
+	color : #000000;
+	font-weight : bold;
+}
+
+.pager_bar a, .pager_bar span {
+	margin-top : 5px;
+	background : none repeat scroll 0 0 #FFFFFF;
+	border : 1px solid #E7ECF0;
+	color : #0000CD;
+	float : left;
+	height : 22px;
+	overflow : hidden;
+	padding : 0 8px;
+	text-align : center;
+	text-decoration : none;
+	width : auto;
+	line-height : 22px;
+	margin-right : 5px;
+}
+

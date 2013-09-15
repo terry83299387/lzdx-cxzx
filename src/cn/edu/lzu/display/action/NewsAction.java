@@ -1,5 +1,12 @@
 package cn.edu.lzu.display.action;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.dom4j.Element;
 
 import cn.edu.lzu.common.action.BaseAction;
@@ -10,13 +17,18 @@ import cn.edu.lzu.db.beans.News;
 import cn.edu.lzu.db.beans.NewsDao;
 
 public class NewsAction extends BaseAction {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9094641782394004517L;
+
 	private final String physicalBaseDir = BasicPropertiesWork
 			.getWebappsSitePath();
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 	private long results;
-	private java.util.List<NewsInfo> newsList = new java.util.ArrayList<NewsInfo>();
-	private java.text.DateFormat dateFormat = new java.text.SimpleDateFormat(
-			"yyyy-MM-dd");
+	private long totalSize;
+	private List<NewsInfo> newsList = new ArrayList<NewsInfo>();
 	private NewsInfo newsInfo;
 
 	public NewsInfo getNewsInfo() {
@@ -35,11 +47,25 @@ public class NewsAction extends BaseAction {
 		this.results = results;
 	}
 
+	/**
+	 * @param totalSize the totalSize to set
+	 */
+	public void setTotalSize(long totalSize) {
+		this.totalSize = totalSize;
+	}
+
+	/**
+	 * @return the totalSize
+	 */
+	public long getTotalSize() {
+		return totalSize;
+	}
+
 	public java.util.List<NewsInfo> getNewsList() {
 		return newsList;
 	}
 
-	public void setNewsList(java.util.List<NewsInfo> newsList) {
+	public void setNewsList(List<NewsInfo> newsList) {
 		this.newsList = newsList;
 	}
 
@@ -88,10 +114,10 @@ public class NewsAction extends BaseAction {
 
 	private java.util.Set<String> getSubjectIdSet(String nodeid)
 			throws Exception {
-		java.util.Set<String> set = new java.util.HashSet<String>();
+		Set<String> set = new HashSet<String>();
 		XmlParse xmlParse = new XmlParse(physicalBaseDir + "/"
 				+ BasicPropertiesWork.getConfigPath());
-		java.util.List<Element> list = xmlParse.getAllChildrenAttributeList("id",
+		List<Element> list = xmlParse.getAllChildrenAttributeList("id",
 				nodeid);
 		for (Element e : list) {
 			set.add(e.attribute("id").getValue());
@@ -113,26 +139,29 @@ public class NewsAction extends BaseAction {
 			if (startStr != null) {
 				start = Integer.valueOf(startStr);
 			}
-			int limit = start + 1024;
+			int limit = 100;
 			String limitStr = request.getParameter("limit");
 			if (limitStr != null) {
 				limit = Integer.valueOf(limitStr);
 			}
 
-			java.util.Set<String> nodeSet=new java.util.HashSet<String>();
+			Set<String> nodeSet=new HashSet<String>();
 			
 			if ("all".equals(range)) {
 				nodeSet = getSubjectIdSet(nodeid);
 			}
 			nodeSet.add(nodeid);
 
-			NewsDao dn = new NewsDao();
-			java.util.List<Object[]> list = dn.getAllSubSubjectNews(nodeSet,
+			NewsDao nd = new NewsDao();
+			List<Object[]> list = nd.getAllSubSubjectNews(nodeSet,
 					lanType, start, limit);
 
-			for (int i = start; i < (start + limit) && i < list.size(); i++) {
-				Object[] o = list.get(i);
-				NewsInfo newsInfo = new NewsInfo();
+			results = Math.min(limit, list.size());
+			Object[] o;
+			NewsInfo newsInfo;
+			for (int i = 0; i < results; i++) {
+				o = list.get(i);
+				newsInfo = new NewsInfo();
 				newsInfo.setNewsCode((String) o[0]);
 				newsInfo.setNewsTitle((String) o[1]);
 				newsInfo.setNewsSource((String) o[2]);
@@ -145,7 +174,6 @@ public class NewsAction extends BaseAction {
 				newsInfo.setType((String) o[8]);
 				newsList.add(newsInfo);
 			}
-			results = list.size();
 		} catch (Exception e) {
 			return ERROR;
 		}
@@ -159,7 +187,15 @@ public class NewsAction extends BaseAction {
 			return ERROR;
 		}
 
-		if (results == 1) {
+		NewsDao nd = new NewsDao();
+		String nodeId = request.getParameter("nodeid");
+		String lanType = request.getParameter("language");
+		try {
+			totalSize = nd.getNewsCount(nodeId, lanType);
+		} catch (Exception e) {
+			return ERROR;
+		}
+		if (totalSize == 1) {
 			String newsCode = newsList.get(0).getNewsCode();
 			request.setAttribute("newsCode", newsCode);
 			return loadNews();
