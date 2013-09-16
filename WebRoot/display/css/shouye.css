@@ -1,3 +1,8 @@
+body
+{
+font-family: Arial, Helvetica, sans-serif;
+}
+
 .shouye_area {
 	text-align: left;
 	width: 1024px;
@@ -21,7 +26,46 @@
 	height: 430px;
 	width: 333px;
 }
+.shouye_0_more
+{
+	position: absolute;
+	margin-left: 250px;
+	margin-top: 28px;
+}
+.shouye_1_more
+{
+	position: absolute;
+	margin-left: 250px;
+	margin-top: 28px;
+}
+.shouye_2_more
+{
+	position: absolute;
+	margin-left: 250px;
+	margin-top: 28px;
+}
+.shouye_0_more a,.shouye_1_more a,.shouye_2_more a,.shouye_3_more a
+{
+	text-decoration: none;
+	color: black;
+	line-height: 16px;
+	
 
+}
+.shouye_0_more a:hover,.shouye_1_more a:hover,.shouye_2_more a:hover,.shouye_3_more a:hover
+{
+	text-decoration: underline;
+	line-height: 16px;
+
+}
+.shouye_3_more
+{
+	position: absolute;
+	margin-left: 200px;
+	margin-top: 28px;
+	width:0px;
+	
+}
 .shouye_0_up {
 	margin-left: 20px;
 	margin-top: 45px;
@@ -268,4 +312,52 @@ table tr,table td {
 	z-index: 7;
 	height: 184px;
 	width: 180px;
+}
+.shouye_search
+{
+	position: absolute;
+	margin-left: 402px;
+	margin-top: 400px;
+	background-color:#D3EAFC;
+	width:586px;
+	height:55px;
+}
+.text_input 
+{
+	vertical-align:middle;
+	position: absolute;
+	margin-left: 200px;
+	margin-top: 10px;
+	width:300px;
+	height:30px;
+	line-height:30px;
+	background-color: #95D3FA;
+	font-size:16px;
+}
+.search_title
+{
+	position: absolute;
+	vertical-align:middle;
+	line-height:55px;
+	text-align:center;
+	width:200px;
+	height:55px;
+	font-size:18px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	letter-spacing: 2px;
+	color:#1268A3;
+}
+.shouye_search_icon
+{
+	position: absolute;
+	border:0px solid transparent;
+	margin-left: 520px;
+	margin-top: 10px;
+	width:33px;
+	height:33px;
+	background-image: url(../images/page/shouye_search_icon.png);
+	background-repeat: no-repeat;
+	cursor:pointer;
+	
 }

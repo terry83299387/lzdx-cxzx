@@ -80,7 +80,12 @@
 	height: 20px;
 }
 .news_content_bottom {
-	background-image: url(../images/page/news_bottom_bg.png);
-	height: 174px;
+	background-image: url(../images/page/news_page_bottom_bg.png);
+	height: 46px;
+	width: 1024px;
+}
+.news_bottom {
+	background-image: url(../images/page/page_bottom_bg.png);
+	height: 136px;
 	width: 1024px;
 }
