@@ -31,6 +31,7 @@
 <div class="shouye_<s:property value='#st.index'/>">
 <div id="<s:property value='value.id'/>" class="shouye_<s:property value='#st.index'/>_up">
 </div>
+<div class="shouye_<s:property value='#st.index'/>_more"><a href="<s:property value='value.link'/>?language=<s:property value='language'/>&titleId=<s:property value='value.id'/>">More</a></div>
 <div class="shouye_<s:property value='#st.index'/>_bottom"></div>
 </div>
 </s:iterator>
@@ -62,7 +63,7 @@
 </div>
 
 
-<div class="shouye_search"></div>
+<div class="shouye_search"><div class="search_title"><s:property value='searchTitle'/></div><form action="globalSearch.jsp" method="get" enctype="multipart/form-data" target="_blank"><input type="hidden" name="language" value="<s:property value='language'/>"/><input class="text_input" name="keyword" type="text"></input><input class="shouye_search_icon" type="submit" value=""/></form></div>
 
 <div id="configList" style="visibility:hidden"><s:property value='titleJson'/></div>
 <div id="language" style="visibility:hidden"><s:property value='language'/></div>
