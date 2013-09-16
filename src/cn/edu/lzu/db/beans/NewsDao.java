@@ -257,26 +257,30 @@ public class NewsDao {
 			Session sess = HibernateUtil.currentSession();
 
 			String subjects = null;
-			for (String subject : range) {
-				if (subjects == null) {
-					subjects = "'" + subject + "'";
-				} else {
-					subjects += ",'" + subject + "'";
+			if (range != null) {
+				for (String subject : range) {
+					if (subjects == null) {
+						subjects = "'" + subject + "'";
+					} else {
+						subjects += ",'" + subject + "'";
+					}
 				}
 			}
 
 			Query query = null;
 			StringBuilder hql = new StringBuilder();
-			hql.append("select distinct a.newsCode,a.newsTitle,a.newsSource,a.author,a.createDate,a.newsContent ")
+			hql.append("select distinct a.newsCode,a.newsTitle,a.newsSource,a.author,a.createDate,a.newsContentNotHtml ")
 				.append("from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode ");
 			if (lanType != null && lanType.length() != 0) {
 				hql.append("and a.type='").append(lanType).append("' ");
 			}
-			hql.append(" and s.subjectCode in (")
-				.append(subjects)
-				.append(") and (a.newsTitle like '%")
+			if (subjects != null && subjects.length() != 0) {
+				hql.append(" and s.subjectCode in (")
+					.append(subjects).append(") ");
+			}
+			hql.append(" and (a.newsTitle like '%")
 				.append(keyword)
-				.append("%' or a.newsContent like '%")
+				.append("%' or a.newsContentNotHtml like '%")
 				.append(keyword)
 				.append("%') order by a.newsPriority desc ,a.createDate desc");
 

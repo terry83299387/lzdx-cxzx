@@ -19,65 +19,61 @@
 <div class="title_layout">
 <div class="title_content_layout">
 <div class="second_area">
-<table><tr><td class="_left">
-
-
-<div class="main">
-<!-- header start  -->
-<div class="header">标题1</div>
-<div class="list">
-	<div class="header">标题1.1</div>
-	<div class="list">
-		<div class="header">标题1.1.1</div>
+<table><tr>
+<td class="_left">
+	<div class="main">
+		<!-- header start  -->
+		<div class="header">标题1</div>
 		<div class="list">
-			<div class="header">标题1.1.1.1 test test test test test test test test test test</div>
-			<div class="header">标题1.1.1.2</div>
+			<div class="header">标题1.1</div>
+			<div class="list">
+				<div class="header">标题1.1.1</div>
+				<div class="list">
+					<div class="header">标题1.1.1.1 test test test test test test test test test test</div>
+					<div class="header">标题1.1.1.2</div>
+				</div>
+				<div class="header">标题1.1.2</div>
+				<div class="list">
+					<div class="header">标题1.1.2.1</div>
+					<div class="header">标题1.1.2.2</div>
+				</div>
+			</div>
+			<div class="header">标题1.2</div>
+			<div class="list">
+				<div class="header">标题1.2.1</div>
+				<div class="list">
+					<div class="header">标题1.2.1.1</div>
+					<div class="header">标题1.2.1.2</div>
+				</div>
+				<div class="header">标题1.2.2</div>
+				<div class="list">
+					<div class="header">标题1.2.2.1</div>
+					<div class="header">标题1.2.2.2</div>
+				</div>
+			</div>
 		</div>
-		<div class="header">标题1.1.2</div>
-		<div class="list">
-			<div class="header">标题1.1.2.1</div>
-			<div class="header">标题1.1.2.2</div>
-		</div>
+		
+		<div class="header"><div class="search"><div class="search_title">Search</div><input class="search_input_text" type="text" /><div class="search_icon"></div></div></div>
+		<!-- header end  -->
 	</div>
-	<div class="header">标题1.2</div>
-	<div class="list">
-		<div class="header">标题1.2.1</div>
-		<div class="list">
-			<div class="header">标题1.2.1.1</div>
-			<div class="header">标题1.2.1.2</div>
-		</div>
-		<div class="header">标题1.2.2</div>
-		<div class="list">
-			<div class="header">标题1.2.2.1</div>
-			<div class="header">标题1.2.2.2</div>
-		</div>
-	</div>
-</div>
-
-<div class="header"><div class="search"><div class="search_title">Search</div><input class="search_input_text" type="text" /><div class="search_icon"></div></div></div>
-<!-- header end  -->
-</div>
-<div class="left_bottome_bg"></div>
-
-
-
+	<div class="left_bottome_bg"></div>
 </td>
 <td class="_right">
-<div class="right_top_bg"></div>
-<div class="right_bg">
-<div class="record">
-<div class="news_title"><li>newstitle 2013-11-13</li></div>
-</div>
-<div class="record">
-<div class="news_title"><li>newstitletest 2013-11-13</li></div>
-</div>
-<div class="record">
-<div class="news_title"><li>newstitletestnewstitletest 2013-11-13</li></div>
-<div class="news_abstract">news <span class="keyword">test</span>news</div>
-</div>
-
-</div>
-<div class="right_bottome_bg"></div>
+	<div class="right_top_bg"></div>
+	<div class="right_bg">
+		<div class="record">
+			<div class="news_title"><li>newstitle 2013-11-13</li></div>
+		</div>
+		<div class="record">
+			<div class="news_title"><li>newstitletest 2013-11-13</li></div>
+		</div>
+		<div class="record">
+			<div class="news_title"><li>newstitletestnewstitletest 2013-11-13</li></div>
+			<div class="news_abstract">news <span class="keyword">test</span>news</div>
+		</div>
+	
+	</div>
+	<div class="right_bottome_bg"></div>
 </td>
 </tr></table>
 

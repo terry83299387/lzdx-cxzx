@@ -1,6 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8"%>	
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%
+	String lan = request.getParameter("language");
+	String searchTxt = "Search";
+	if ("cn_name".equals(lan)) {
+		searchTxt = "搜索";
+	}
+%>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -16,6 +23,18 @@
 				href="display/css/subtitle.css" />
 	<link rel="stylesheet" type="text/css"
 				href="display/css/pager.css" />
+
+	<script type="text/javascript">
+		// quantity of news listed on one page
+		var NEWS_PER_PAGE = 15;
+		// quantity of search results listed on one page
+		var SEARCH_NEWS_PER_PAGE = 15;
+		var root = "root_tree_list";
+		// titleId, language
+		var titleId = "<%=request.getParameter("titleId")%>";
+		var language = "<%=request.getParameter("language")%>";
+		var lanType = language;
+	</script>
 </head>
 
 <body>
@@ -26,14 +45,21 @@
 			<table>
 				<tr>
 					<td class="_left">
-						<div id="root_tree_list" class="main"></div>
-						<div class="searchBox">
-							<input id="searchBox" />
+						<div id="root_tree_list" class="main">
+							<div id="search_item" class="header">
+								<div class="search">
+									<div class="search_title"><%=searchTxt%></div>
+									<input id="searchBox" class="search_input_text" type="text" />
+									<div id="searchButton" class="search_icon"></div>
+								</div>
+							</div>
 						</div>
+						<div class="left_bottome_bg"></div>
 					</td>
 					<td class="_right">
 						<div class="right_top_bg"></div>
 						<div id="content" class="right_bg"></div>
+						<div class="right_bottome_bg"></div>
 					</td>
 				</tr>
 			</table>
@@ -46,23 +72,13 @@
 </div>
 </center>
 
-<script type="text/javascript">
-	// quantity of news listed on one page
-	var NEWS_PER_PAGE = 15;
-	// quantity of search results listed on one page
-	var SEARCH_NEWS_PER_PAGE = 15;
-	var root = "root_tree_list";
-	// titleId, language
-	var titleId = "<%=request.getParameter("titleId")%>";
-	var language = "<%=request.getParameter("language")%>";
-	var lanType = language;
-</script>
 <script type="text/javascript" src="display/js/jquery.js" ></script>			
 <script type="text/javascript" src="display/js/default.js" ></script>
 <script type="text/javascript" src="display/js/jquery-ui-1.10.3.custom.js" ></script>
 <script>
 	$(function() {
-		$("#searchBox").on("keydown", doSearch);
+		$("#searchBox").on("keydown", searchBoxKeyDown);
+		$("#searchButton").on("click", doSearch);
 
 		$.ajax({
 			type : "POST",
@@ -74,29 +90,37 @@
 		}).done(function(data, success, orgResponse) {
 			if (!success) return;
 			addNodes(data.nodes, root);
+
+			// let search box be the last
+			$("#"+root).append($("#search_item"));
+
 			accordionNodes();
 		});
 	});
 
-	function doSearch(event) {
+	function searchBoxKeyDown(event) {
 		if (event.which == 13) {
-			var keyword = $("#searchBox").val().trim();
-			if (keyword != "") {
-				$.ajax({
-					type : "POST",
-					url : "searchNews.action",
-					data : {
-						titleId : titleId,
-						language : language,
-						keyword : keyword,
-						start : 0,
-						limit : SEARCH_NEWS_PER_PAGE
-					}
-				}).done(function(data, success, orgResponse) {
-					if (!success) return;
-					setSearchResult(data, 0, keyword);
-				});
-			}
+			doSearch();
+		}
+	}
+
+	function doSearch(event) {
+		var keyword = $("#searchBox").val().trim();
+		if (keyword != "") {
+			$.ajax({
+				type : "POST",
+				url : "searchNews.action",
+				data : {
+					titleId : titleId,
+					language : language,
+					keyword : keyword,
+					start : 0,
+					limit : SEARCH_NEWS_PER_PAGE
+				}
+			}).done(function(data, success, orgResponse) {
+				if (!success) return;
+				setSearchResult(data, 0, keyword);
+			});
 		}
 	}
 
@@ -110,9 +134,13 @@
 		var html = "";
 		for (var i=0; i<resultNum; i++) {
 			newsInfo = newsList[i];
-			html += '<div><a href="newsdetail.jsp?titleId=' + titleId +
-				'&language=' + language + '&newsCode=' + newsInfo.newsCode
-				+ '" target="_blank">' + newsInfo.newsTitle + "</a></div>";
+			html += '<div class="record"><div class="news_title"><li><a href="getNewsDetail.action?titleId='
+				+ titleId + '&language=' + language + '&newsCode=' + newsInfo.newsCode
+				+ '" target="_blank">' + newsInfo.newsTitle + '</a> ' + newsInfo.createDate + '</li></div>';
+
+			html += '<div class="news_abstract">' + newsInfo.briefContent + '</div>';
+
+			html += '</div>';
 		}
 		$("#content").html(html);
 		// addPageNavigating(totalSize, start, nodeId);
@@ -194,20 +222,25 @@
 	function setNewsContent(data, start, nodeId) {
 		var newsNum = data.results;
 		var newsList = data.newsList;
+		var newsInfo = data.newsInfo;
 
 		// 
 		if (newsNum == 1 && newsInfo != null) {
 			$("#content").html(newsInfo.newsContent);
 		} else {
 			var totalSize = data.totalSize;
-			var newsInfo = data.newsInfo;
-			var news;
 			var html = "";
 			for (var i=0; i<newsNum; i++) {
-				news = newsList[i];
-				html += '<div><a href="newsdetail.jsp?titleId=' + titleId +
+				newsInfo = newsList[i];
+				/*html += '<div><a href="newsdetail.jsp?titleId=' + titleId +
 					'&language=' + language + '&newsCode=' + news.newsCode
-					+ '" target="_blank">' + news.newsTitle + "</a></div>";
+					+ '" target="_blank">' + news.newsTitle + "</a></div>";*/
+
+				html += '<div class="record"><div class="news_title"><li><a href="getNewsDetail.action?titleId='
+					+ titleId + '&language=' + language + '&newsCode=' + newsInfo.newsCode
+					+ '" target="_blank">' + newsInfo.newsTitle + '</a> ' + newsInfo.createDate + '</li></div>';
+	
+				html += '</div>';
 			}
 			$("#content").html(html);
 			addPageNavigating(totalSize, start, nodeId);

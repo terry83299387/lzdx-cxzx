@@ -22,6 +22,9 @@ public class NewsSearchingAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = -9094641782394004517L;
 
+	public static final int BRIEF_CONTENT_LENGTH = 50;
+	public static final int MAX_KEYWORD_NUM_IN_BRIFE_CONTENT = 3;
+
 	private final String physicalBaseDir = BasicPropertiesWork
 			.getWebappsSitePath();
 	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -98,7 +101,7 @@ public class NewsSearchingAction extends BaseAction {
 				o = list.get(i);
 				newsInfo = new NewsSearchResultInfo();
 				newsInfo.setNewsCode((String) o[0]);
-				newsInfo.setNewsTitle(highlightKeyWord(keyword, (String) o[1]));
+				newsInfo.setNewsTitle((String) o[1]);
 				newsInfo.setNewsSource((String) o[2]);
 				newsInfo.setAuthor((String) o[3]);
 				newsInfo.setCreateDate(
@@ -114,10 +117,6 @@ public class NewsSearchingAction extends BaseAction {
 	}
 
 
-	private String highlightKeyWord(String keyword, String content) {
-		return content;
-	}
-
 	/*----------------- Privates -------------------------*/
 	private java.util.Set<String> getSubjectIdSet(String nodeid)
 			throws Exception {
@@ -130,6 +129,61 @@ public class NewsSearchingAction extends BaseAction {
 			set.add(e.attribute("id").getValue());
 		}
 		return set;
+	}
+
+	private String highlightKeyWord(String keyword, String content) {
+		if (content == null || content.length() == 0
+				|| keyword == null || keyword.length() == 0) {
+			return content;
+		}
+
+		int keywordLen = keyword.length();
+		int contentLen = content.length();
+		String dots = "...";
+		int dotsLen = dots.length();
+		String replacer = "<span class=\"keyword\">" + keyword + "</span>";
+
+		int idx = content.indexOf(keyword);
+		int start, end;
+		String brief = "";
+		if (idx == -1) {
+			end = idx + BRIEF_CONTENT_LENGTH;
+			if (end < contentLen) {
+				brief = content.substring(0, end) + dots;
+			} else {
+				brief = content;
+			}
+		} else {
+			int replaceNum = 0;
+			String tmp;
+			int briefLen = 0;
+			while (idx != -1 && replaceNum < MAX_KEYWORD_NUM_IN_BRIFE_CONTENT) {
+				start = Math.max(0, idx - 10);
+				end = Math.min(idx+keywordLen+10, contentLen);
+				tmp = content.substring(start, end);
+				briefLen += tmp.length();
+
+				tmp = tmp.replace(keyword, replacer);
+
+				if (start > 0 && replaceNum == 0) {
+					tmp = dots + tmp;
+					briefLen += dotsLen;
+				}
+				if (end < contentLen) {
+					tmp += dots;
+					briefLen += dotsLen;
+				}
+
+				brief += tmp;
+				if (briefLen > BRIEF_CONTENT_LENGTH) {
+					break;
+				}
+
+				++replaceNum;
+				idx = content.indexOf(keyword, end);
+			}
+		}
+		return brief;	
 	}
 
 }

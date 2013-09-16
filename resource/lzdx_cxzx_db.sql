@@ -24,6 +24,7 @@ CREATE TABLE `news` (
   `news_code` varchar(100) NOT NULL,
   `news_title` varchar(255) DEFAULT NULL,
   `news_content` text,
+  `news_content_nothtml` text,
   `news_link` varchar(255) DEFAULT NULL,
   `create_date` date DEFAULT NULL,
   `news_source` varchar(255) DEFAULT NULL,
