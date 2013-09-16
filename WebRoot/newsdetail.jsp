@@ -31,6 +31,7 @@
 </div>
 </div>
 <div class="news_content_bottom"></div>
+<div class="news_bottom"></div>
 </div>
 <div class="title_menu_layout">
 <s:action name="getMenuTitles" executeResult="true"/>
