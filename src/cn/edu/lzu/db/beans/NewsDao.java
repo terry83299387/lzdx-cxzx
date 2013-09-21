@@ -50,6 +50,34 @@ public class NewsDao {
 	//
 	// }
 
+	public java.util.List<News> getSubjectNews(String subjectCode,
+			String lanType, int start, int limit) {
+
+		try {
+			Session sess = HibernateUtil.currentSession();
+			Query query = null;
+			if (lanType.equals("")) {
+				String hql = "select a from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode and s.subjectCode=? order by a.newsPriority desc ,a.createDate desc";
+				query = sess.createQuery(hql).setFirstResult(start)
+						.setMaxResults(limit);
+				query.setString(0, subjectCode);
+			} else {
+				String hql = "select a from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode and s.subjectCode=? and a.type=? order by a.newsPriority desc ,a.createDate desc";
+				query = sess.createQuery(hql).setFirstResult(start)
+						.setMaxResults(limit);
+				query.setString(0, subjectCode);
+				query.setString(1, lanType);
+			}
+
+			java.util.List<News> list = query.list();
+
+			return list;
+
+		} finally {
+			HibernateUtil.closeSession();
+		}
+	}
+
 	public java.util.List<Object[]> getAllSubSubjectNews(
 			java.util.Set<String> subjectCode, String lanType, int start,
 			int limit) {
@@ -124,9 +152,9 @@ public class NewsDao {
 		try {
 			Session sess = HibernateUtil.currentSession();
 			Transaction t = sess.beginTransaction();
-			if(news.getNewsContent()!=null)
-			{
-				news.setNewsContentNotHtml(HtmlScript.delHTMLTag(news.getNewsContent()));
+			if (news.getNewsContent() != null) {
+				news.setNewsContentNotHtml(HtmlScript.delHTMLTag(news
+						.getNewsContent()));
 			}
 			sess.update(news);
 			t.commit();
@@ -143,9 +171,9 @@ public class NewsDao {
 		try {
 			Session sess = HibernateUtil.currentSession();
 			Transaction t = sess.beginTransaction();
-			if(news.getNewsContent()!=null)
-			{
-				news.setNewsContentNotHtml(HtmlScript.delHTMLTag(news.getNewsContent()));
+			if (news.getNewsContent() != null) {
+				news.setNewsContentNotHtml(HtmlScript.delHTMLTag(news
+						.getNewsContent()));
 			}
 			sess.save(news);
 			SubjectsNewsRelation snr = new SubjectsNewsRelation();
@@ -233,7 +261,7 @@ public class NewsDao {
 		try {
 			Session sess = HibernateUtil.currentSession();
 			String hql = "select count(n.newsCode) from News n, SubjectsNewsRelation s "
-				+ "where n.newsCode=s.newsCode and s.subjectCode=? and n.type=?";
+					+ "where n.newsCode=s.newsCode and s.subjectCode=? and n.type=?";
 			Query query = sess.createQuery(hql);
 			query.setString(0, nodeId);
 			query.setString(1, lanType);
@@ -269,20 +297,25 @@ public class NewsDao {
 
 			Query query = null;
 			StringBuilder hql = new StringBuilder();
-			hql.append("select distinct a.newsCode,a.newsTitle,a.newsSource,a.author,a.createDate,a.newsContentNotHtml ")
-				.append("from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode ");
+			hql
+					.append(
+							"select distinct a.newsCode,a.newsTitle,a.newsSource,a.author,a.createDate,a.newsContentNotHtml ")
+					.append(
+							"from News a ,SubjectsNewsRelation s where a.newsCode=s.newsCode ");
 			if (lanType != null && lanType.length() != 0) {
 				hql.append("and a.type='").append(lanType).append("' ");
 			}
 			if (subjects != null && subjects.length() != 0) {
-				hql.append(" and s.subjectCode in (")
-					.append(subjects).append(") ");
+				hql.append(" and s.subjectCode in (").append(subjects).append(
+						") ");
 			}
-			hql.append(" and (a.newsTitle like '%")
-				.append(keyword)
-				.append("%' or a.newsContentNotHtml like '%")
-				.append(keyword)
-				.append("%') order by a.newsPriority desc ,a.createDate desc");
+			hql
+					.append(" and (a.newsTitle like '%")
+					.append(keyword)
+					.append("%' or a.newsContentNotHtml like '%")
+					.append(keyword)
+					.append(
+							"%') order by a.newsPriority desc ,a.createDate desc");
 
 			query = sess.createQuery(hql.toString()).setFirstResult(start)
 					.setMaxResults(limit);
