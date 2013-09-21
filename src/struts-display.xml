@@ -43,6 +43,14 @@
 			<result name="error" >shouye.jsp</result>
 		</action>
 		
+		<action name="getLogo"
+			class="cn.edu.lzu.display.action.LogoAction"
+			method="showLogoPage">
+			<param name="nodeId">logobottom</param>
+			<result name="success" >logobottom.jsp</result>
+			<result name="error" >logobottom.jsp</result>
+		</action>
+		
 		<action name="showNewsListOrDetail"
 			class="cn.edu.lzu.display.action.NewsAction"
 			method="showNewsListOrDetail">
