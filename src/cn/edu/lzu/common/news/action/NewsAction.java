@@ -179,4 +179,6 @@ public class NewsAction extends BaseAction {
 		return SUCCESS;
 	}
 
+	
+	
 }
